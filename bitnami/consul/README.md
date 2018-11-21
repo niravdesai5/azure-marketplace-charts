@@ -2,6 +2,13 @@
 
 [HashiCorp Consul](https://www.consul.io/) has multiple components, but as a whole, it is a tool for discovering and configuring services in your infrastructure
 
+## Azure-ready Charts with Containers from marketplace.azurecr.io
+
+This Helm Chart has been configured to pull the Container Images from the Azure Marketplace Public Repository.
+The following command allows you to download and install all the charts from this repository.
+```bash
+$ helm repo add bitnami-azure https://charts.bitnami.com/azure
+```
 ## TL;DR
 
 ```console

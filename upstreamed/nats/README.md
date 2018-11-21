@@ -2,6 +2,13 @@
 
 [NATS](https://nats.io/) is an open-source, cloud-native messaging system. It provides a lightweight server that is written in the Go programming language.
 
+## Azure-ready Charts with Containers from marketplace.azurecr.io
+
+This Helm Chart has been configured to pull the Container Images from the Azure Marketplace Public Repository.
+The following command allows you to download and install all the charts from this repository.
+```bash
+$ helm repo add bitnami-azure https://charts.bitnami.com/azure
+```
 ## TL;DR
 
 ```bash
