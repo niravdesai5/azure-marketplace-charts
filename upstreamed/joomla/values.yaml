@@ -1,8 +1,8 @@
 ## Global Docker image registry
 ## Please, note that this will override the image registry for all the images, including dependencies, configured to use the global value
 ##
-# global:
-#   imageRegistry:
+global:
+  imageRegistry: marketplace.azurecr.io
 
 ## Bitnami Joomla! image version
 ## ref: https://hub.docker.com/r/bitnami/dokuwiki/tags/
@@ -144,6 +144,10 @@ service:
   ## Use serviceLoadBalancerIP to request a specific static IP,
   ## otherwise leave blank
   ##
+  # HTTP Port
+  port: 80
+  # HTTPS Port
+  httpsPort: 443
   # loadBalancerIP:
   ## Use nodePorts to requets some specific ports when usin NodePort
   ## nodePorts:

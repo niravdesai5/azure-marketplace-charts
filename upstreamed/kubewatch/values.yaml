@@ -1,8 +1,8 @@
 ## Global Docker image registry
 ## Please, note that this will override the image registry for all the images, including dependencies, configured to use the global value
 ##
-# global:
-#   imageRegistry:
+global:
+  imageRegistry: marketplace.azurecr.io
 
 slack:
   # Slack channel to notify

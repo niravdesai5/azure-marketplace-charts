@@ -1,8 +1,8 @@
 ## Global Docker image registry
 ## Please, note that this will override the image registry for all the images, including dependencies, configured to use the global value
 ##
-# global:
-#   imageRegistry:
+global:
+  imageRegistry: marketplace.azurecr.io
 
 ## Bitnami Metrics Server image version
 ## ref: https://hub.docker.com/r/bitnami/metrics-server/tags/

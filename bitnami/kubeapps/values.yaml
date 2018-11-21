@@ -1,7 +1,7 @@
 ## Global Docker image registry
 ## Please, note that this will override the image registry for all the images, including dependencies, configured to use the global value
-# global:
-#   imageRegistry:
+global:
+  imageRegistry: marketplace.azurecr.io
 
 # The frontend service is the main reverse proxy used to access the Kubeapps UI
 # To expose Kubeapps externally either configure the ingress object below or
