@@ -91,12 +91,12 @@ apprepository:
   replicaCount: 1
   image:
     registry: docker.io
-    repository: kubeapps/apprepository-controller
+    repository: bitnami/kubeapps-apprepository-controller
     tag: v1.0.0
   # Image used to perform chart repository syncs
   syncImage:
     registry: quay.io
-    repository: helmpack/chart-repo
+    repository: bitnami/kubeapps-chart-repo
     tag: v1.0.2
   initialRepos:
   - name: stable
@@ -137,7 +137,7 @@ tillerProxy:
   replicaCount: 2
   image:
     registry: docker.io
-    repository: kubeapps/tiller-proxy
+    repository: bitnami/kubeapps-tiller-proxy
     tag: v1.0.0
   service:
     port: 8080
@@ -164,7 +164,7 @@ chartsvc:
   replicaCount: 2
   image:
     registry: quay.io
-    repository: helmpack/chartsvc
+    repository: bitnami/bitnami/kubeapps-chartsvc
     tag: v1.0.2
   service:
     port: 8080
@@ -199,7 +199,7 @@ dashboard:
   replicaCount: 2
   image:
     registry: docker.io
-    repository: kubeapps/dashboard
+    repository: bitnami/kubeapps-dashboard
     tag: v1.0.0
   service:
     port: 8080
