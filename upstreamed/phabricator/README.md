@@ -2,6 +2,13 @@
 
 [Phabricator](https://www.phacility.com) is a collection of open source web applications that help software companies build better software. Phabricator is built by developers for developers. Every feature is optimized around developer efficiency for however you like to work. Code Quality starts with an effective collaboration between team members.
 
+## Azure-ready Charts with Containers from marketplace.azurecr.io
+
+This Helm Chart has been configured to pull the Container Images from the Azure Marketplace Public Repository.
+The following command allows you to download and install all the charts from this repository.
+```bash
+$ helm repo add bitnami-azure https://charts.bitnami.com/azure
+```
 ## TL;DR;
 
 ```console

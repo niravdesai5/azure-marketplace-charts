@@ -2,6 +2,13 @@
 
 [nginx-ingress](https://github.com/kubernetes/ingress-nginx) is an Ingress controller that uses NGINX to manage external access to HTTP services in a Kubernetes cluster.
 
+## Azure-ready Charts with Containers from marketplace.azurecr.io
+
+This Helm Chart has been configured to pull the Container Images from the Azure Marketplace Public Repository.
+The following command allows you to download and install all the charts from this repository.
+```bash
+$ helm repo add bitnami-azure https://charts.bitnami.com/azure
+```
 ## TL;DR;
 
 ```bash
