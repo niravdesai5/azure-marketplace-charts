@@ -2,10 +2,17 @@
 
 [cassandra](https://cassandra.apache.org) Apache Cassandra is a free and open-source distributed database management system designed to handle large amounts of data across many commodity servers or datacenters.
 
+## Azure-ready Charts with Containers from marketplace.azurecr.io
+
+This Helm Chart has been configured to pull the Container Images from the Azure Marketplace Public Repository.
+The following command allows you to download and install all the charts from this repository.
+```bash
+$ helm repo add bitnami-azure https://charts.bitnami.com/azure
+```
 ## TL;DR;
 
 ```console
-$ helm repo add bitnami https://charts.bitnami.com/bitnami
+$ helm repo add bitnami-azure https://charts.bitnami.com/azure
 $ helm install bitnami/cassandra
 ```
 
