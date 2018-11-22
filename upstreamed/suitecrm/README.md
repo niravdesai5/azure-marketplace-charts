@@ -2,13 +2,6 @@
 
 [SuiteCRM](https://www.suitecrm.com) is a completely open source enterprise-grade Customer Relationship Management (CRM) application. SuiteCRM is a software fork of the popular customer relationship management (CRM) system SugarCRM.
 
-## Azure-ready Charts with Containers from marketplace.azurecr.io
-
-This Helm Chart has been configured to pull the Container Images from the Azure Marketplace Public Repository.
-The following command allows you to download and install all the charts from this repository.
-```bash
-$ helm repo add bitnami-azure https://charts.bitnami.com/azure
-```
 ## TL;DR;
 
 ```console

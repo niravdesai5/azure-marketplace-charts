@@ -2,13 +2,6 @@
 
 [Metrics Server](https://github.com/kubernetes-incubator/metrics-server) is a cluster-wide aggregator of resource usage data. Metrics Server collects metrics from the Summary API, exposed by Kubelet on each node.
 
-## Azure-ready Charts with Containers from marketplace.azurecr.io
-
-This Helm Chart has been configured to pull the Container Images from the Azure Marketplace Public Repository.
-The following command allows you to download and install all the charts from this repository.
-```bash
-$ helm repo add bitnami-azure https://charts.bitnami.com/azure
-```
 ## TL;DR;
 
 ```console

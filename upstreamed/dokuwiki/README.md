@@ -2,13 +2,6 @@
 
 [DokuWiki](https://www.dokuwiki.org) is a standards-compliant, simple to use wiki optimized for creating documentation. It is targeted at developer teams, workgroups, and small companies. All data is stored in plain text files, so no database is required.
 
-## Azure-ready Charts with Containers from marketplace.azurecr.io
-
-This Helm Chart has been configured to pull the Container Images from the Azure Marketplace Public Repository.
-The following command allows you to download and install all the charts from this repository.
-```bash
-$ helm repo add bitnami-azure https://charts.bitnami.com/azure
-```
 ## TL;DR;
 
 ```console

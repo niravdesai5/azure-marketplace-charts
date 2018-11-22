@@ -12,7 +12,7 @@ $ helm repo add bitnami-azure https://charts.bitnami.com/azure
 ## TL;DR
 
 ```console
-$ helm repo add bitnami-azure https://charts.bitnami.com/azure
+$ helm repo add bitnami https://charts.bitnami.com/bitnami
 $ helm install bitnami/node
 ```
 ## Introduction

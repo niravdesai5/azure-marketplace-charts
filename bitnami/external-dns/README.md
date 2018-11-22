@@ -2,13 +2,6 @@
 
 [ExternalDNS](https://github.com/kubernetes-incubator/external-dns) is a Kubernetes addon that configures public DNS servers with information about exposed Kubernetes services to make them discoverable.
 
-## Azure-ready Charts with Containers from marketplace.azurecr.io
-
-This Helm Chart has been configured to pull the Container Images from the Azure Marketplace Public Repository.
-The following command allows you to download and install all the charts from this repository.
-```bash
-$ helm repo add bitnami-azure https://charts.bitnami.com/azure
-```
 ## TL;DR;
 
 ```console

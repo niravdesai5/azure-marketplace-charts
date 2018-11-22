@@ -2,13 +2,6 @@
 
 [Wildfly](http://wildfly.org/) formerly known as JBoss AS, or simply JBoss, is an application server authored by JBoss, now developed by Red Hat. WildFly is written in Java, and implements the Java Platform, Enterprise Edition (Java EE) specification.
 
-## Azure-ready Charts with Containers from marketplace.azurecr.io
-
-This Helm Chart has been configured to pull the Container Images from the Azure Marketplace Public Repository.
-The following command allows you to download and install all the charts from this repository.
-```bash
-$ helm repo add bitnami-azure https://charts.bitnami.com/azure
-```
 ## TL;DR;
 
 ```console

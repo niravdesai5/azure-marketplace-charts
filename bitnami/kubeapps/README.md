@@ -11,17 +11,10 @@
 - Connect Helm-based applications to external services with Service Catalog Bindings
 - Secure authentication and authorization based on Kubernetes [Role-Based Access Control](https://github.com/kubeapps/kubeapps/blob/master/docs/user/access-control.md)
 
-## Azure-ready Charts with Containers from marketplace.azurecr.io
-
-This Helm Chart has been configured to pull the Container Images from the Azure Marketplace Public Repository.
-The following command allows you to download and install all the charts from this repository.
-```bash
-$ helm repo add bitnami-azure https://charts.bitnami.com/azure
-```
 ## TL;DR;
 
 ```bash
-helm repo add bitnami-azure https://charts.bitnami.com/azure
+helm repo add bitnami https://charts.bitnami.com/bitnami
 helm install --name kubeapps --namespace kubeapps bitnami/kubeapps
 ```
 
@@ -43,7 +36,7 @@ It also packages the [Bitnami MongoDB chart](https://github.com/helm/charts/tree
 To install the chart with the release name `kubeapps`:
 
 ```console
-$ helm repo add bitnami-azure https://charts.bitnami.com/azure
+$ helm repo add bitnami https://charts.bitnami.com/bitnami
 $ helm install --name kubeapps --namespace kubeapps bitnami/kubeapps
 ```
 
