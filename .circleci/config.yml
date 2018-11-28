@@ -29,8 +29,7 @@ jobs:
           command: |
             echo $CHART_BRANCH
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              # curl -sL https://raw.githubusercontent.com/bitnami/test-infra/master/circle/helm-publish-charts.sh | bash -
-              echo "Ignoring publishing (temporary)"
+              curl -sL https://raw.githubusercontent.com/bitnami/test-infra/master/circle/helm-publish-charts.sh | bash -
             fi
 
 workflows:
