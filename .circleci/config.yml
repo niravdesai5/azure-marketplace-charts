@@ -5,7 +5,7 @@ jobs:
     docker:
       - image: docker:17.06.0-ce-git
         environment:
-          CHART_URL: https://charts.bitnami.com
+          CHART_URL: http://test-charts.bitnami.com
           CHART_BRANCH: azure
 
     steps:
