@@ -12,14 +12,14 @@ $ helm repo add bitnami-azure https://charts.bitnami.com/azure
 ## TL;DR;
 
 ```bash
-$ helm install bitnami/nginx
+$ helm install bitnami-azure/nginx
 ```
 
 ## Introduction
 
 Bitnami charts for Helm are carefully engineered, actively maintained and are the quickest and easiest way to deploy containers on a Kubernetes cluster that are ready to handle production workloads.
 
-This chart bootstraps a [NGINX Open Source](https://github.com/bitnami/bitnami-docker-nginx) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [NGINX Open Source](https://github.com/bitnami-azure/bitnami-docker-nginx) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -28,7 +28,7 @@ Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment
 To install the chart with the release name `my-release`:
 
 ```bash
-$ helm install --name my-release bitnami/nginx
+$ helm install --name my-release bitnami-azure/nginx
 ```
 
 The command deploys NGINX Open Source on the Kubernetes cluster in the default configuration.
@@ -53,18 +53,18 @@ The following tables lists the configurable parameters of the NGINX Open Source 
 | ------------------------- | ------------------------------ | --------------------------------------------------------- |
 | `global.imageRegistry`    | Global Docker image registry   | `nil`                                                     |
 | `image.registry`          | NGINX image registry           | `docker.io`                                               |
-| `image.repository`        | NGINX Image name               | `bitnami/nginx`                                           |
+| `image.repository`        | NGINX Image name               | `bitnami-azure/nginx`                                           |
 | `image.tag`               | NGINX Image tag                | `{VERSION}`                                               |
 | `image.pullPolicy`        | NGINX image pull policy        | `Always` if `imageTag` is `latest`, else `IfNotPresent`   |
-| `image.pullSecrets`       | Specify image pull secrets     | `nil` (does not add image pull secrets to deployed pods)  |
+| `image.pullSecrets`       | Specify docker-registry secret names as an array     | `[]` (does not add image pull secrets to deployed pods)  |
 | `vhost`                   | Custom NGINX virtual host      | `nil`                                                     |
 | `podAnnotations`                | Pod annotations                                   | `{}`                                                       |
 | `metrics.enabled`                          | Start a side-car prometheus exporter                                                                           | `false`                                              |
 | `metrics.image.registry`                   | Promethus exporter image registry                                                                                  | `docker.io`                                          |
-| `metrics.image.repository`                 | Promethus exporter image name                                                                                      | `lusotycoon/apache-exporter`                           |
-| `metrics.image.tag`                        | Promethus exporter image tag                                                                                       | `v0.5.0`                                            |
+| `metrics.image.repository`                 | Promethus exporter image name                                                                                      | `nginx/nginx-prometheus-exporter`                    |
+| `metrics.image.tag`                        | Promethus exporter image tag                                                                                       | `0.1.0`                                              |
 | `metrics.image.pullPolicy`                 | Image pull policy                                                                                              | `IfNotPresent`                                       |
-| `metrics.image.pullSecrets`                | Specify docker-registry secret names as an array                                                               | `nil`                                                |
+| `metrics.image.pullSecrets`                | Specify docker-registry secret names as an array                           | `[]` (does not add image pull secrets to deployed pods) |
 | `metrics.podAnnotations`                   | Additional annotations for Metrics exporter pod                                                                | `{prometheus.io/scrape: "true", prometheus.io/port: "9113"}`                                                   |
 | `metrics.resources`                        | Exporter resource requests/limit                                                                               | {}                        |
 | `service.type`                    | Kubernetes Service type                    | `LoadBalancer`                                          |
@@ -78,7 +78,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```bash
 $ helm install --name my-release \
   --set imagePullPolicy=Always \
-    bitnami/nginx
+    bitnami-azure/nginx
 ```
 
 The above command sets the `imagePullPolicy` to `Always`.
@@ -86,7 +86,7 @@ The above command sets the `imagePullPolicy` to `Always`.
 Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example,
 
 ```bash
-$ helm install --name my-release -f values.yaml bitnami/nginx
+$ helm install --name my-release -f values.yaml bitnami-azure/nginx
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)
@@ -110,7 +110,7 @@ vhost: |-
 Install the chart with this value:
 
 ```console
-$ helm install --name my-release -f custom-vhost.yaml bitnami/nginx
+$ helm install --name my-release -f custom-vhost.yaml bitnami-azure/nginx
 ```
 
 ## Upgrading

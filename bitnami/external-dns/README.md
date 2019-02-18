@@ -12,12 +12,12 @@ $ helm repo add bitnami-azure https://charts.bitnami.com/azure
 ## TL;DR;
 
 ```console
-$ helm install bitnami/external-dns
+$ helm install bitnami-azure/external-dns
 ```
 
 ## Introduction
 
-This chart bootstraps a [ExternalDNS](https://github.com/bitnami/bitnami-docker-external-dns) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [ExternalDNS](https://github.com/bitnami-azure/bitnami-docker-external-dns) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -31,7 +31,7 @@ Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment
 To install the chart with the release name `my-release`:
 
 ```console
-$ helm install --name my-release bitnami/external-dns
+$ helm install --name my-release bitnami-azure/external-dns
 ```
 
 The command deploys ExternalDNS on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -57,10 +57,10 @@ The following table lists the configurable parameters of the external-dns chart 
 | ------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
 | `global.imageRegistry`                | Global Docker image registry                                                                             | `nil`                                                    |
 | `image.registry`                      | ExternalDNS image registry                                                                               | `docker.io`                                              |
-| `image.repository`                    | ExternalDNS Image name                                                                                   | `bitnami/external-dns`                                   |
+| `image.repository`                    | ExternalDNS Image name                                                                                   | `bitnami-azure/external-dns`                                   |
 | `image.tag`                           | ExternalDNS Image tag                                                                                    | `{VERSION}`                                              |
 | `image.pullPolicy`                    | ExternalDNS image pull policy                                                                            | `Always`                                                 |
-| `image.pullSecrets`                   | Specify image pull secrets                                                                               | `nil` (does not add image pull secrets to deployed pods) |
+| `image.pullSecrets`                   | Specify docker-registry secret names as an array                                                         | `[]` (does not add image pull secrets to deployed pods)  |
 | `image.debug`                         | Specify if debug values should be set                                                                    | `false`                                                  |
 | `sources`                             | List of resource types to be observed for new DNS entries by ExternalDNS                                 | `[service, ingress]`                                     |
 | `provider`                            | DNS provider where the DNS records will be created (mandatory). E.g.: aws, azure, google, ...            | `nil`                                                    |
@@ -119,13 +119,13 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 
 ```console
 $ helm install --name my-release \
-  --set auth.rootPassword=secretpassword bitnami/external-dns
+  --set auth.rootPassword=secretpassword bitnami-azure/external-dns
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example,
 
 ```bash
-$ helm install --name my-release -f values.yaml bitnami/external-dns
+$ helm install --name my-release -f values.yaml bitnami-azure/external-dns
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)
@@ -149,7 +149,7 @@ $ helm install --name my-release \
   --set provider=aws \
   --set aws.zoneType=public \
   --set domainFilters=HOSTED_ZONE_NAME \
-  bitnami/external-dns
+  bitnami-azure/external-dns
 ```
 
 ## Upgrading

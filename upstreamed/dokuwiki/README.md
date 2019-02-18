@@ -12,12 +12,12 @@ $ helm repo add bitnami-azure https://charts.bitnami.com/azure
 ## TL;DR;
 
 ```console
-$ helm install stable/dokuwiki
+$ helm install bitnami-azure/dokuwiki
 ```
 
 ## Introduction
 
-This chart bootstraps a [DokuWiki](https://github.com/bitnami/bitnami-docker-dokuwiki) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [DokuWiki](https://github.com/bitnami-azure/bitnami-docker-dokuwiki) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -31,7 +31,7 @@ Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment
 To install the chart with the release name `my-release`:
 
 ```console
-$ helm install --name my-release stable/dokuwiki
+$ helm install --name my-release bitnami-azure/dokuwiki
 ```
 
 The command deploys DokuWiki on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -56,19 +56,19 @@ The following table lists the configurable parameters of the DokuWiki chart and 
 |--------------------------------------|------------------------------------------------------------|-----------------------------------------------|
 | `global.imageRegistry`               | Global Docker image registry                               | `nil`                                         |
 | `image.registry`                     | DokuWiki image registry                                    | `docker.io`                                   |
-| `image.repository`                   | DokuWiki image name                                        | `bitnami/dokuwiki`                            |
+| `image.repository`                   | DokuWiki image name                                        | `bitnami-azure/dokuwiki`                            |
 | `image.tag`                          | DokuWiki image tag                                         | `{VERSION}`                                   |
 | `image.pullPolicy`                   | Image pull policy                                          | `Always`                                      |
-| `image.pullSecrets`                  | Specify image pull secrets                                 | `nil`                                         |
+| `image.pullSecrets`                  | Specify docker-registry secret names as an array           | `[]` (does not add image pull secrets to deployed pods) |
 | `dokuwikiUsername`                   | User of the application                                    | `user`                                        |
 | `dokuwikiFullName`                   | User's full name                                           | `User Name`                                   |
 | `dokuwikiPassword`                   | Application password                                       | _random 10 character alphanumeric string_     |
 | `dokuwikiEmail`                      | User email                                                 | `user@example.com`                            |
 | `dokuwikiWikiName`                   | Wiki name                                                  | `My Wiki`                                     |
-| `service.type`                    | Kubernetes Service type                    | `LoadBalancer`                                          |
-| `service.port`                    | Service HTTP port                    | `80`                                          |
-| `service.httpsPort`                    | Service HTTPS port                    | `443`                                          |
-| `service.loadBalancerIP`               | Kubernetes LoadBalancerIP to request                       | `nil`                                         |
+| `service.type`                       | Kubernetes Service type                                    | `LoadBalancer`                                |
+| `service.port`                       | Service HTTP port                                          | `80`                                          |
+| `service.httpsPort`                  | Service HTTPS port                                         | `443`                                         |
+| `service.loadBalancerIP`             | Kubernetes LoadBalancerIP to request                       | `nil`                                         |
 | `service.externalTrafficPolicy`      | Enable client source IP preservation                       | `Cluster`                                     |
 | `service.nodePorts.http`             | Kubernetes http node port                                  | `""`                                          |
 | `service.nodePorts.https`            | Kubernetes https node port                                 | `""`                                          |
@@ -105,25 +105,25 @@ The following table lists the configurable parameters of the DokuWiki chart and 
 | `nodeSelector`                       | Node labels for pod assignment                             | `{}`                                          |
 | `affinity`                           | Affinity settings for pod assignment                       | `{}`                                          |
 | `tolerations`                        | Toleration labels for pod assignment                       | `[]`                                          |
-| `podAnnotations`                | Pod annotations                                   | `{}`                                                       |
-| `metrics.enabled`                          | Start a side-car prometheus exporter                                                                           | `false`                                              |
-| `metrics.image.registry`                   | Apache exporter image registry                                                                                  | `docker.io`                                          |
-| `metrics.image.repository`                 | Apache exporter image name                                                                                      | `lusotycoon/apache-exporter`                           |
-| `metrics.image.tag`                        | Apache exporter image tag                                                                                       | `v0.5.0`                                            |
-| `metrics.image.pullPolicy`                 | Image pull policy                                                                                              | `IfNotPresent`                                       |
-| `metrics.image.pullSecrets`                | Specify docker-registry secret names as an array                                                               | `nil`                                                |
-| `metrics.podAnnotations`                   | Additional annotations for Metrics exporter pod                                                                | `{prometheus.io/scrape: "true", prometheus.io/port: "9117"}`                                                   |
-| `metrics.resources`                        | Exporter resource requests/limit                                                                               | {}                        |
+| `podAnnotations`                     | Pod annotations                                            | `{}`                                          |
+| `metrics.enabled`                    | Start a side-car prometheus exporter                       | `false`                                       |
+| `metrics.image.registry`             | Apache exporter image registry                             | `docker.io`                                   |
+| `metrics.image.repository`           | Apache exporter image name                                 | `lusotycoon/apache-exporter`                  |
+| `metrics.image.tag`                  | Apache exporter image tag                                  | `v0.5.0`                                      |
+| `metrics.image.pullPolicy`           | Image pull policy                                          | `IfNotPresent`                                |
+| `metrics.image.pullSecrets`          | Specify docker-registry secret names as an array           | `[]` (does not add image pull secrets to deployed pods)      |
+| `metrics.podAnnotations`             | Additional annotations for Metrics exporter pod            | `{prometheus.io/scrape: "true", prometheus.io/port: "9117"}` |
+| `metrics.resources`                  | Exporter resource requests/limit                           | {}                                            |
 
 
-The above parameters map to the env variables defined in [bitnami/dokuwiki](http://github.com/bitnami/bitnami-docker-dokuwiki). For more information please refer to the [bitnami/dokuwiki](http://github.com/bitnami/bitnami-docker-dokuwiki) image documentation.
+The above parameters map to the env variables defined in [bitnami-azure/dokuwiki](http://github.com/bitnami-azure/bitnami-docker-dokuwiki). For more information please refer to the [bitnami-azure/dokuwiki](http://github.com/bitnami-azure/bitnami-docker-dokuwiki) image documentation.
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
 ```console
 $ helm install --name my-release \
   --set dokuwikiUsername=admin,dokuwikiPassword=password \
-    stable/dokuwiki
+    bitnami-azure/dokuwiki
 ```
 
 The above command sets the DokuWiki administrator account username and password to `admin` and `password` respectively.
@@ -131,14 +131,14 @@ The above command sets the DokuWiki administrator account username and password 
 Alternatively, a YAML file that specifies the values for the above parameters can be provided while installing the chart. For example,
 
 ```console
-$ helm install --name my-release -f values.yaml stable/dokuwiki
+$ helm install --name my-release -f values.yaml bitnami-azure/dokuwiki
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)
 
 ## Persistence
 
-The [Bitnami DokuWiki](https://github.com/bitnami/bitnami-docker-dokuwiki) image stores the DokuWiki data and configurations at the `/bitnami/dokuwiki` and `/bitnami/apache` paths of the container.
+The [Bitnami DokuWiki](https://github.com/bitnami-azure/bitnami-docker-dokuwiki) image stores the DokuWiki data and configurations at the `/bitnami-azure/dokuwiki` and `/bitnami-azure/apache` paths of the container.
 
 Persistent Volume Claims are used to keep the data across deployments. There is a [known issue](https://github.com/kubernetes/kubernetes/issues/39178) in Kubernetes Clusters with EBS in different availability zones. Ensure your cluster is configured properly to create Volumes in the same availability zone where the nodes are running. Kuberentes 1.12 solved this issue with the [Volume Binding Mode](https://kubernetes.io/docs/concepts/storage/storage-classes/#volume-binding-mode).
 

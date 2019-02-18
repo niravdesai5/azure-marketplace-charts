@@ -12,12 +12,12 @@ $ helm repo add bitnami-azure https://charts.bitnami.com/azure
 ## TL;DR;
 
 ```console
-$ helm install bitnami/tomcat
+$ helm install bitnami-azure/tomcat
 ```
 
 ## Introduction
 
-This chart bootstraps a [Tomcat](https://github.com/bitnami/bitnami-docker-tomcat) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [Tomcat](https://github.com/bitnami-azure/bitnami-docker-tomcat) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -31,7 +31,7 @@ Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment
 To install the chart with the release name `my-release`:
 
 ```console
-$ helm install --name my-release bitnami/tomcat
+$ helm install --name my-release bitnami-azure/tomcat
 ```
 
 The command deploys Tomcat on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -56,10 +56,10 @@ The following tables lists the configurable parameters of the Tomcat chart and t
 |---------------------------------|----------------------------------------------|---------------------------------------------------------- |
 | `global.imageRegistry`          | Global Docker image registry                 | `nil`                                                     |
 | `image.registry`                | Tomcat image registry                        | `docker.io`                                               |
-| `image.repository`              | Tomcat Image name                            | `bitnami/tomcat`                                          |
+| `image.repository`              | Tomcat Image name                            | `bitnami-azure/tomcat`                                          |
 | `image.tag`                     | Tomcat Image tag                             | `{VERSION}`                                               |
 | `image.pullPolicy`              | Tomcat image pull policy                     | `Always` if `imageTag` is `latest`, else `IfNotPresent`   |
-| `image.pullSecrets`             | Specify image pull secrets                   | `nil` (does not add image pull secrets to deployed pods)  |
+| `image.pullSecrets`             | Specify docker-registry secret names as an array | `[]` (does not add image pull secrets to deployed pods)  |
 | `tomcatUsername`                | Tomcat admin user                            | `user`                                                    |
 | `tomcatPassword`                | Tomcat admin password                        | _random 10 character alphanumeric string_                 |
 | `tomcatAllowRemoteManagement`   | Enable remote access to management interface | `0` (disabled)                                            |
@@ -77,13 +77,13 @@ The following tables lists the configurable parameters of the Tomcat chart and t
 | `persistence.size`              | PVC Storage Request for Tomcat volume        | `8Gi`                                                     |
 | `resources`                     | CPU/Memory resource requests/limits          | Memory: `512Mi`, CPU: `300m`                              |
 
-The above parameters map to the env variables defined in [bitnami/tomcat](http://github.com/bitnami/bitnami-docker-tomcat). For more information please refer to the [bitnami/tomcat](http://github.com/bitnami/bitnami-docker-tomcat) image documentation.
+The above parameters map to the env variables defined in [bitnami-azure/tomcat](http://github.com/bitnami-azure/bitnami-docker-tomcat). For more information please refer to the [bitnami-azure/tomcat](http://github.com/bitnami-azure/bitnami-docker-tomcat) image documentation.
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
 ```console
 $ helm install --name my-release \
-  --set tomcatUser=manager,tomcatPassword=password bitnami/tomcat
+  --set tomcatUser=manager,tomcatPassword=password bitnami-azure/tomcat
 ```
 
 The above command sets the Tomcat management username and password to `manager` and `password` respectively.
@@ -91,14 +91,14 @@ The above command sets the Tomcat management username and password to `manager` 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example,
 
 ```console
-$ helm install --name my-release -f values.yaml bitnami/tomcat
+$ helm install --name my-release -f values.yaml bitnami-azure/tomcat
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)
 
 ## Persistence
 
-The [Bitnami Tomcat](https://github.com/bitnami/bitnami-docker-tomcat) image stores the Tomcat data and configurations at the `/bitnami/tomcat` path of the container.
+The [Bitnami Tomcat](https://github.com/bitnami-azure/bitnami-docker-tomcat) image stores the Tomcat data and configurations at the `/bitnami-azure/tomcat` path of the container.
 
 Persistent Volume Claims are used to keep the data across deployments. This is known to work in GCE, AWS, and minikube.
 See the [Configuration](#configuration) section to configure the PVC or to disable persistence.
@@ -110,13 +110,13 @@ See the [Configuration](#configuration) section to configure the PVC or to disab
 Tomcat container was moved to a non-root approach. There shouldn't be any issue when upgrading since the corresponding `securityContext` is enabled by default. Both the container image and the chart can be upgraded by running the command below:
 
 ```
-$ helm upgrade my-release stable/tomcat
+$ helm upgrade my-release bitnami-azure/tomcat
 ```
 
 If you use a previous container image (previous to **8.5.35-r26**) disable the `securityContext` by running the command below:
 
 ```
-$ helm upgrade my-release stable/tomcat --set securityContext.enabled=fase,image.tag=XXX
+$ helm upgrade my-release bitnami-azure/tomcat --set securityContext.enabled=fase,image.tag=XXX
 ```
 
 ### To 1.0.0

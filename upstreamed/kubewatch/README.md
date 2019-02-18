@@ -13,7 +13,7 @@ $ helm repo add bitnami-azure https://charts.bitnami.com/azure
 ## TL;DR;
 
 ```console
-$ helm install stable/kubewatch
+$ helm install bitnami-azure/kubewatch
 ```
 
 ## Introduction
@@ -25,7 +25,7 @@ This chart bootstraps a kubewatch deployment on a [Kubernetes](http://kubernetes
 To install the chart with the release name `my-release`:
 
 ```console
-$ helm install stable/kubewatch --name my-release
+$ helm install bitnami-azure/kubewatch --name my-release
 ```
 
 The command deploys kubewatch on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -49,7 +49,7 @@ The following table lists the configurable parameters of the kubewatch chart and
 | `global.imageRegistry`                   | Global Docker image registry         | `nil`                             |
 | `affinity`                               | node/pod affinities                  | None                              |
 | `image.registry`                         | Image registry                       | `docker.io`                       |
-| `image.repository`                       | Image repository                     | `bitnami/kubewatch`               |
+| `image.repository`                       | Image repository                     | `bitnami-azure/kubewatch`               |
 | `image.tag`                              | Image tag                            | `{VERSION}`                       |
 | `image.pullPolicy`                       | Image pull policy                    | `Always`                          |
 | `nodeSelector`                           | node labels for pod assignment       | `{}`                              |
@@ -60,15 +60,20 @@ The following table lists the configurable parameters of the kubewatch chart and
 | `serviceAccount.create`                  | If true, create a serviceAccount     | `true`                            |
 | `serviceAccount.name`                    | existing ServiceAccount to use (ignored if rbac.create=true) | ``        |
 | `resources`                              | pod resource requests & limits       | `{}`                              |
+| `slack.enabled`                          | Enable Slack notifications           | `true`                            |
 | `slack.channel`                          | Slack channel to notify              | `""`                              |
 | `slack.token`                            | Slack API token                      | `""`                              |
+| `hipchat.enabled`                        | Enable HipChat notifications         | `false`                           |
 | `hipchat.url`                            | HipChat URL                          | `""`                              |
 | `hipchat.room`                           | HipChat room to notify               | `""`                              |
 | `hipchat.token`                          | HipChat token                        | `""`                              |
+| `mattermost.enabled`                     | Enable Mattermost notifications      | `false`                           |
 | `mattermost.channel`                     | Mattermost channel to notify         | `""`                              |
 | `mattermost.username`                    | Mattermost user to notify            | `""`                              |
 | `mattermost.url`                         | Mattermost URL                       | `""`                              |
+| `flock.enabled`                          | Enable Flock notifications           | `false`                           |
 | `flock.url`                              | Flock URL                            | `""`                              |
+| `webhook.enabled`                        | Enable Webhook notifications         | `false`                           |
 | `webhook.url`                            | Webhook URL                          | `""`                              |
 | `tolerations`                            | List of node taints to tolerate (requires Kubernetes >= 1.6)                                                                | `[]`                              |
 | `resourcesToWatch`                       | list of resources which kubewatch should watch and notify slack                                                             | `{pod: true, deployment: true}`   |
@@ -84,14 +89,14 @@ The following table lists the configurable parameters of the kubewatch chart and
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
 ```console
-$ helm install stable/kubewatch --name my-release \
+$ helm install bitnami-azure/kubewatch --name my-release \
   --set=slack.channel="#bots",slack.token="XXXX-XXXX-XXXX"
 ```
 
 Alternatively, a YAML file that specifies the values for the above parameters can be provided while installing the chart. For example,
 
 ```console
-$ helm install stable/kubewatch --name my-release -f values.yaml
+$ helm install bitnami-azure/kubewatch --name my-release -f values.yaml
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)

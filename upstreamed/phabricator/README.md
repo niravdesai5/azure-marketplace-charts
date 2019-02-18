@@ -12,14 +12,14 @@ $ helm repo add bitnami-azure https://charts.bitnami.com/azure
 ## TL;DR;
 
 ```console
-$ helm install stable/phabricator
+$ helm install bitnami-azure/phabricator
 ```
 
 ## Introduction
 
-This chart bootstraps a [Phabricator](https://github.com/bitnami/bitnami-docker-phabricator) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [Phabricator](https://github.com/bitnami-azure/bitnami-docker-phabricator) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
-It also packages the [Bitnami MariaDB chart](https://github.com/kubernetes/charts/tree/master/stable/mariadb) which is required for bootstrapping a MariaDB deployment for the database requirements of the Phabricator application.
+It also packages the [Bitnami MariaDB chart](https://github.com/kubernetes/charts/tree/master/bitnami-azure/mariadb) which is required for bootstrapping a MariaDB deployment for the database requirements of the Phabricator application.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -33,7 +33,7 @@ Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment
 To install the chart with the release name `my-release`:
 
 ```console
-$ helm install --name my-release stable/phabricator
+$ helm install --name my-release bitnami-azure/phabricator
 ```
 
 The command deploys Phabricator on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -58,10 +58,10 @@ The following table lists the configurable parameters of the Phabricator chart a
 |----------------------------------------|----------------------------------------------|----------------------------------------------------------|
 | `global.imageRegistry`                 | Global Docker image registry                 | `nil`                                                    |
 | `image.registry`                       | Phabricator image registry                   | `docker.io`                                              |
-| `image.repository`                     | Phabricator image name                       | `bitnami/phabricator`                                    |
+| `image.repository`                     | Phabricator image name                       | `bitnami-azure/phabricator`                                    |
 | `image.tag`                            | Phabricator image tag                        | `{VERSION}`                                              |
 | `image.pullPolicy`                     | Image pull policy                            | `Always` if `imageTag` is `latest`, else `IfNotPresent`  |
-| `image.pullSecrets`                    | Specify image pull secrets                   | `nil`                                                    |
+| `image.pullSecrets`                    | Specify docker-registry secret names as an array                   | `[]` (does not add image pull secrets to deployed pods)                                                    |
 | `phabricatorHost`                      | Phabricator host to create application URLs  | `nil`                                                    |
 | `phabricatorAlternateFileDomain`       | Phabricator alternate domain to upload files | `nil`                                                    |
 | `phabricatorUsername`                  | User of the application                      | `user`                                                   |
@@ -100,17 +100,17 @@ The following table lists the configurable parameters of the Phabricator chart a
 | `ingress.secrets[0].name`              | TLS Secret Name                              | `nil`                                                    |
 | `ingress.secrets[0].certificate`       | TLS Secret Certificate                       | `nil`                                                    |
 | `ingress.secrets[0].key`               | TLS Secret Key                               | `nil`                                                    |
-| `podAnnotations`                | Pod annotations                                   | `{}`                                                       |
-| `metrics.enabled`                          | Start a side-car prometheus exporter                                                                           | `false`                                              |
-| `metrics.image.registry`                   | Apache exporter image registry                                                                                  | `docker.io`                                          |
-| `metrics.image.repository`                 | Apache exporter image name                                                                                      | `lusotycoon/apache-exporter`                           |
-| `metrics.image.tag`                        | Apache exporter image tag                                                                                       | `v0.5.0`                                            |
-| `metrics.image.pullPolicy`                 | Image pull policy                                                                                              | `IfNotPresent`                                       |
-| `metrics.image.pullSecrets`                | Specify docker-registry secret names as an array                                                               | `nil`                                                |
-| `metrics.podAnnotations`                   | Additional annotations for Metrics exporter pod                                                                | `{prometheus.io/scrape: "true", prometheus.io/port: "9117"}`                                                   |
-| `metrics.resources`                        | Exporter resource requests/limit                                                                               | {}                        |
+| `podAnnotations`                       | Pod annotations                                  | `{}`                                                 |
+| `metrics.enabled`                      | Start a side-car prometheus exporter             | `false`                                              |
+| `metrics.image.registry`               | Apache exporter image registry                   | `docker.io`                                          |
+| `metrics.image.repository`             | Apache exporter image name                       | `lusotycoon/apache-exporter`                         |
+| `metrics.image.tag`                    | Apache exporter image tag                        | `v0.5.0`                                             |
+| `metrics.image.pullPolicy`             | Image pull policy                                | `IfNotPresent`                                       |
+| `metrics.image.pullSecrets`            | Specify docker-registry secret names as an array | `[]` (does not add image pull secrets to deployed pods)      |
+| `metrics.podAnnotations`               | Additional annotations for Metrics exporter pod  | `{prometheus.io/scrape: "true", prometheus.io/port: "9117"}` |
+| `metrics.resources`                    | Exporter resource requests/limit                 | {}                                                    |
 
-The above parameters map to the env variables defined in [bitnami/phabricator](http://github.com/bitnami/bitnami-docker-phabricator). For more information please refer to the [bitnami/phabricator](http://github.com/bitnami/bitnami-docker-phabricator) image documentation.
+The above parameters map to the env variables defined in [bitnami-azure/phabricator](http://github.com/bitnami-azure/bitnami-docker-phabricator). For more information please refer to the [bitnami-azure/phabricator](http://github.com/bitnami-azure/bitnami-docker-phabricator) image documentation.
 
 > **Note**:
 >
@@ -131,7 +131,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```console
 $ helm install --name my-release \
   --set phabricatorUsername=admin,phabricatorPassword=password,mariadb.mariadbRootPassword=secretpassword \
-    stable/phabricator
+    bitnami-azure/phabricator
 ```
 
 The above command sets the Phabricator administrator account username and password to `admin` and `password` respectively. Additionally, it sets the MariaDB `root` user password to `secretpassword`.
@@ -139,14 +139,14 @@ The above command sets the Phabricator administrator account username and passwo
 Alternatively, a YAML file that specifies the values for the above parameters can be provided while installing the chart. For example,
 
 ```console
-$ helm install --name my-release -f values.yaml stable/phabricator
+$ helm install --name my-release -f values.yaml bitnami-azure/phabricator
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)
 
 ## Persistence
 
-The [Bitnami Phabricator](https://github.com/bitnami/bitnami-docker-phabricator) image stores the Phabricator data and configurations at the `/bitnami/phabricator` and `/bitnami/apache` paths of the container.
+The [Bitnami Phabricator](https://github.com/bitnami-azure/bitnami-docker-phabricator) image stores the Phabricator data and configurations at the `/bitnami-azure/phabricator` and `/bitnami-azure/apache` paths of the container.
 
 Persistent Volume Claims are used to keep the data across deployments. There is a [known issue](https://github.com/kubernetes/kubernetes/issues/39178) in Kubernetes Clusters with EBS in different availability zones. Ensure your cluster is configured properly to create Volumes in the same availability zone where the nodes are running. Kuberentes 1.12 solved this issue with the [Volume Binding Mode](https://kubernetes.io/docs/concepts/storage/storage-classes/#volume-binding-mode).
 
@@ -156,13 +156,13 @@ See the [Configuration](#configuration) section to configure the PVC or to disab
 
 You can define a custom ingress following the example config in values.yaml
 
-`helm install stable/phabricator/ --name my-release --set phabricatorHost=example.com`
+`helm install bitnami-azure/phabricator/ --name my-release --set phabricatorHost=example.com`
 
 Everything looks great but requests over https will cause asset requests to fail. Assuming you want to use HTTPS/TLS you will need to set the base-uri to an https schema.
 
 ```
 export POD_NAME=$(kubectl get pods -l "app=my-release-phabricator" -o jsonpath="{.items[0].metadata.name}")
-kubectl exec $POD_NAME /opt/bitnami/phabricator/bin/config set phabricator.base-uri https://example.com
+kubectl exec $POD_NAME /opt/bitnami-azure/phabricator/bin/config set phabricator.base-uri https://example.com
 ```
 
 ## Upgrading

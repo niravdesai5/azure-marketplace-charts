@@ -25,6 +25,7 @@ spec:
       labels:
         app: {{ template "cassandra.name" . }}
         release: {{ .Release.Name }}
+        chart: {{ template "cassandra.chart" . }}
 {{- if .Values.podLabels }}
 {{ toYaml .Values.podLabels | indent 8 }}
 {{- end }}
@@ -64,9 +65,11 @@ spec:
               if [[ $HOSTNAME =~ (.*)-0$ ]]; then
                 echo "Setting node as password seeder"
                 export CASSANDRA_PASSWORD_SEEDER=yes
+              else 
+                # Only node 0 will execute the startup initdb scripts
+                export CASSANDRA_IGNORE_INITDB_SCRIPTS=1
               fi
               /app-entrypoint.sh /run.sh
-
         image: {{ template "cassandra.image" . }}
         imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
         resources:
@@ -93,6 +96,24 @@ spec:
           value: {{ .Values.cluster.datacenter }}
         - name: CASSANDRA_ENDPOINT_SNITCH
           value: {{ .Values.cluster.endpointSnitch }}
+{{- if .Values.tlsEncryptionSecretName }}
+        - name: CASSANDRA_INTERNODE_ENCRYPTION
+          value: {{ .Values.cluster.internodeEncryption }}
+        - name: CASSANDRA_CLIENT_ENCRYPTION
+          value: {{ .Values.cluster.clientEncryption }}
+        - name: CASSANDRA_TRUSTSTORE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.tlsEncryptionSecretName }}
+              key: truststore-password
+        - name: CASSANDRA_KEYSTORE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.tlsEncryptionSecretName }}
+              key: keystore-password
+{{- end }}
+        - name: CASSANDRA_ENDPOINT_SNITCH
+          value: {{ .Values.cluster.endpointSnitch }}
         - name: CASSANDRA_RACK
           value: {{ .Values.cluster.rack }}
         {{- if .Values.jvm.maxHeapSize }}
@@ -106,10 +127,6 @@ spec:
         {{- if .Values.jvm.extraOpts }}
         - name: JVM_EXTRA_OPTS
           value: {{ .Values.jvm.extraOpts | quote }}
-        {{- end }}
-        {{- if .Values.startupCQL }}
-        - name: CASSANDRA_STARTUP_CQL
-          value: {{ .Values.startupCQL | quote }}
         {{- end }}
         - name: CASSANDRA_ENABLE_RPC
           value: {{ .Values.cluster.enableRPC | quote }}
@@ -133,6 +150,12 @@ spec:
           successThreshold: {{ .Values.readinessProbe.successThreshold }}
           failureThreshold: {{ .Values.readinessProbe.failureThreshold }}
 {{- end }}
+{{- if not .Values.persistence.enabled }}
+        lifecycle:
+          preStop:
+            exec:
+              command: ["/bin/sh", "-c", "nodetool decommission"]
+{{- end }}
         ports:
         - name: intra
           containerPort: 7000
@@ -149,6 +172,18 @@ spec:
         volumeMounts:
         - name: data
           mountPath: /bitnami/cassandra
+{{- if .Values.tlsEncryptionSecretName }}
+        - name: encryption-secrets
+          mountPath: /bitnami/cassandra/secrets
+{{- end }}
+      {{- if or (.Files.Glob "files/docker-entrypoint-initdb.d/*") (.Values.initDBConfigMap) }}
+        - name: init-db
+          mountPath: /docker-entrypoint-initdb.d
+      {{- end }}
+      {{ if or (.Files.Glob "files/conf/*") .Values.existingConfiguration }}
+        - name: configurations
+          mountPath: /bitnami/cassandra/conf
+      {{- end }}
       {{- if .Values.image.pullSecrets }}
       imagePullSecrets:
         - name: {{ .Values.image.pullSecrets }}
@@ -177,8 +212,28 @@ spec:
           initialDelaySeconds: 20
           timeoutSeconds: 45
 {{- end }}
-{{- if not .Values.persistence.enabled }}
       volumes:
+{{- if .Values.tlsEncryptionSecretName }}
+        - name: encryption-secrets
+          secret:
+            secretName: {{ .Values.tlsEncryptionSecretName }}
+            items:
+            - key: keystore
+              path: keystore
+            - key: truststore
+              path: truststore
+{{- end }}
+{{- if or (.Files.Glob "files/conf/*") .Values.existingConfiguration }}
+      - name: configurations
+        configMap:
+          name: {{ template "cassandra.configurationCM" . }}
+{{- end }}
+{{- if or (.Files.Glob "files/docker-entrypoint-initdb.d/*") (.Values.initDBConfigMap) }}
+      - name: init-db
+        configMap:
+          name: {{ template "cassandra.initDbCM" . }}
+{{- end }}
+{{- if not .Values.persistence.enabled }}
       - name: data
         emptyDir: {}
 {{- else }}

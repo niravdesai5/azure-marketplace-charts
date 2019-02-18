@@ -12,12 +12,12 @@ $ helm repo add bitnami-azure https://charts.bitnami.com/azure
 ## TL;DR
 
 ```console
-$ helm install bitnami/elasticsearch
+$ helm install bitnami-azure/elasticsearch
 ```
 
 ## Introduction
 
-This chart bootstraps a [Elasticsearch](https://github.com/bitnami/bitnami-docker-elasticsearch) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [Elasticsearch](https://github.com/bitnami-azure/bitnami-docker-elasticsearch) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -31,7 +31,7 @@ Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment
 To install the chart with the release name `my-release`:
 
 ```console
-$ helm install --name my-release bitnami/elasticsearch
+$ helm install --name my-release bitnami-azure/elasticsearch
 ```
 
 The command deploys Elasticsearch on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -60,10 +60,10 @@ The following table lists the configurable parameters of the Elasticsearch chart
 |---------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------|
 | `global.imageRegistry`                            | Global Docker image registry                                                                                              | `nil`                                                   |
 | `image.registry`                                  | Elasticsearch image registry                                                                                              | `docker.io`                                             |
-| `image.repository`                                | Elasticsearch image repository                                                                                            | `bitnami/elasticsearch`                                 |
+| `image.repository`                                | Elasticsearch image repository                                                                                            | `bitnami-azure/elasticsearch`                                 |
 | `image.tag`                                       | Elasticsearch image tag                                                                                                   | `{VERSION}`                                             |
 | `image.pullPolicy`                                | Image pull policy                                                                                                         | `Always`                                                |
-| `image.pullSecrets`                               | Specify image pull secrets                                                                                                | `nil`                                                   |
+| `image.pullSecrets`                               | Specify docker-registry secret names as an array                                                                          | `[]` (does not add image pull secrets to deployed pods)                                                   |
 | `name`                                            | Elasticsearch cluster name                                                                                                | `elastic`                                               |
 | `plugins`                                         | Comma, semi-colon or space separated list of plugins to install at initialization                                         | `nil`                                                   |
 | `config`                                          | Elasticsearch node custom configuration                                                                                   | ``                                                      |
@@ -163,14 +163,14 @@ The following table lists the configurable parameters of the Elasticsearch chart
 | `metrics.enabled`                                 | Enable prometheus exporter                                                                                                | `false`                                                 |
 | `metrics.name`                                    | Metrics pod name                                                                                                          | `metrics`                                               |
 | `metrics.image.registry`                          | Metrics exporter image registry                                                                                           | `docker.io`                                             |
-| `metrics.image.repository`                        | Metrics exporter image repository                                                                                         | `bitnami/elasticsearch-exporter`                        |
+| `metrics.image.repository`                        | Metrics exporter image repository                                                                                         | `bitnami-azure/elasticsearch-exporter`                        |
 | `metrics.image.tag`                               | Metrics exporter image tag                                                                                                | `1.0.2`                                                 |
 | `metrics.image.pullPolicy`                        | Metrics exporter image pull policy                                                                                        | `Always`                                                |
 | `metrics.service.type`                            | Metrics exporter endpoint service type                                                                                    | `ClusterIP`                                             |
 | `metrics.resources`                               | Metrics exporter resource requests/limit                                                                                  | `requests: { cpu: "25m" }`                              |
 | `sysctlImage.enabled`                             | Enable kernel settings modifier image                                                                                     | `false`                                                 |
 | `sysctlImage.registry`                            | Kernel settings modifier image registry                                                                                   | `docker.io`                                             |
-| `sysctlImage.repository`                          | Kernel settings modifier image repository                                                                                 | `bitnami/minideb`                                       |
+| `sysctlImage.repository`                          | Kernel settings modifier image repository                                                                                 | `bitnami-azure/minideb`                                       |
 | `sysctlImage.tag`                                 | Kernel settings modifier image tag                                                                                        | `latest`                                                |
 | `sysctlImage.pullPolicy`                          | Kernel settings modifier image pull policy                                                                                | `Always`                                                |
 
@@ -179,7 +179,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```console
 $ helm install --name my-release \
   --set name=my-elastic,client.service.port=8080 \
-  bitnami/elasticsearch
+  bitnami-azure/elasticsearch
 ```
 
 The above command sets the Elasticsearch cluster name to `my-elastic` and REST port number to `8080`.
@@ -187,14 +187,14 @@ The above command sets the Elasticsearch cluster name to `my-elastic` and REST p
 Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example,
 
 ```console
-$ helm install --name my-release -f values.yaml bitnami/elasticsearch
+$ helm install --name my-release -f values.yaml bitnami-azure/elasticsearch
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml). [values-production.yaml](values-production.yaml) has defaults optimized for use in production environments.
 
 ## Persistence
 
-The [Bitnami Elasticsearch](https://github.com/bitnami/bitnami-docker-elasticsearch) image stores the Elasticsearch data at the `/bitnami/elasticsearch/data` path of the container.
+The [Bitnami Elasticsearch](https://github.com/bitnami-azure/bitnami-docker-elasticsearch) image stores the Elasticsearch data at the `/bitnami-azure/elasticsearch/data` path of the container.
 
 By default, the chart mounts a [Persistent Volume](http://kubernetes.io/docs/user-guide/persistent-volumes/) at this location. The volume is created using dynamic volume provisioning. See the [Configuration](#configuration) section to configure the PVC.
 
@@ -210,7 +210,7 @@ You can use a **privileged** initContainer to changes those settings in the Kern
 ```console
 $ helm install --name my-release \
   --set sysctlImage.enabled=true \
-  bitnami/elasticsearch
+  bitnami-azure/elasticsearch
 ```
 
 ## Upgrading

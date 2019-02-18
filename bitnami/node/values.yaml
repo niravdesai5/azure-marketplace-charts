@@ -10,7 +10,7 @@ global:
 image:
   registry: docker.io
   repository: bitnami/node
-  tag: 8.14.0
+  tag: 8.15.0
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
@@ -123,6 +123,14 @@ externaldb:
   # If you provide the serviceInstanceName, the chart will create a ServiceBinding for that ServiceInstance
   broker:
     serviceInstanceName:
+
+## Pod Security Context
+## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+##
+securityContext:
+  enabled: true
+  fsGroup: 1001
+  runAsUser: 1001
 
 ## Configure ingress resource that allow you to access the application.
 ## ref: http://kubernetes.io/docs/user-guide/ingress/

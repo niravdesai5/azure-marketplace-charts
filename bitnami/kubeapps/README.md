@@ -22,14 +22,14 @@ $ helm repo add bitnami-azure https://charts.bitnami.com/azure
 
 ```bash
 helm repo add bitnami-azure https://charts.bitnami.com/azure
-helm install --name kubeapps --namespace kubeapps bitnami/kubeapps
+helm install --name kubeapps --namespace kubeapps bitnami-azure/kubeapps
 ```
 
 ## Introduction
 
 This chart bootstraps a [Kubeapps](https://kubeapps.com) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
-It also packages the [Bitnami MongoDB chart](https://github.com/helm/charts/tree/master/stable/mongodb) which is required for bootstrapping a MongoDB deployment for the database requirements of the Kubeapps application.
+It also packages the [Bitnami MongoDB chart](https://github.com/helm/charts/tree/master/bitnami-azure/mongodb) which is required for bootstrapping a MongoDB deployment for the database requirements of the Kubeapps application.
 
 ## Prerequisites
 
@@ -43,7 +43,7 @@ To install the chart with the release name `kubeapps`:
 
 ```console
 $ helm repo add bitnami-azure https://charts.bitnami.com/azure
-$ helm install --name kubeapps --namespace kubeapps bitnami/kubeapps
+$ helm install --name kubeapps --namespace kubeapps bitnami-azure/kubeapps
 ```
 
 > **IMPORTANT** This assumes an insecure Helm installation, which is not recommended in production. See [the documentation to learn how to secure Helm and Kubeapps in production](https://github.com/kubeapps/kubeapps/blob/master/docs/user/securing-kubeapps.md).
@@ -72,7 +72,7 @@ Now upgrade Kubeapps:
 
 ```console
 $ export RELEASE_NAME=kubeapps
-$ helm upgrade $RELEASE_NAME bitnami/kubeapps
+$ helm upgrade $RELEASE_NAME bitnami-azure/kubeapps
 ```
 
 If you find issues upgrading Kubeapps, check the [troubleshooting](#error-while-upgrading-the-chart) section.
@@ -106,7 +106,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```console
 $ helm install --name kubeapps --namespace kubeapps \
   --set chartsvc.service.port=9090 \
-    bitnami/kubeapps
+    bitnami-azure/kubeapps
 ```
 
 The above command sets the port for the chartsvc Service to 9090.
@@ -114,7 +114,7 @@ The above command sets the port for the chartsvc Service to 9090.
 Alternatively, a YAML file that specifies the values for parameters can be provided while installing the chart. For example,
 
 ```console
-$ helm install --name kubeapps --namespace kubeapps -f custom-values.yaml bitnami/kubeapps
+$ helm install --name kubeapps --namespace kubeapps -f custom-values.yaml bitnami-azure/kubeapps
 ```
 
 ### Configuring Initial Repositories
@@ -128,7 +128,7 @@ apprepository:
   - name: example
     url: https://charts.example.com
 EOF
-$ helm install --name kubeapps --namespace kubeapps bitnami/kubeapps -f custom-values.yaml
+$ helm install --name kubeapps --namespace kubeapps bitnami-azure/kubeapps -f custom-values.yaml
 ```
 
 ### Configuring connection to a custom namespace Tiller instance
@@ -140,7 +140,7 @@ If your instance of Tiller is running in a different namespace or you want to ha
 ```console
 helm install \
   --set tillerProxy.host=tiller-deploy.my-custom-namespace:44134 \
-  bitnami/kubeapps
+  bitnami-azure/kubeapps
 ```
 
 ### Configuring connection to a secure Tiller instance
@@ -156,7 +156,7 @@ helm install \
   --set tillerProxy.tls.ca="$(cat ca.cert.pem)" \
   --set tillerProxy.tls.key="$(cat helm.key.pem)" \
   --set tillerProxy.tls.cert="$(cat helm.cert.pem)" \
-  bitnami/kubeapps
+  bitnami-azure/kubeapps
 ```
 
 Learn more about how to secure your Kubeapps installation [here](https://github.com/kubeapps/kubeapps/blob/master/docs/user/securing-kubeapps.md).
@@ -168,7 +168,7 @@ Learn more about how to secure your Kubeapps installation [here](https://github.
 The simplest way to expose the Kubeapps Dashboard is to assign a LoadBalancer type to the Kubeapps frontend Service. For example:
 
 ```console
-$ helm install --name kubeapps --namespace kubeapps bitnami/kubeapps --set frontend.service.type=LoadBalancer
+$ helm install --name kubeapps --namespace kubeapps bitnami-azure/kubeapps --set frontend.service.type=LoadBalancer
 ```
 
 Wait for your cluster to assign a LoadBalancer IP or Hostname to the `kubeapps` Service and access it on that address:
@@ -179,7 +179,7 @@ $ kubectl get services --namespace kubeapps --watch
 
 #### Ingress
 
-This chart provides support for ingress resources. If you have an ingress controller installed on your cluster, such as [nginx-ingress](https://hub.kubeapps.com/charts/stable/nginx-ingress) or [traefik](https://hub.kubeapps.com/charts/stable/traefik) you can utilize the ingress controller to expose Kubeapps.
+This chart provides support for ingress resources. If you have an ingress controller installed on your cluster, such as [nginx-ingress](https://hub.kubeapps.com/charts/bitnami-azure/nginx-ingress) or [traefik](https://hub.kubeapps.com/charts/bitnami-azure/traefik) you can utilize the ingress controller to expose Kubeapps.
 
 To enable ingress integration, please set `ingress.enabled` to `true`
 
@@ -198,7 +198,7 @@ TLS can be configured using setting the `ingress.hosts[].tls` boolean of the cor
 You can provide your own certificates using the `ingress.secrets` object. If your cluster has a [cert-manager](https://github.com/jetstack/cert-manager) add-on to automate the management and issuance of TLS certificates, set `ingress.hosts[].certManager` boolean to true to enable the corresponding annotations for cert-manager as shown in the example below:
 
 ```console
-helm install --name kubeapps --namespace kubeapps bitnami/kubeapps \
+helm install --name kubeapps --namespace kubeapps bitnami-azure/kubeapps \
   --set ingress.enabled=true \
   --set ingress.certManager=true \
   --set ingress.hosts[0].name=kubeapps.custom.domain \
@@ -239,7 +239,7 @@ $ kubectl api-versions
 If the above command does not include entries for `rbac.authorization.k8s.io` you should perform the chart installation by setting `rbac.create=false`:
 
 ```console
-$ helm install --name kubeapps --namespace kubeapps bitnami/kubeapps --set rbac.create=false
+$ helm install --name kubeapps --namespace kubeapps bitnami-azure/kubeapps --set rbac.create=false
 ```
 
 ### Error while upgrading the Chart
@@ -280,7 +280,7 @@ kubectl delete namespace kubeapps
 
 ```console
 helm repo update
-helm install --name kubeapps --namespace kubeapps bitnami/kubeapps
+helm install --name kubeapps --namespace kubeapps bitnami-azure/kubeapps
 ```
 
 6.  (Optional) Restore any repositories you backed up in the first step:

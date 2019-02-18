@@ -12,16 +12,16 @@ $ helm repo add bitnami-azure https://charts.bitnami.com/azure
 ## TL;DR
 
 ```console
-$ helm install bitnami/mean
+$ helm install bitnami-azure/mean
 ```
 
 ## Introduction
 
-This chart bootstraps a [NodeJS](https://github.com/bitnami/bitnami-docker-node) and a [MongoDB](https://github.com/bitnami/bitnami-docker-mongodb) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [NodeJS](https://github.com/bitnami-azure/bitnami-docker-node) and a [MongoDB](https://github.com/bitnami-azure/bitnami-docker-mongodb) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
-It clones and deploys a Node.js application from a git repository. Defaults to a demo MEAN application: https://github.com/bitnami/sample-mean.git
+It clones and deploys a Node.js application from a git repository. Defaults to a demo MEAN application: https://github.com/bitnami-azure/sample-mean.git
 
 ## Prerequisites
 
@@ -33,7 +33,7 @@ It clones and deploys a Node.js application from a git repository. Defaults to a
 To install the chart with the release name `my-release`:
 
 ```console
-$ helm install --name my-release bitnami/mean
+$ helm install --name my-release bitnami-azure/mean
 ```
 
 The command deploys Node.js on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation. Also includes support for MongoDB chart out of the box.
@@ -60,15 +60,15 @@ The following table lists the configurable parameters of the MEAN chart and thei
 |-----------------------------------------|-----------------------------------------------------------|-----------------------------------------------------------|
 | `global.imageRegistry`                  | Global Docker image registry                              | `nil`                                                     |
 | `image.registry`                        | NodeJS image registry                                     | `docker.io`                                               |
-| `image.repository`                      | NodeJS image name                                         | `bitnami/node`                                            |
+| `image.repository`                      | NodeJS image name                                         | `bitnami-azure/node`                                            |
 | `image.tag`                             | NodeJS image tag                                          | `{VERSION}`                                               |
 | `image.pullPolicy`                      | NodeJS image pull policy                                  | `IfNotPresent`                                            |
-| `image.pullSecrets`                     | Specify image pull secrets                                | `nil` (does not add image pull secrets to deployed pods)  |
+| `image.pullSecrets`                     | Specify docker-registry secret names as an array          | `[]` (does not add image pull secrets to deployed pods)   |
 | `git.registry`                          | Git image registry                                        | `docker.io`                                               |
-| `git.repository`                        | Git image name                                            | `bitnami/git`                                              |
+| `git.repository`                        | Git image name                                            | `bitnami-azure/git`                                             |
 | `git.tag`                               | Git image tag                                             | `latest`                                                  |
 | `git.pullPolicy`                        | Git image pull policy                                     | IfNotPresent`                                             |
-| `repository`                            | Repo of the application                                   | `https://github.com/bitnami/sample-mean.git`              |
+| `repository`                            | Repo of the application                                   | `https://github.com/bitnami-azure/sample-mean.git`              |
 | `revision`                              | Revision to checkout                                      | `master`                                                  |
 | `replicas`                              | Number of replicas for the application                    | `1`                                                       |
 | `applicationPort`                       | Port where the application will be running                | `3000`                                                    |
@@ -92,6 +92,9 @@ The following table lists the configurable parameters of the MEAN chart and thei
 | `externaldb.secretName`                 | Secret containing existing database credentials           | `nil`                                                     |
 | `externaldb.type`                       | Type of database that defines the database secret mapping | `osba`                                                    |
 | `externaldb.broker.serviceInstanceName` | The existing ServiceInstance to be used                   | `nil`                                                     |
+| `securityContext.enabled`                     | Enable security context                                                                                                | `true`                                                   |
+| `securityContext.fsGroup`                     | Group ID for the container                                                                                             | `1001`                                                   |
+| `securityContext.runAsUser`                   | User ID for the container                                                                                              | `1001`                                                   |
 | `ingress.enabled`                       | Enable ingress controller resource                        | `false`                                                   |
 | `ingress.hosts[0].name`                 | Hostname to your MEAN installation                        | `mean.local`                                              |
 | `ingress.hosts[0].path`                 | Path within the url structure                             | `/`                                                       |
@@ -103,14 +106,14 @@ The following table lists the configurable parameters of the MEAN chart and thei
 | `ingress.secrets[0].certificate`        | TLS Secret Certificate                                    | `nil`                                                     |
 | `ingress.secrets[0].key`                | TLS Secret Key                                            | `nil`                                                     |
 
-The above parameters map to the env variables defined in [bitnami/node](http://github.com/bitnami/bitnami-docker-node). For more information please refer to the [bitnami/node](http://github.com/bitnami/bitnami-docker-node) image documentation.
+The above parameters map to the env variables defined in [bitnami-azure/node](http://github.com/bitnami-azure/bitnami-docker-node). For more information please refer to the [bitnami-azure/node](http://github.com/bitnami-azure/bitnami-docker-node) image documentation.
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
 ```console
 $ helm install --name my-release \
-  --set repository=https://github.com/bitnami/sample-mean.git,replicas=2 \
-    bitnami/mean
+  --set repository=https://github.com/bitnami-azure/sample-mean.git,replicas=2 \
+    bitnami-azure/mean
 ```
 
 The above command clones the remote git repository to the `/app/` directory  of the container. Additionally it sets the number of `replicas` to `2`.
@@ -118,14 +121,14 @@ The above command clones the remote git repository to the `/app/` directory  of 
 Alternatively, a YAML file that specifies the values for the above parameters can be provided while installing the chart. For example,
 
 ```console
-$ helm install --name my-release -f values.yaml bitnami/mean
+$ helm install --name my-release -f values.yaml bitnami-azure/mean
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)
 
 ## Persistence
 
-The [Bitnami Node](https://github.com/bitnami/bitnami-docker-node) image stores the Node application and configurations at the `/app` path of the container.
+The [Bitnami Node](https://github.com/bitnami-azure/bitnami-docker-node) image stores the Node application and configurations at the `/app` path of the container.
 
 Persistent Volume Claims are used to keep the data across deployments. This is known to work in GCE, AWS, and minikube.
 See the [Configuration](#configuration) section to configure the PVC or to disable persistence.
@@ -135,13 +138,13 @@ See the [Configuration](#configuration) section to configure the PVC or to disab
 First install the nginx-ingress controller via helm:
 
 ```
-$ helm install stable/nginx-ingress
+$ helm install bitnami-azure/nginx-ingress
 ```
 
 Now deploy the mean helm chart:
 
 ```
-$ helm install --name my-release bitnami/mean --set ingress.enabled=true,ingress.host=example.com,service.type=ClusterIP
+$ helm install --name my-release bitnami-azure/mean --set ingress.enabled=true,ingress.host=example.com,service.type=ClusterIP
 ```
 
 ### Configure TLS termination for your ingress controller
@@ -179,7 +182,7 @@ ingress:
 2. Deploy the mean chart specifying the secret name
 
   ```
-  $ helm install --name node-app --set mongodb.install=false,externaldb.secretName=my-database-secret bitnami/mean
+  $ helm install --name node-app --set mongodb.install=false,externaldb.secretName=my-database-secret bitnami-azure/mean
   ```
 
 ## Provision a database using the Open Service Broker for Azure
@@ -225,7 +228,7 @@ ingress:
 4. Deploy the helm chart:
 
     ```
-    $ helm install --name node-app --set mongodb.install=false,externaldb.broker.serviceInstanceName=azure-mongodb-instance,externaldb.ssl=true bitnami/mean
+    $ helm install --name node-app --set mongodb.install=false,externaldb.broker.serviceInstanceName=azure-mongodb-instance,externaldb.ssl=true bitnami-azure/mean
     ```
 
 Once the instance has been provisioned in Azure, a new secret should have been automatically created with the connection parameters for your application.
@@ -234,7 +237,13 @@ Deploying the helm chart enabling the Azure external database makes the followin
   - You would want an Azure CosmosDB MongoDB database
   - Your application uses DATABASE_HOST, DATABASE_PORT, DATABASE_USER, DATABASE_PASSWORD, and DATABASE_NAME environment variables to connect to the database.
 
-You can read more about the kubernetes service catalog at https://github.com/kubernetes-bitnami/service-catalog
+You can read more about the kubernetes service catalog at https://github.com/kubernetes-bitnami-azure/service-catalog
+
+## Notable changes
+
+### 5.0.0
+
+This release includes security contexts, so the containers in the chart are run as non-root. More information in [this link](https://github.com/bitnami-azure/bitnami-docker-node#484-r1-6112-r1-7101-r1-and-830-r1).
 
 ## Upgrading
 

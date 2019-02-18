@@ -14,14 +14,14 @@ $ helm repo add bitnami-azure https://charts.bitnami.com/azure
 ## TL;DR
 
 ```bash
-$ helm install bitnami/apache
+$ helm install bitnami-azure/apache
 ```
 
 ## Introduction
 
 Bitnami charts for Helm are carefully engineered, actively maintained and are the quickest and easiest way to deploy containers on a Kubernetes cluster that are ready to handle production workloads.
 
-This chart bootstraps a [Apache](https://github.com/bitnami/bitnami-docker-apache) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [Apache](https://github.com/bitnami-azure/bitnami-docker-apache) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -30,7 +30,7 @@ Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment
 To install the chart with the release name `my-release`:
 
 ```bash
-$ helm install --name my-release bitnami/apache
+$ helm install --name my-release bitnami-azure/apache
 ```
 
 The command deploys Apache on the Kubernetes cluster in the default configuration.
@@ -55,10 +55,10 @@ The following tables lists the configurable parameters of the Apache chart and t
 | --------------------------------- | ------------------------------------- | --------------------------------------------------------- |
 | `global.imageRegistry`            | Global Docker image registry          | `nil`                                                     |
 | `image.registry`                  | Apache image registry                 | `docker.io`                                               |
-| `image.repository`                | Apache Image name                     | `bitnami/apache`                                          |
+| `image.repository`                | Apache Image name                     | `bitnami-azure/apache`                                          |
 | `image.tag`                       | Apache Image tag                      | `{VERSION}`                                               |
 | `image.pullPolicy`                | Apache image pull policy              | `Always`                                                  |
-| `image.pullSecrets`               | Specify image pull secrets            | `nil` (does not add image pull secrets to deployed pods)  |
+| `image.pullSecrets`               | Specify docker-registry secret names as an array            | `[]` (does not add image pull secrets to deployed pods)  |
 | `podAnnotations`                | Pod annotations                                   | `{}`                                                       |
 | `metrics.enabled`                          | Start a side-car prometheus exporter                                                                           | `false`                                              |
 | `metrics.image.registry`                   | Apache exporter image registry                                                                                  | `docker.io`                                          |
@@ -81,7 +81,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```bash
 $ helm install --name my-release \
   --set imagePullPolicy=Always \
-    bitnami/apache
+    bitnami-azure/apache
 ```
 
 The above command sets the `imagePullPolicy` to `Always`.
@@ -89,7 +89,7 @@ The above command sets the `imagePullPolicy` to `Always`.
 Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example,
 
 ```bash
-$ helm install --name my-release -f values.yaml bitnami/apache
+$ helm install --name my-release -f values.yaml bitnami-azure/apache
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)

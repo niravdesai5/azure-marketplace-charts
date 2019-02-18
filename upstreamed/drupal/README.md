@@ -12,14 +12,14 @@ $ helm repo add bitnami-azure https://charts.bitnami.com/azure
 ## TL;DR;
 
 ```console
-$ helm install stable/drupal
+$ helm install bitnami-azure/drupal
 ```
 
 ## Introduction
 
-This chart bootstraps a [Drupal](https://github.com/bitnami/bitnami-docker-drupal) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [Drupal](https://github.com/bitnami-azure/bitnami-docker-drupal) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
-It also packages the [Bitnami MariaDB chart](https://github.com/kubernetes/charts/tree/master/stable/mariadb) which is required for bootstrapping a MariaDB deployment as a database for the Drupal application.
+It also packages the [Bitnami MariaDB chart](https://github.com/kubernetes/charts/tree/master/bitnami-azure/mariadb) which is required for bootstrapping a MariaDB deployment as a database for the Drupal application.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -33,7 +33,7 @@ Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment
 To install the chart with the release name `my-release`:
 
 ```console
-$ helm install --name my-release stable/drupal
+$ helm install --name my-release bitnami-azure/drupal
 ```
 
 The command deploys Drupal on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -58,10 +58,10 @@ The following table lists the configurable parameters of the Drupal chart and th
 | --------------------------------- | ------------------------------------------ | --------------------------------------------------------- |
 | `global.imageRegistry`            | Global Docker image registry               | `nil`                                                     |
 | `image.registry`                  | Drupal image registry                      | `docker.io`                                               |
-| `image.repository`                | Drupal Image name                          | `bitnami/drupal`                                          |
+| `image.repository`                | Drupal Image name                          | `bitnami-azure/drupal`                                          |
 | `image.tag`                       | Drupal Image tag                           | `{VERSION}`                                               |
 | `image.pullPolicy`                | Drupal image pull policy                   | `Always` if `imageTag` is `latest`, else `IfNotPresent`   |
-| `image.pullSecrets`               | Specify image pull secrets                 | `nil` (does not add image pull secrets to deployed pods)  |
+| `image.pullSecrets`               | Specify docker-registry secret names as an array | `[]` (does not add image pull secrets to deployed pods)  |
 | `drupalProfile`                   | Drupal installation profile                | `standard`                                                |
 | `drupalUsername`                  | User of the application                    | `user`                                                    |
 | `drupalPassword`                  | Application password                       | _random 10 character long alphanumeric string_            |
@@ -87,12 +87,12 @@ The following table lists the configurable parameters of the Drupal chart and th
 | `mariadb.db.name`                 | Database name to create                    | `bitnami_drupal`                                          |
 | `mariadb.db.user`                 | Database user to create                    | `bn_drupal`                                               |
 | `mariadb.db.password`             | Password for the database                  | _random 10 character long alphanumeric string_            |
-| `service.type`                    | Kubernetes Service type                    | `LoadBalancer`                                          |
-| `service.port`                    | Service HTTP port                    | `80`                                          |
-| `service.httpsPort`                    | Service HTTPS port                    | `443`                                          |
-| `service.externalTrafficPolicy`   | Enable client source IP preservation       | `Cluster`                                               |
-| `service.nodePorts.http`                 | Kubernetes http node port                  | `""`                                                    |
-| `service.nodePorts.https`                | Kubernetes https node port                 | `""`                                                    |
+| `service.type`                    | Kubernetes Service type                    | `LoadBalancer`                                            |
+| `service.port`                    | Service HTTP port                          | `80`                                                      |
+| `service.httpsPort`               | Service HTTPS port                         | `443`                                                     |
+| `service.externalTrafficPolicy`   | Enable client source IP preservation       | `Cluster`                                                 |
+| `service.nodePorts.http`          | Kubernetes http node port                  | `""`                                                      |
+| `service.nodePorts.https`         | Kubernetes https node port                 | `""`                                                      |
 | `persistence.enabled`             | Enable persistence using PVC               | `true`                                                    |
 | `persistence.apache.storageClass` | PVC Storage Class for Apache volume        | `nil` (uses alpha storage class annotation)               |
 | `persistence.apache.accessMode`   | PVC Access Mode for Apache volume          | `ReadWriteOnce`                                           |
@@ -103,26 +103,26 @@ The following table lists the configurable parameters of the Drupal chart and th
 | `persistence.drupal.hostPath`     | Host mount path for Drupal volume          | `nil` (will not mount to a host path)                     |
 | `persistence.drupal.size`         | PVC Storage Request for Drupal volume      | `8Gi`                                                     |
 | `resources`                       | CPU/Memory resource requests/limits        | Memory: `512Mi`, CPU: `300m`                              |
-| `volumeMounts.drupal.mountPath`   | Drupal data volume mount path              | `/bitnami/drupal`                                         |
-| `volumeMounts.apache.mountPath`   | Apache data volume mount path              | `/bitnami/apache`                                         |
-| `podAnnotations`                | Pod annotations                                   | `{}`                                                       |
-| `metrics.enabled`                          | Start a side-car prometheus exporter                                                                           | `false`                                              |
-| `metrics.image.registry`                   | Apache exporter image registry                                                                                  | `docker.io`                                          |
-| `metrics.image.repository`                 | Apache exporter image name                                                                                      | `lusotycoon/apache-exporter`                           |
-| `metrics.image.tag`                        | Apache exporter image tag                                                                                       | `v0.5.0`                                            |
-| `metrics.image.pullPolicy`                 | Image pull policy                                                                                              | `IfNotPresent`                                       |
-| `metrics.image.pullSecrets`                | Specify docker-registry secret names as an array                                                               | `nil`                                                |
-| `metrics.podAnnotations`                   | Additional annotations for Metrics exporter pod                                                                | `{prometheus.io/scrape: "true", prometheus.io/port: "9117"}`                                                   |
-| `metrics.resources`                        | Exporter resource requests/limit                                                                               | {}                        |
+| `volumeMounts.drupal.mountPath`   | Drupal data volume mount path              | `/bitnami-azure/drupal`                                         |
+| `volumeMounts.apache.mountPath`   | Apache data volume mount path              | `/bitnami-azure/apache`                                         |
+| `podAnnotations`                  | Pod annotations                            | `{}`                                                      |
+| `metrics.enabled`                 | Start a side-car prometheus exporter       | `false`                                                   |
+| `metrics.image.registry`          | Apache exporter image registry             | `docker.io`                                               |
+| `metrics.image.repository`        | Apache exporter image name                 | `lusotycoon/apache-exporter`                              |
+| `metrics.image.tag`               | Apache exporter image tag                  | `v0.5.0`                                                  |
+| `metrics.image.pullPolicy`        | Image pull policy                          | `IfNotPresent`                                            |
+| `metrics.image.pullSecrets`       | Specify docker-registry secret names as an array | `[]` (does not add image pull secrets to deployed pods)      |
+| `metrics.podAnnotations`          | Additional annotations for Metrics exporter pod  | `{prometheus.io/scrape: "true", prometheus.io/port: "9117"}` |
+| `metrics.resources`               | Exporter resource requests/limit           | {}                                                         |
 
-The above parameters map to the env variables defined in [bitnami/drupal](http://github.com/bitnami/bitnami-docker-drupal). For more information please refer to the [bitnami/drupal](http://github.com/bitnami/bitnami-docker-drupal) image documentation.
+The above parameters map to the env variables defined in [bitnami-azure/drupal](http://github.com/bitnami-azure/bitnami-docker-drupal). For more information please refer to the [bitnami-azure/drupal](http://github.com/bitnami-azure/bitnami-docker-drupal) image documentation.
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
 ```console
 $ helm install --name my-release \
   --set drupalUsername=admin,drupalPassword=password,mariadb.mariadbRootPassword=secretpassword \
-    stable/drupal
+    bitnami-azure/drupal
 ```
 
 The above command sets the Drupal administrator account username and password to `admin` and `password` respectively. Additionally, it sets the MariaDB `root` user password to `secretpassword`.
@@ -130,7 +130,7 @@ The above command sets the Drupal administrator account username and password to
 Alternatively, a YAML file that specifies the values for the above parameters can be provided while installing the chart. For example,
 
 ```console
-$ helm install --name my-release -f values.yaml stable/drupal
+$ helm install --name my-release -f values.yaml bitnami-azure/drupal
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)
@@ -154,14 +154,14 @@ imagePullSecrets:
 1. Install the chart
 
 ```console
-helm install --name my-release -f values.yaml stable/drupal
+helm install --name my-release -f values.yaml bitnami-azure/drupal
 ```
 
 ## Persistence
 
 The configured image must store Drupal data and Apache configurations in separate paths of the container.
 
-The [Bitnami Drupal](https://github.com/bitnami/bitnami-docker-drupal) image stores the Drupal data and Apache configurations at the `/bitnami/drupal` and `/bitnami/apache` paths of the container. If you wish to override the `image` value, and your image stores this data and configurations in different paths, you may specify these paths with `volumeMounts.drupal.mountPath` and `volumeMounts.apache.mountPath`.
+The [Bitnami Drupal](https://github.com/bitnami-azure/bitnami-docker-drupal) image stores the Drupal data and Apache configurations at the `/bitnami-azure/drupal` and `/bitnami-azure/apache` paths of the container. If you wish to override the `image` value, and your image stores this data and configurations in different paths, you may specify these paths with `volumeMounts.drupal.mountPath` and `volumeMounts.apache.mountPath`.
 
 Persistent Volume Claims are used to keep the data across deployments. This is known to work in GCE, AWS, and minikube.
 See the [Configuration](#configuration) section to configure the PVC or to disable persistence.
@@ -173,7 +173,7 @@ See the [Configuration](#configuration) section to configure the PVC or to disab
 1. Install the chart
 
 ```bash
-$ helm install --name my-release --set persistence.drupal.existingClaim=PVC_NAME stable/drupal
+$ helm install --name my-release --set persistence.drupal.existingClaim=PVC_NAME bitnami-azure/drupal
 ```
 
 ### Host path
@@ -189,7 +189,7 @@ $ helm install --name my-release --set persistence.drupal.existingClaim=PVC_NAME
 1. Install the chart
 
     ```bash
-    $ helm install --name my-release --set persistence.drupal.hostPath=/PATH/TO/HOST/MOUNT stable/drupal
+    $ helm install --name my-release --set persistence.drupal.hostPath=/PATH/TO/HOST/MOUNT bitnami-azure/drupal
     ```
 
     This will mount the `drupal-data` volume into the `hostPath` directory. The site data will be persisted if the mount path contains valid data, else the site data will be initialized at first launch.

@@ -12,12 +12,12 @@ $ helm repo add bitnami-azure https://charts.bitnami.com/azure
 ## TL;DR;
 
 ```console
-$ helm install bitnami/wildfly
+$ helm install bitnami-azure/wildfly
 ```
 
 ## Introduction
 
-This chart bootstraps a [WildFly](https://github.com/bitnami/bitnami-docker-wildfly) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [WildFly](https://github.com/bitnami-azure/bitnami-docker-wildfly) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -31,7 +31,7 @@ Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment
 To install the chart with the release name `my-release`:
 
 ```console
-$ helm install --name my-release bitnami/wildfly
+$ helm install --name my-release bitnami-azure/wildfly
 ```
 
 The command deploys WildFly on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -56,10 +56,10 @@ The following tables lists the configurable parameters of the WildFly chart and 
 |---------------------------------|----------------------------------------|------------------------------------------------------------|
 | `global.imageRegistry`          | Global Docker image registry           | `nil`                                                      |
 | `image.registry`                | WildFly image registry                 | `docker.io`                                                |
-| `image.repository`              | WildFly Image name                     | `bitnami/wildfly`                                          |
+| `image.repository`              | WildFly Image name                     | `bitnami-azure/wildfly`                                          |
 | `image.tag`                     | WildFly Image tag                      | `{VERSION}`                                                |
 | `image.pullPolicy`              | WildFly image pull policy              | `Always` if `imageTag` is `latest`, else `IfNotPresent`    |
-| `image.pullSecrets`             | Specify image pull secrets             | `nil` (does not add image pull secrets to deployed pods)   |
+| `image.pullSecrets`             | Specify docker-registry secret names as an array | `[]` (does not add image pull secrets to deployed pods)   |
 | `wildflyUsername`               | WildFly admin user                     | `user`                                                     |
 | `wildflyPassword`               | WildFly admin password                 | _random 10 character alphanumeric string_                  |
 | `securityContext.enabled`       | Enable security context                | `true`                                                     |
@@ -78,14 +78,14 @@ The following tables lists the configurable parameters of the WildFly chart and 
 | `persistence.size`              | PVC Storage Request for WildFly volume | `8Gi`                                                      |
 | `resources`                     | CPU/Memory resource requests/limits    | Memory: `512Mi`, CPU: `300m`                               |
 
-The above parameters map to the env variables defined in [bitnami/wildfly](http://github.com/bitnami/bitnami-docker-wildfly). For more information please refer to the [bitnami/wildfly](http://github.com/bitnami/bitnami-docker-wildfly) image documentation.
+The above parameters map to the env variables defined in [bitnami-azure/wildfly](http://github.com/bitnami-azure/bitnami-docker-wildfly). For more information please refer to the [bitnami-azure/wildfly](http://github.com/bitnami-azure/bitnami-docker-wildfly) image documentation.
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
 ```console
 $ helm install --name my-release \
   --set wildflyUser=manager,wildflyPassword=password \
-    bitnami/wildfly
+    bitnami-azure/wildfly
 ```
 
 The above command sets the WildFly management username and password to `manager` and `password` respectively.
@@ -93,14 +93,14 @@ The above command sets the WildFly management username and password to `manager`
 Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example,
 
 ```console
-$ helm install --name my-release -f values.yaml bitnami/wildfly
+$ helm install --name my-release -f values.yaml bitnami-azure/wildfly
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)
 
 ## Persistence
 
-The [Bitnami WildFly](https://github.com/bitnami/bitnami-docker-wildfly) image stores the WildFly data and configurations at the `/bitnami/wildfly` path of the container.
+The [Bitnami WildFly](https://github.com/bitnami-azure/bitnami-docker-wildfly) image stores the WildFly data and configurations at the `/bitnami-azure/wildfly` path of the container.
 
 Persistent Volume Claims are used to keep the data across deployments. This is known to work in GCE, AWS, and minikube.
 See the [Configuration](#configuration) section to configure the PVC or to disable persistence.
@@ -112,13 +112,13 @@ See the [Configuration](#configuration) section to configure the PVC or to disab
 WildFly container was moved to a non-root approach. There shouldn't be any issue when upgrading since the corresponding `securityContext` is enabled by default. Both the container image and the chart can be upgraded by running the command below:
 
 ```
-$ helm upgrade my-release stable/wildfly
+$ helm upgrade my-release bitnami-azure/wildfly
 ```
 
 If you use a previous container image (previous to **14.0.1-r75**) disable the `securityContext` by running the command below:
 
 ```
-$ helm upgrade my-release stable/wildfly --set securityContext.enabled=fase,image.tag=XXX
+$ helm upgrade my-release bitnami-azure/wildfly --set securityContext.enabled=fase,image.tag=XXX
 ```
 
 ### To 1.0.0

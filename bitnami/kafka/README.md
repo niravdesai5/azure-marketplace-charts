@@ -12,12 +12,12 @@ $ helm repo add bitnami-azure https://charts.bitnami.com/azure
 ## TL;DR;
 
 ```console
-$ helm install bitnami/kafka
+$ helm install bitnami-azure/kafka
 ```
 
 ## Introduction
 
-This chart bootstraps a [Kafka](https://github.com/bitnami/bitnami-docker-kafka) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [Kafka](https://github.com/bitnami-azure/bitnami-docker-kafka) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -31,7 +31,7 @@ Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment
 To install the chart with the release name `my-release`:
 
 ```console
-$ helm install --name my-release bitnami/kafka
+$ helm install --name my-release bitnami-azure/kafka
 ```
 
 The command deploys Kafka on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -56,10 +56,10 @@ The following tables lists the configurable parameters of the Kafka chart and th
 |----------------------------------|------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------- |
 | `global.imageRegistry`           | Global Docker image registry                                                                               | `nil`                                                              |
 | `image.registry`                 | Kafka image registry                                                                                       | `docker.io`                                                        |
-| `image.repository`               | Kafka Image name                                                                                           | `bitnami/kafka`                                                    |
+| `image.repository`               | Kafka Image name                                                                                           | `bitnami-azure/kafka`                                                    |
 | `image.tag`                      | Kafka Image tag                                                                                            | `{VERSION}`                                                        |
 | `image.pullPolicy`               | Kafka image pull policy                                                                                    | `Always`                                                           |
-| `image.pullSecrets`              | Specify image pull secrets                                                                                 | `nil` (does not add image pull secrets to deployed pods)           |
+| `image.pullSecrets`              | Specify docker-registry secret names as an array                                                           | `[]` (does not add image pull secrets to deployed pods)            |
 | `image.debug`                    | Specify if debug values should be set                                                                      | `false`                                                            |
 | `updateStrategy`                 | Update strategy for the stateful set                                                                       | `1`                                                                |
 | `replicaCount`                   | Number of Kafka nodes                                                                                      | `1`                                                                |
@@ -76,7 +76,7 @@ The following tables lists the configurable parameters of the Kafka chart and th
 | `logRetentionCheckIntervalMs`    | The interval at which log segments are checked to see if they can be deleted.                              | `300000`                                                           |
 | `logRetentionHours`              | The minimum age of a log file to be eligible for deletion due to age.                                      | `168`                                                              |
 | `logSegmentBytes`                | The maximum size of a log segment file. When this size is reached a new log segment will be created.       | `_1073741824`                                                      |
-| `logsDirs`                       | A comma separated list of directories under which to store log files.                                      | `/opt/bitnami/kafka/data`                                          |
+| `logsDirs`                       | A comma separated list of directories under which to store log files.                                      | `/opt/bitnami-azure/kafka/data`                                          |
 | `maxMessageBytes`                       | The largest record batch size allowed by Kafka.                                      | `1000012`                                          |
 | `numIoThreads`                   | The number of threads doing disk I/O.                                                                      | `8`                                                                |
 | `numNetworkThreads`              | The number of threads handling network requests.                                                           | `3`                                                                |
@@ -101,6 +101,7 @@ The following tables lists the configurable parameters of the Kafka chart and th
 | `securityContext.runAsUser`      | User ID for the container                                                                                  | `1001`                                                             |
 | `service.type`                   | Kubernetes Service type                                                                                    | `ClusterIP`                                                        |
 | `service.port`                   | Kafka port                                                                                                 | `9092`                                                             |
+| `service.annotations`            | Service annotations                          | ``                                                       |
 | `persistence.enabled`            | Enable persistence using PVC                                                                               | `true`                                                             |
 | `persistence.storageClass`       | PVC Storage Class for Kafka volume                                                                         | `nil`                                                              |
 | `persistence.accessMode`         | PVC Access Mode for Kafka volume                                                                           | `ReadWriteOnce`                                                    |
@@ -126,7 +127,7 @@ The following tables lists the configurable parameters of the Kafka chart and th
 | `metrics.kafka.image.repository`      | Kafka exporter image name                                                                             | `danielqsj/kafka-exporter`                                         |
 | `metrics.kafka.image.tag`             | Kafka exporter image tag                                                                              | `v1.0.1`                                                           |
 | `metrics.kafka.image.pullPolicy`      | Kafka exporter image pull policy                                                                      | `Always`                                                           |
-| `metrics.kafka.image.pullSecrets`     | Specify image pull secrets                                                                            | `nil` (does not add image pull secrets to deployed pods)           |
+| `metrics.kafka.image.pullSecrets`     | Specify docker-registry secret names as an array                                                      | `[]` (does not add image pull secrets to deployed pods)            |
 | `metrics.kafka.interval`              | Interval that Prometheus scrapes Kafka metrics when using Prometheus Operator                         | `10s`                                                              |
 | `metrics.kafka.port`                  | Kafka Exporter Port which exposes metrics in Prometheus format for scraping                           | `9308`                                                             |
 | `metrics.kafka.resources`             | Allows setting resource limits for kafka-exporter pod                                                 | `{}`                                                               |
@@ -136,7 +137,7 @@ The following tables lists the configurable parameters of the Kafka chart and th
 | `metrics.jmx.image.repository`        | JMX exporter image name                                                                               | `solsson/kafka-prometheus-jmx-exporter@sha256`                     |
 | `metrics.jmx.image.tag`               | JMX exporter image tag                                                                                | `a23062396cd5af1acdf76512632c20ea6be76885dfc20cd9ff40fb23846557e8` |
 | `metrics.jmx.image.pullPolicy`        | JMX exporter image pull policy                                                                        | `Always`                                                           |
-| `metrics.jmx.image.pullSecrets`       | Specify image pull secrets                                                                            | `nil` (does not add image pull secrets to deployed pods)           |
+| `metrics.jmx.image.pullSecrets`       | Specify docker-registry secret names as an array                                                      | `[]` (does not add image pull secrets to deployed pods)            |
 | `metrics.jmx.interval`                | Interval that Prometheus scrapes JMX metrics when using Prometheus Operator                           | `10s`                                                              |
 | `metrics.jmx.exporterPort`            | JMX Exporter Port which exposes metrics in Prometheus format for scraping                             | `5556`                                                             |
 | `metrics.jmx.configMap.enabled`       | Enable the default ConfigMap for JMX                                                                  | `true`                                                             |
@@ -152,7 +153,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```console
 $ helm install --name my-release \
   --set kafkaPassword=secretpassword,kafkaDatabase=my-database \
-    bitnami/kafka
+    bitnami-azure/kafka
 ```
 
 The above command sets the Kafka `kafka` account password to `secretpassword`. Additionally it creates a database named `my-database`.
@@ -160,7 +161,7 @@ The above command sets the Kafka `kafka` account password to `secretpassword`. A
 Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example,
 
 ```console
-$ helm install --name my-release -f values.yaml bitnami/kafka
+$ helm install --name my-release -f values.yaml bitnami-azure/kafka
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)
@@ -172,7 +173,7 @@ The following repo contains the recommended production settings for Kafka server
 To horizontally scale this chart, first download the [values-production.yaml](values-production.yaml) file to your local folder, then:
 
 ```console
-$ helm install --name my-release -f ./values-production.yaml bitnami/kafka
+$ helm install --name my-release -f ./values-production.yaml bitnami-azure/kafka
 $ kubectl scale statefulset my-kafka-slave --replicas=3
 ```
 
@@ -195,7 +196,7 @@ kubectl create secret generic kafka-certificates --from-file=./kafka.keystore.jk
 As an example of Kafka installed with authentication you can use this command:
 
 ```console
-helm install --name my-release bitnami/kafka --set auth.enabled=true \
+helm install --name my-release bitnami-azure/kafka --set auth.enabled=true \
              --set auth.brokerUser=brokerUser --set auth.brokerPassword=brokerPassword \
              --set auth.interBrokerUser=interBrokerUser --set auth.interBrokerPassword=interBrokerPassword \
              --set auth.zookeeperUser=zookeeperUser --set auth.zookeeperPassword=zookeeperPassword \
@@ -208,7 +209,7 @@ helm install --name my-release bitnami/kafka --set auth.enabled=true \
 
 ## Persistence
 
-The [Bitnami Kafka](https://github.com/bitnami/bitnami-docker-kafka) image stores the Kafka data at the `/bitnami/kafka` path of the container.
+The [Bitnami Kafka](https://github.com/bitnami-azure/bitnami-docker-kafka) image stores the Kafka data at the `/bitnami-azure/kafka` path of the container.
 
 Persistent Volume Claims are used to keep the data across deployments. This is known to work in GCE, AWS, and minikube.
 See the [Configuration](#configuration) section to configure the PVC or to disable persistence.

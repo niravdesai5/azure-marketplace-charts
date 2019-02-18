@@ -12,14 +12,14 @@ $ helm repo add bitnami-azure https://charts.bitnami.com/azure
 ## TL;DR;
 
 ```console
-$ helm install stable/wordpress
+$ helm install bitnami-azure/wordpress
 ```
 
 ## Introduction
 
-This chart bootstraps a [WordPress](https://github.com/bitnami/bitnami-docker-wordpress) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [WordPress](https://github.com/bitnami-azure/bitnami-docker-wordpress) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
-It also packages the [Bitnami MariaDB chart](https://github.com/kubernetes/charts/tree/master/stable/mariadb) which is required for bootstrapping a MariaDB deployment for the database requirements of the WordPress application.
+It also packages the [Bitnami MariaDB chart](https://github.com/kubernetes/charts/tree/master/bitnami-azure/mariadb) which is required for bootstrapping a MariaDB deployment for the database requirements of the WordPress application.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -33,7 +33,7 @@ Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment
 To install the chart with the release name `my-release`:
 
 ```console
-$ helm install --name my-release stable/wordpress
+$ helm install --name my-release bitnami-azure/wordpress
 ```
 
 The command deploys WordPress on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -58,10 +58,10 @@ The following table lists the configurable parameters of the WordPress chart and
 |----------------------------------|--------------------------------------------|---------------------------------------------------------|
 | `global.imageRegistry`           | Global Docker image registry               | `nil`                                                   |
 | `image.registry`                 | WordPress image registry                   | `docker.io`                                             |
-| `image.repository`               | WordPress image name                       | `bitnami/wordpress`                                     |
+| `image.repository`               | WordPress image name                       | `bitnami-azure/wordpress`                                     |
 | `image.tag`                      | WordPress image tag                        | `{VERSION}`                                             |
 | `image.pullPolicy`               | Image pull policy                          | `Always` if `imageTag` is `latest`, else `IfNotPresent` |
-| `image.pullSecrets`              | Specify image pull secrets                 | `nil`                                                   |
+| `image.pullSecrets`              | Specify docker-registry secret names as an array | `[]` (does not add image pull secrets to deployed pods) |
 | `wordpressUsername`              | User of the application                    | `user`                                                  |
 | `wordpressPassword`              | Application password                       | _random 10 character long alphanumeric string_          |
 | `wordpressEmail`                 | Admin email                                | `user@example.com`                                      |
@@ -70,6 +70,8 @@ The following table lists the configurable parameters of the WordPress chart and
 | `wordpressBlogName`              | Blog name                                  | `User's Blog!`                                          |
 | `wordpressTablePrefix`           | Table prefix                               | `wp_`                                                   |
 | `allowEmptyPassword`             | Allow DB blank passwords                   | `true`                                                  |
+| `allowOverrideNone`              | Set Apache AllowOverride directive to None                   | `no`                                                  |
+| `customHTAccessCM`              | Configmap with custom wordpress-htaccess.conf directives                   | `nil`                                                  |
 | `smtpHost`                       | SMTP host                                  | `nil`                                                   |
 | `smtpPort`                       | SMTP port                                  | `nil`                                                   |
 | `smtpUser`                       | SMTP user                                  | `nil`                                                   |
@@ -87,20 +89,23 @@ The following table lists the configurable parameters of the WordPress chart and
 | `externalDatabase.password`      | Password for the above username            | `nil`                                                   |
 | `externalDatabase.database`      | Name of the existing database              | `bitnami_wordpress`                                     |
 | `externalDatabase.port`          | Database port number                       | `3306`                                                  |
-| `service.type`                    | Kubernetes Service type                    | `LoadBalancer`                                          |
-| `service.port`                    | Service HTTP port                    | `80`                                          |
-| `service.httpsPort`                    | Service HTTPS port                    | `443`                                          |
-| `service.externalTrafficPolicy`   | Enable client source IP preservation       | `Cluster`                                               |
-| `service.nodePorts.http`                 | Kubernetes http node port                  | `""`                                                    |
-| `service.nodePorts.https`                | Kubernetes https node port                 | `""`                                                    |
+| `service.annotations`            | Service annotations                        | `{}`                                                    |
+| `service.type`                   | Kubernetes Service type                    | `LoadBalancer`                                          |
+| `service.port`                   | Service HTTP port                          | `80`                                                    |
+| `service.httpsPort`              | Service HTTPS port                         | `443`                                                   |
+| `service.externalTrafficPolicy`  | Enable client source IP preservation       | `Cluster`                                               |
+| `service.nodePorts.http`         | Kubernetes http node port                  | `""`                                                    |
+| `service.nodePorts.https`        | Kubernetes https node port                 | `""`                                                    |
 | `healthcheckHttps`               | Use https for liveliness and readiness     | `false`                                                 |
+| `livenessProbeHeaders`           | Headers to use for livenessProbe           | `nil`                                                   |
+| `readinessProbeHeaders`          | Headers to use for readinessProbe          | `nil`                                                   |
 | `ingress.enabled`                | Enable ingress controller resource         | `false`                                                 |
-| `ingress.hosts[0].name`          | Hostname to your WordPress installation    | `wordpress.local`                                       |
+| `ingress.certManager`            | Add annotations for cert-manager           | `false`                                                 |
+| `ingress.annotations`            | Ingress annotations                        | `[]`                                                    |
+| `ingress.hosts[0].name`          | Hostname to your Wordpress installation    | `wordpress.local`                                       |
 | `ingress.hosts[0].path`          | Path within the url structure              | `/`                                                     |
 | `ingress.hosts[0].tls`           | Utilize TLS backend in ingress             | `false`                                                 |
-| `ingress.hosts[0].certManager`   | Add annotations for cert-manager           | `false`                                                 |
-| `ingress.hosts[0].tlsSecret`     | TLS Secret (certificates)                  | `wordpress.local-tls-secret`                            |
-| `ingress.hosts[0].annotations`   | Annotations for this host's ingress record | `[]`                                                    |
+| `ingress.hosts[0].tlsSecret`     | TLS Secret (certificates)                  | `wordpress.local-tls`                                   |
 | `ingress.secrets[0].name`        | TLS Secret Name                            | `nil`                                                   |
 | `ingress.secrets[0].certificate` | TLS Secret Certificate                     | `nil`                                                   |
 | `ingress.secrets[0].key`         | TLS Secret Key                             | `nil`                                                   |
@@ -112,24 +117,24 @@ The following table lists the configurable parameters of the WordPress chart and
 | `nodeSelector`                   | Node labels for pod assignment             | `{}`                                                    |
 | `tolerations`                    | List of node taints to tolerate            | `[]`                                                    |
 | `affinity`                       | Map of node/pod affinities                 | `{}`                                                    |
-| `podAnnotations`                | Pod annotations                                   | `{}`                                                       |
-| `metrics.enabled`                          | Start a side-car prometheus exporter                                                                           | `false`                                              |
-| `metrics.image.registry`                   | Apache exporter image registry                                                                                  | `docker.io`                                          |
-| `metrics.image.repository`                 | Apache exporter image name                                                                                      | `lusotycoon/apache-exporter`                           |
-| `metrics.image.tag`                        | Apache exporter image tag                                                                                       | `v0.5.0`                                            |
-| `metrics.image.pullPolicy`                 | Image pull policy                                                                                              | `IfNotPresent`                                       |
-| `metrics.image.pullSecrets`                | Specify docker-registry secret names as an array                                                               | `nil`                                                |
-| `metrics.podAnnotations`                   | Additional annotations for Metrics exporter pod                                                                | `{prometheus.io/scrape: "true", prometheus.io/port: "9117"}`                                                   |
-| `metrics.resources`                        | Exporter resource requests/limit                                                                               | {}                        |
+| `podAnnotations`                 | Pod annotations                            | `{}`                                                    |
+| `metrics.enabled`                | Start a side-car prometheus exporter       | `false`                                                 |
+| `metrics.image.registry`         | Apache exporter image registry             | `docker.io`                                             |
+| `metrics.image.repository`       | Apache exporter image name                 | `lusotycoon/apache-exporter`                            |
+| `metrics.image.tag`              | Apache exporter image tag                  | `v0.5.0`                                                |
+| `metrics.image.pullPolicy`       | Image pull policy                          | `IfNotPresent`                                          |
+| `metrics.image.pullSecrets`      | Specify docker-registry secret names as an array        | `[]` (does not add image pull secrets to deployed pods)        |
+| `metrics.podAnnotations`         | Additional annotations for Metrics exporter pod         | `{prometheus.io/scrape: "true", prometheus.io/port: "9117"}`   |
+| `metrics.resources`              | Exporter resource requests/limit           | {}                                                      |
 
-The above parameters map to the env variables defined in [bitnami/wordpress](http://github.com/bitnami/bitnami-docker-wordpress). For more information please refer to the [bitnami/wordpress](http://github.com/bitnami/bitnami-docker-wordpress) image documentation.
+The above parameters map to the env variables defined in [bitnami-azure/wordpress](http://github.com/bitnami-azure/bitnami-docker-wordpress). For more information please refer to the [bitnami-azure/wordpress](http://github.com/bitnami-azure/bitnami-docker-wordpress) image documentation.
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
 ```console
 $ helm install --name my-release \
   --set wordpressUsername=admin,wordpressPassword=password,mariadb.mariadbRootPassword=secretpassword \
-    stable/wordpress
+    bitnami-azure/wordpress
 ```
 
 The above command sets the WordPress administrator account username and password to `admin` and `password` respectively. Additionally, it sets the MariaDB `root` user password to `secretpassword`.
@@ -137,7 +142,7 @@ The above command sets the WordPress administrator account username and password
 Alternatively, a YAML file that specifies the values for the above parameters can be provided while installing the chart. For example,
 
 ```console
-$ helm install --name my-release -f values.yaml stable/wordpress
+$ helm install --name my-release -f values.yaml bitnami-azure/wordpress
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)
@@ -149,19 +154,19 @@ The following repo contains the recommended production settings for wordpress ca
 To horizontally scale this chart, first download the [values-production.yaml](values-production.yaml) file to your local folder, then:
 
 ```console
-$ helm install --name my-release -f ./values-production.yaml stable/wordpress
+$ helm install --name my-release -f ./values-production.yaml bitnami-azure/wordpress
 ```
 
 Note that [values-production.yaml](values-production.yaml) includes a replicaCount of 3, so there will be 3 WordPress pods. As a result, to use the /admin portal and to ensure you can scale wordpress you need to provide a ReadWriteMany PVC, if you don't have a provisioner for this type of storage, we recommend that you install the nfs provisioner and map it to a RWO volume.
 
 ```console
-$ helm install stable/nfs-server-provisioner --set persistence.enabled=true,persistence.size=10Gi
-$ helm install --name my-release -f values-production.yaml --set persistence.storageClass=nfs stable/wordpress
+$ helm install bitnami-azure/nfs-server-provisioner --set persistence.enabled=true,persistence.size=10Gi
+$ helm install --name my-release -f values-production.yaml --set persistence.storageClass=nfs bitnami-azure/wordpress --set mariadb.master.persistence.storageClass=nfs
 ```
 
 ## Persistence
 
-The [Bitnami WordPress](https://github.com/bitnami/bitnami-docker-wordpress) image stores the WordPress data and configurations at the `/bitnami` path of the container.
+The [Bitnami WordPress](https://github.com/bitnami-azure/bitnami-docker-wordpress) image stores the WordPress data and configurations at the `/bitnami` path of the container.
 
 Persistent Volume Claims are used to keep the data across deployments. This is known to work in GCE, AWS, and minikube.
 See the [Configuration](#configuration) section to configure the PVC or to disable persistence.
@@ -171,7 +176,7 @@ See the [Configuration](#configuration) section to configure the PVC or to disab
 Sometimes you may want to have Wordpress connect to an external database rather than installing one inside your cluster, e.g. to use a managed database service, or use run a single database server for all your applications. To do this, the chart allows you to specify credentials for an external database under the [`externalDatabase` parameter](#configuration). You should also disable the MariaDB installation with the `mariadb.enabled` option. For example:
 
 ```console
-$ helm install stable/wordpress \
+$ helm install bitnami-azure/wordpress \
     --set mariadb.enabled=false,externalDatabase.host=myexternalhost,externalDatabase.user=myuser,externalDatabase.password=mypassword,externalDatabase.database=mydatabase,externalDatabase.port=3306
 ```
 
@@ -180,8 +185,8 @@ Note also if you disable MariaDB per above you MUST supply values for the `exter
 ## Ingress
 
 This chart provides support for ingress resources. If you have an
-ingress controller installed on your cluster, such as [nginx-ingress](https://kubeapps.com/charts/stable/nginx-ingress)
-or [traefik](https://kubeapps.com/charts/stable/traefik) you can utilize
+ingress controller installed on your cluster, such as [nginx-ingress](https://kubeapps.com/charts/bitnami-azure/nginx-ingress)
+or [traefik](https://kubeapps.com/charts/bitnami-azure/traefik) you can utilize
 the ingress controller to serve your WordPress application.
 
 To enable ingress integration, please set `ingress.enabled` to `true`
@@ -214,7 +219,7 @@ common use cases:
 
 * helm generates/manages certificate secrets
 * user generates/manages certificates separately
-* an additional tool (like [kube-lego](https://kubeapps.com/charts/stable/kube-lego))
+* an additional tool (like [kube-lego](https://kubeapps.com/charts/bitnami-azure/kube-lego))
 manages the secrets for the application
 
 In the first two cases, one will need a certificate and a key.  We would
@@ -252,6 +257,41 @@ kubectl create secret tls wordpress.local-tls --key /path/to/key.key --cert /pat
 
 Please see [this example](https://github.com/kubernetes/contrib/tree/master/ingress/controllers/nginx/examples/tls)
 for more information.
+
+### Ingress-terminated https
+
+In cases where HTTPS/TLS is terminated on the ingress, you may run into an issue where non-https liveness and readiness probes result in a 302 (redirect from HTTP to HTTPS) and are interpreted by Kubernetes as not-live/not-ready.  (See [Kubernetes issue #47893 on GitHub](https://github.com/kubernetes/kubernetes/issues/47893) for further details about 302 _not_ being interpreted as "successful".)  To work around this problem, use `livenessProbeHeaders` and `readinessProbeHeaders` to pass the same headers that your ingress would pass in order to get an HTTP 200 status result.  For example (where the following is in a `--values`-referenced file):
+
+```
+livenessProbeHeaders:
+- name: X-Forwarded-Proto
+  value: https
+readinessProbeHeaders:
+- name: X-Forwarded-Proto
+  value: https
+```
+
+Any number of name/value pairs may be specified; they are all copied into the liveness or readiness probe definition.
+
+## Disabling `.htaccess`
+
+For performance and security reasons, it is a good practice to configure Apache with `AllowOverride None`. Instead of using `.htaccess` files, Apache will load the same dircetives at boot time. These directives are located in `/opt/bitnami-azure/wordpress/wordpress-htaccess.conf`. The container image includes by default these directives all of the default `.htaccess` files in WordPress (together with the default plugins). To enable this feature, install the chart with the following value:
+
+```
+helm install bitnami-azure/wordpress --set allowOverrideNone=yes
+```
+
+However, some plugins may include `.htaccess` directives that will not be loaded when `AllowOverride` is set to `None`. A way to make them work would be to create your own `wordpress-htaccess.conf` file with all the required dircectives to make the plugin work. After creating it, then create a ConfigMap with it.
+
+```
+kubectl create cm custom-htaccess --from-file=/path/to/wordpress-htaccess.conf
+```
+
+Then, install the chart:
+
+```
+helm install bitnami-azure/wordpress --set allowOverrideNone=yes --set customHTAccessCM=custom-htaccess
+```
 
 ## Upgrading
 

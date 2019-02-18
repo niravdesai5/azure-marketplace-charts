@@ -12,7 +12,7 @@ $ helm repo add bitnami-azure https://charts.bitnami.com/azure
 ## TL;DR;
 
 ```bash
-$ helm install bitnami/nginx-ingress-controller
+$ helm install bitnami-azure/nginx-ingress-controller
 ```
 
 ## Introduction
@@ -32,7 +32,7 @@ Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment
 To install the chart with the release name `my-release`:
 
 ```bash
-$ helm install --name my-release bitnami/nginx-ingress-controller
+$ helm install --name my-release bitnami-azure/nginx-ingress-controller
 ```
 
 The command deploys nginx-ingress-controller on the Kubernetes cluster in the default configuration.
@@ -58,10 +58,10 @@ Parameter | Description | Default
 `global.imageRegistry` | Global Docker image registry | `nil`
 `name` | name of the controller component | `controller`
 `image.registry` | name of the container image registry | `docker.io`
-`image.repository` | controller container image repository | `bitnami/nginx-ingress-controller`
+`image.repository` | controller container image repository | `bitnami-azure/nginx-ingress-controller`
 `image.tag` | controller container image tag | `{VERSION}`
 `image.pullPolicy` | controller container image pull policy | `IfNotPresent`
-`config` | nginx ConfigMap entries | `nil`
+`config` | nginx ConfigMap entries | `use-geoip: "false", use-geoip2: "true"`
 `hostNetwork` | If the nginx deployment / daemonset should run on the host's network namespace. Do not set this when `controller.service.externalIPs` is set and `kube-proxy` is used as there will be a port-conflict for port `80` | false
 `defaultBackendService` | default 404 backend service; required only if `defaultBackend.enabled = false` | `""`
 `electionID` | election ID to use for the status update | `ingress-controller-leader`
@@ -175,7 +175,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```bash
 $ helm install --name my-release \
   --set controller.image.pullPolicy=Always \
-    bitnami/nginx-ingress-controller
+    bitnami-azure/nginx-ingress-controller
 ```
 
 The above command sets the `controller.image.pullPolicy` to `Always`.
@@ -183,7 +183,7 @@ The above command sets the `controller.image.pullPolicy` to `Always`.
 Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example,
 
 ```bash
-$ helm install --name my-release -f values.yaml bitnami/nginx-ingress-controller
+$ helm install --name my-release -f values.yaml bitnami-azure/nginx-ingress-controller
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)

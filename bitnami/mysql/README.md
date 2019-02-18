@@ -12,18 +12,18 @@ $ helm repo add bitnami-azure https://charts.bitnami.com/azure
 ## TL;DR
 
 ```bash
-$ helm install bitnami/mysql
+$ helm install bitnami-azure/mysql
 ```
 
 ## Introduction
 
-This chart bootstraps a [MySQL](https://github.com/bitnami/bitnami-docker-mysql) replication cluster deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [MySQL](https://github.com/bitnami-azure/bitnami-docker-mysql) replication cluster deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
 ## Prerequisites
 
-- Kubernetes 1.4+ with Beta APIs enabled
+- Kubernetes 1.10+
 - PV provisioner support in the underlying infrastructure
 
 ## Installing the Chart
@@ -31,7 +31,7 @@ Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment
 To install the chart with the release name `my-release`:
 
 ```bash
-$ helm install --name my-release bitnami/mysql
+$ helm install --name my-release bitnami-azure/mysql
 ```
 
 The command deploys MySQL on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -56,10 +56,10 @@ The following tables lists the configurable parameters of the MySQL chart and th
 |-------------------------------------------|-------------------------------------------------------|-------------------------------------------------------------------|
 | `global.imageRegistry`                    | Global Docker image registry                          | `nil`                                                             |
 | `image.registry`                          | MySQL image registry                                  | `docker.io`                                                       |
-| `image.repository`                        | MySQL Image name                                      | `bitnami/mysql`                                                   |
+| `image.repository`                        | MySQL Image name                                      | `bitnami-azure/mysql`                                                   |
 | `image.tag`                               | MySQL Image tag                                       | `{VERSION}`                                                       |
 | `image.pullPolicy`                        | MySQL image pull policy                               | `Always` if `imageTag` is `latest`, else `IfNotPresent`           |
-| `image.pullSecrets`                       | Specify image pull secrets                            | `nil` (does not add image pull secrets to deployed pods)          |
+| `image.pullSecrets`                       | Specify docker-registry secret names as an array      | `[]` (does not add image pull secrets to deployed pods)           |
 | `service.type`                            | Kubernetes service type                               | `ClusterIP`                                                       |
 | `service.port`                            | MySQL service port                                    | `3306`                                                            |
 | `root.password`                           | Password for the `root` user                          | _random 10 character alphanumeric string_                         |
@@ -75,7 +75,7 @@ The following tables lists the configurable parameters of the MySQL chart and th
 | `master.antiAffinity`                     | Master pod anti-affinity policy                       | `soft`                                                            |
 | `master.persistence.enabled`              | Enable persistence using a `PersistentVolumeClaim`    | `true`                                                            |
 | `master.persistence.existingClaim`        | Provide an existing `PersistentVolumeClaim`           | `nil`                                                             |
-| `master.persistence.mountPath`            | Configure `PersistentVolumeClaim` mount path          | `/bitnami/mysql`                                                  |
+| `master.persistence.mountPath`            | Configure `PersistentVolumeClaim` mount path          | `/bitnami-azure/mysql`                                                  |
 | `master.persistence.annotations`          | Persistent Volume Claim annotations                   | `{}`                                                              |
 | `master.persistence.storageClass`         | Persistent Volume Storage Class                       | ``                                                                |
 | `master.persistence.accessModes`          | Persistent Volume Access Modes                        | `[ReadWriteOnce]`                                                 |
@@ -97,7 +97,7 @@ The following tables lists the configurable parameters of the MySQL chart and th
 | `slave.replicas`                          | Desired number of slave replicas                      | `1`                                                               |
 | `slave.antiAffinity`                      | Slave pod anti-affinity policy                        | `soft`                                                            |
 | `slave.persistence.enabled`               | Enable persistence using a `PersistentVolumeClaim`    | `true`                                                            |
-| `slave.persistence.mountPath`             | Configure `PersistentVolumeClaim` mount path          | `/bitnami/mysql`                                                  |
+| `slave.persistence.mountPath`             | Configure `PersistentVolumeClaim` mount path          | `/bitnami-azure/mysql`                                                  |
 | `slave.persistence.annotations`           | Persistent Volume Claim annotations                   | `{}`                                                              |
 | `slave.persistence.storageClass`          | Persistent Volume Storage Class                       | ``                                                                |
 | `slave.persistence.accessModes`           | Persistent Volume Access Modes                        | `[ReadWriteOnce]`                                                 |
@@ -122,14 +122,14 @@ The following tables lists the configurable parameters of the MySQL chart and th
 | `metrics.imagePullPolicy`                 | Exporter image pull policy                            | `IfNotPresent`                                                    |
 | `metrics.resources`                       | Exporter resource requests/limit                      | `nil`                                                             |
 
-The above parameters map to the env variables defined in [bitnami/mysql](http://github.com/bitnami/bitnami-docker-mysql). For more information please refer to the [bitnami/mysql](http://github.com/bitnami/bitnami-docker-mysql) image documentation.
+The above parameters map to the env variables defined in [bitnami-azure/mysql](http://github.com/bitnami-azure/bitnami-docker-mysql). For more information please refer to the [bitnami-azure/mysql](http://github.com/bitnami-azure/bitnami-docker-mysql) image documentation.
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
 ```bash
 $ helm install --name my-release \
   --set root.password=secretpassword,user.database=app_database \
-    bitnami/mysql
+    bitnami-azure/mysql
 ```
 
 The above command sets the MySQL `root` account password to `secretpassword`. Additionally it creates a database named `app_database`.
@@ -137,20 +137,20 @@ The above command sets the MySQL `root` account password to `secretpassword`. Ad
 Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example,
 
 ```bash
-$ helm install --name my-release -f values.yaml bitnami/mysql
+$ helm install --name my-release -f values.yaml bitnami-azure/mysql
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)
 
 ## Initialize a fresh instance
 
-The [Bitnami MySQL](https://github.com/bitnami/bitnami-docker-mysql) image allows you to use your custom scripts to initialize a fresh instance. In order to execute the scripts, they must be located inside the chart folder `files/docker-entrypoint-initdb.d` so they can be consumed as a ConfigMap.
+The [Bitnami MySQL](https://github.com/bitnami-azure/bitnami-docker-mysql) image allows you to use your custom scripts to initialize a fresh instance. In order to execute the scripts, they must be located inside the chart folder `files/docker-entrypoint-initdb.d` so they can be consumed as a ConfigMap.
 
 The allowed extensions are `.sh`, `.sql` and `.sql.gz`.
 
 ## Persistence
 
-The [Bitnami MySQL](https://github.com/bitnami/bitnami-docker-mysql) image stores the MySQL data and configurations at the `/bitnami/mysql` path of the container.
+The [Bitnami MySQL](https://github.com/bitnami-azure/bitnami-docker-mysql) image stores the MySQL data and configurations at the `/bitnami-azure/mysql` path of the container.
 
 The chart mounts a [Persistent Volume](kubernetes.io/docs/user-guide/persistent-volumes/) volume at this location. The volume is created using dynamic volume provisioning by default. An existing PersistentVolumeClaim can be defined.
 
@@ -159,7 +159,7 @@ The chart mounts a [Persistent Volume](kubernetes.io/docs/user-guide/persistent-
 It's necessary to set the `root.password` parameter when upgrading for readiness/liveness probes to work properly. When you install this chart for the first time, some notes will be displayed providing the credentials you must use under the 'Administrator credentials' section. Please note down the password and run the command below to upgrade your chart:
 
 ```bash
-$ helm upgrade my-release bitnami/mysql --set root.password=[ROOT_PASSWORD]
+$ helm upgrade my-release bitnami-azure/mysql --set root.password=[ROOT_PASSWORD]
 ```
 
 | Note: you need to substitue the placeholder _[ROOT_PASSWORD]_ with the value obtained in the installation notes.

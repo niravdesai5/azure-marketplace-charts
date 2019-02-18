@@ -12,12 +12,12 @@ $ helm repo add bitnami-azure https://charts.bitnami.com/azure
 ## TL;DR;
 
 ```console
-$ helm install bitnami/memcached
+$ helm install bitnami-azure/memcached
 ```
 
 ## Introduction
 
-This chart bootstraps a [Memcached](https://github.com/bitnami/bitnami-docker-memcached) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [Memcached](https://github.com/bitnami-azure/bitnami-docker-memcached) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -31,7 +31,7 @@ Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment
 To install the chart with the release name `my-release`:
 
 ```console
-$ helm install --name my-release bitnami/memcached
+$ helm install --name my-release bitnami-azure/memcached
 ```
 
 The command deploys Memcached on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -56,10 +56,10 @@ The following tables lists the configurable parameters of the Memcached chart an
 |-----------------------------|-------------------------------------|---------------------------------------------------------- |
 | `global.imageRegistry`      | Global Docker image registry        | `nil`                                                     |
 | `image.registry`            | Memcached image registry            | `docker.io`                                               |
-| `image.repository`          | Memcached Image name                | `bitnami/memcached`                                       |
+| `image.repository`          | Memcached Image name                | `bitnami-azure/memcached`                                       |
 | `image.tag`                 | Memcached Image tag                 | `{VERSION}`                                               |
 | `image.pullPolicy`          | Memcached image pull policy         | `Always` if `imageTag` is `latest`, else `IfNotPresent`   |
-| `image.pullSecrets`         | Specify image pull secrets          | `nil` (does not add image pull secrets to deployed pods)  |
+| `image.pullSecrets`         | Specify docker-registry secret names as an array          | `[]` (does not add image pull secrets to deployed pods)  |
 | `securityContext.enabled`   | Enable security context             | `true`                                                    |
 | `securityContext.fsGroup`   | Group ID for the container          | `1001`                                                    |
 | `securityContext.runAsUser` | User ID for the container           | `1001`                                                    |
@@ -72,17 +72,17 @@ The following tables lists the configurable parameters of the Memcached chart an
 | `metrics.image.repository`                 | MongoDB exporter image name                                                                                      | `prom/memcached-exporter`                           |
 | `metrics.image.tag`                        | MongoDB exporter image tag                                                                                       | `v0.4.1`                                            |
 | `metrics.image.pullPolicy`                 | Image pull policy                                                                                              | `IfNotPresent`                                       |
-| `metrics.image.pullSecrets`                | Specify docker-registry secret names as an array                                                               | `nil`                                                |
+| `metrics.image.pullSecrets`                | Specify docker-registry secret names as an array                                                               | `[]` (does not add image pull secrets to deployed pods)  |
 | `metrics.podAnnotations`                   | Additional annotations for Metrics exporter pod                                                                | {}                                                   |
 | `metrics.resources`                        | Exporter resource requests/limit                                                                               | Memory: `256Mi`, CPU: `100m`                         |
 
 
-The above parameters map to the env variables defined in [bitnami/memcached](http://github.com/bitnami/bitnami-docker-memcached). For more information please refer to the [bitnami/memcached](http://github.com/bitnami/bitnami-docker-memcached) image documentation.
+The above parameters map to the env variables defined in [bitnami-azure/memcached](http://github.com/bitnami-azure/bitnami-docker-memcached). For more information please refer to the [bitnami-azure/memcached](http://github.com/bitnami-azure/bitnami-docker-memcached) image documentation.
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
 ```console
-$ helm install --name my-release --set memcachedUser=user,memcachedPassword=password bitnami/memcached
+$ helm install --name my-release --set memcachedUser=user,memcachedPassword=password bitnami-azure/memcached
 ```
 
 The above command sets the Memcached admin account username and password to `user` and `password` respectively.
@@ -90,7 +90,7 @@ The above command sets the Memcached admin account username and password to `use
 Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example,
 
 ```console
-$ helm install --name my-release -f values.yaml bitnami/memcached
+$ helm install --name my-release -f values.yaml bitnami-azure/memcached
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)

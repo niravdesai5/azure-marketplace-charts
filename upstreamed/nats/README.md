@@ -12,12 +12,12 @@ $ helm repo add bitnami-azure https://charts.bitnami.com/azure
 ## TL;DR
 
 ```bash
-$ helm install stable/nats
+$ helm install bitnami-azure/nats
 ```
 
 ## Introduction
 
-This chart bootstraps a [NATS](https://github.com/bitnami/bitnami-docker-nats) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [NATS](https://github.com/bitnami-azure/bitnami-docker-nats) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -31,7 +31,7 @@ Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment
 To install the chart with the release name `my-release`:
 
 ```bash
-$ helm install --name my-release stable/nats
+$ helm install --name my-release bitnami-azure/nats
 ```
 
 The command deploys NATS on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -56,10 +56,10 @@ The following table lists the configurable parameters of the NATS chart and thei
 | ------------------------------------ | -------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
 | `global.imageRegistry`               | Global Docker image registry                                                                 | `nil`                                                         |
 | `image.registry`                     | NATS image registry                                                                          | `docker.io`                                                   |
-| `image.repository`                   | NATS Image name                                                                              | `bitnami/nats`                                                |
+| `image.repository`                   | NATS Image name                                                                              | `bitnami-azure/nats`                                                |
 | `image.tag`                          | NATS Image tag                                                                               | `{VERSION}`                                                   |
 | `image.pullPolicy`                   | Image pull policy                                                                            | `Always`                                                      |
-| `image.pullSecrets`                  | Specify image pull secrets                                                                   | `nil`                                                         |
+| `image.pullSecrets`                  | Specify docker-registry secret names as an array                                             | `[]` (does not add image pull secrets to deployed pods)       |
 | `auth.enabled`                       | Switch to enable/disable client authentication                                               | `true`                                                        |
 | `auth.user`                          | Client authentication user                                                                   | `nats_cluster`                                                |
 | `auth.password`                      | Client authentication password                                                               | `random alhpanumeric string (10)`                             |
@@ -99,21 +99,21 @@ The following table lists the configurable parameters of the NATS chart and thei
 | `readinessProbe.timeoutSeconds`      | When the probe times out                                                                     | `5`                                                           |
 | `readinessProbe.failureThreshold`    | Minimum consecutive failures for the probe to be considered failed after having succeeded.   | `6`                                                           |
 | `readinessProbe.successThreshold`    | Minimum consecutive successes for the probe to be considered successful after having failed. | `1`                                                           |
-| `client.service.type`                 | Kubernetes Service type (NATS client)                                                        | `ClusterIP`                                                   |
-| `client.service.port`                 | NATS client port                                                                             | `4222`                                                        |
-| `client.service.nodePort`             | Port to bind to for NodePort service type (NATS client)                                      | `nil`                                                         |
-| `client.service.annotations`          | Annotations for NATS client service                                                          | {}                                                            |
-| `client.service.loadBalancerIP`       | loadBalancerIP if NATS client service type is `LoadBalancer`                                 | `nil`                                                         |
-| `cluster.service.type`                | Kubernetes Service type (NATS cluster)                                                       | `ClusterIP`                                                   |
-| `cluster.service.port`                | NATS cluster port                                                                            | `6222`                                                        |
-| `cluster.service.nodePort`            | Port to bind to for NodePort service type (NATS cluster)                                     | `nil`                                                         |
-| `cluster.service.annotations`         | Annotations for NATS cluster service                                                         | {}                                                            |
-| `cluster.service.loadBalancerIP`      | loadBalancerIP if NATS cluster service type is `LoadBalancer`                                | `nil`                                                         |
-| `monitoring.service.type`             | Kubernetes Service type (NATS monitoring)                                                    | `ClusterIP`                                                   |
-| `monitoring.service.port`             | NATS monitoring port                                                                         | `8222`                                                        |
-| `monitoring.service.nodePort`         | Port to bind to for NodePort service type (NATS monitoring)                                  | `nil`                                                         |
-| `monitoring.service.annotations`      | Annotations for NATS monitoring service                                                      | {}                                                            |
-| `monitoring.service.loadBalancerIP`   | loadBalancerIP if NATS monitoring service type is `LoadBalancer`                             | `nil`                                                         |
+| `client.service.type`                | Kubernetes Service type (NATS client)                                                        | `ClusterIP`                                                   |
+| `client.service.port`                | NATS client port                                                                             | `4222`                                                        |
+| `client.service.nodePort`            | Port to bind to for NodePort service type (NATS client)                                      | `nil`                                                         |
+| `client.service.annotations`         | Annotations for NATS client service                                                          | {}                                                            |
+| `client.service.loadBalancerIP`      | loadBalancerIP if NATS client service type is `LoadBalancer`                                 | `nil`                                                         |
+| `cluster.service.type`               | Kubernetes Service type (NATS cluster)                                                       | `ClusterIP`                                                   |
+| `cluster.service.port`               | NATS cluster port                                                                            | `6222`                                                        |
+| `cluster.service.nodePort`           | Port to bind to for NodePort service type (NATS cluster)                                     | `nil`                                                         |
+| `cluster.service.annotations`        | Annotations for NATS cluster service                                                         | {}                                                            |
+| `cluster.service.loadBalancerIP`     | loadBalancerIP if NATS cluster service type is `LoadBalancer`                                | `nil`                                                         |
+| `monitoring.service.type`            | Kubernetes Service type (NATS monitoring)                                                    | `ClusterIP`                                                   |
+| `monitoring.service.port`            | NATS monitoring port                                                                         | `8222`                                                        |
+| `monitoring.service.nodePort`        | Port to bind to for NodePort service type (NATS monitoring)                                  | `nil`                                                         |
+| `monitoring.service.annotations`     | Annotations for NATS monitoring service                                                      | {}                                                            |
+| `monitoring.service.loadBalancerIP`  | loadBalancerIP if NATS monitoring service type is `LoadBalancer`                             | `nil`                                                         |
 | `ingress.enabled`                    | Enable ingress controller resource                                                           | `false`                                                       |
 | `ingress.hosts[0].name`              | Hostname for NATS monitoring                                                                 | `nats.local`                                                  |
 | `ingress.hosts[0].path`              | Path within the url structure                                                                | `/`                                                           |
@@ -130,7 +130,7 @@ The following table lists the configurable parameters of the NATS chart and thei
 | `metrics.image.repository`           | Prometheus metrics exporter image name                                                       | `synadia/prometheus-nats-exporter`                            |
 | `metrics.image.tag`                  | Prometheus metrics exporter image tag                                                        | `0.1.0`                                                       |
 | `metrics.image.pullPolicy`           | Prometheus metrics image pull policy                                                         | `IfNotPresent`                                                |
-| `metrics.image.pullSecrets`          | Prometheus metrics image pull secrets                                                        | `nil`                                                         |
+| `metrics.image.pullSecrets`          | Prometheus metrics image pull secrets                                                        | `[]` (does not add image pull secrets to deployed pods)       |
 | `metrics.port`                       | Prometheus metrics exporter port                                                             | `7777`                                                        |
 | `metrics.podAnnotations`             | Prometheus metrics exporter annotations                                                      | `prometheus.io/scrape: "true"`,  `prometheus.io/port: "7777"` |
 | `metrics.resources`                  | Prometheus metrics exporter resource requests/limit                                          | {}                                                            |
@@ -143,7 +143,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```bash
 $ helm install --name my-release \
   --set auth.enabled=true,auth.user=my-user,auth.password=T0pS3cr3t \
-    stable/nats
+    bitnami-azure/nats
 ```
 
 The above command enables NATS client authentication with `my-user` as user and `T0pS3cr3t` as password credentials.
@@ -151,7 +151,7 @@ The above command enables NATS client authentication with `my-user` as user and 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example,
 
 ```bash
-$ helm install --name my-release -f values.yaml stable/nats
+$ helm install --name my-release -f values.yaml bitnami-azure/nats
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)
@@ -175,8 +175,8 @@ sidecars:
 The [values-production.yaml](values-production.yaml) file consists a configuration to deploy a scalable and high-available NATS deployment for production environments. We recommend that you base your production configuration on this template and adjust the parameters appropriately.
 
 ```console
-$ curl -O https://raw.githubusercontent.com/kubernetes/charts/master/stable/nats/values-production.yaml
-$ helm install --name my-release -f ./values-production.yaml stable/nats
+$ curl -O https://raw.githubusercontent.com/kubernetes/charts/master/bitnami-azure/nats/values-production.yaml
+$ helm install --name my-release -f ./values-production.yaml bitnami-azure/nats
 ```
 
 To horizontally scale this chart, run the following command to scale the number of nodes in your NATS replica set.

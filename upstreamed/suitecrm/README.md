@@ -12,14 +12,14 @@ $ helm repo add bitnami-azure https://charts.bitnami.com/azure
 ## TL;DR;
 
 ```console
-$ helm install stable/suitecrm
+$ helm install bitnami-azure/suitecrm
 ```
 
 ## Introduction
 
-This chart bootstraps a [SuiteCRM](https://github.com/bitnami/bitnami-docker-suitecrm) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [SuiteCRM](https://github.com/bitnami-azure/bitnami-docker-suitecrm) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
-It also packages the [Bitnami MariaDB chart](https://github.com/kubernetes/charts/tree/master/stable/mariadb) which is required for bootstrapping a MariaDB deployment for the database requirements of the SuiteCRM application.
+It also packages the [Bitnami MariaDB chart](https://github.com/kubernetes/charts/tree/master/bitnami-azure/mariadb) which is required for bootstrapping a MariaDB deployment for the database requirements of the SuiteCRM application.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -33,7 +33,7 @@ Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment
 To install the chart with the release name `my-release`:
 
 ```console
-$ helm install --name my-release stable/suitecrm
+$ helm install --name my-release bitnami-azure/suitecrm
 ```
 
 The command deploys SuiteCRM on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -58,10 +58,10 @@ The following table lists the configurable parameters of the SuiteCRM chart and 
 |-------------------------------------|-------------------------------------------------|---------------------------------------------------------|
 | `global.imageRegistry`              | Global Docker image registry                    | `nil`                                                   |
 | `image.registry`                    | SuiteCRM image registry                         | `docker.io`                                             |
-| `image.repository`                  | SuiteCRM image name                             | `bitnami/suitecrm`                                      |
+| `image.repository`                  | SuiteCRM image name                             | `bitnami-azure/suitecrm`                                      |
 | `image.tag`                         | SuiteCRM image tag                              | `{VERSION}`                                             |
 | `image.pullPolicy`                  | Image pull policy                               | `Always` if `imageTag` is `latest`, else `IfNotPresent` |
-| `image.pullSecrets`                 | Specify image pull secrets                      | `nil`                                                   |
+| `image.pullSecrets`                 | Specify docker-registry secret names as an array| `[]` (does not add image pull secrets to deployed pods)|
 | `suitecrmHost`                      | SuiteCRM host to create application URLs        | `nil`                                                   |
 | `suitecrmUsername`                  | User of the application                         | `user`                                                  |
 | `suitecrmPassword`                  | Application password                            | _random 10 character alphanumeric string_               |
@@ -107,7 +107,7 @@ The following table lists the configurable parameters of the SuiteCRM chart and 
 | `metrics.podAnnotations`                   | Additional annotations for Metrics exporter pod                                                                | `{prometheus.io/scrape: "true", prometheus.io/port: "9117"}`                                                   |
 | `metrics.resources`                        | Exporter resource requests/limit                                                                               | {}                        |
 
-The above parameters map to the env variables defined in [bitnami/suitecrm](http://github.com/bitnami/bitnami-docker-suitecrm). For more information please refer to the [bitnami/suitecrm](http://github.com/bitnami/bitnami-docker-suitecrm) image documentation.
+The above parameters map to the env variables defined in [bitnami-azure/suitecrm](http://github.com/bitnami-azure/bitnami-docker-suitecrm). For more information please refer to the [bitnami-azure/suitecrm](http://github.com/bitnami-azure/bitnami-docker-suitecrm) image documentation.
 
 > **Note**:
 >
@@ -128,7 +128,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```console
 $ helm install --name my-release \
   --set suitecrmUsername=admin,suitecrmPassword=password,mariadb.mariadbRootPassword=secretpassword \
-    stable/suitecrm
+    bitnami-azure/suitecrm
 ```
 
 The above command sets the SuiteCRM administrator account username and password to `admin` and `password` respectively. Additionally, it sets the MariaDB `root` user password to `secretpassword`.
@@ -136,14 +136,14 @@ The above command sets the SuiteCRM administrator account username and password 
 Alternatively, a YAML file that specifies the values for the above parameters can be provided while installing the chart. For example,
 
 ```console
-$ helm install --name my-release -f values.yaml stable/suitecrm
+$ helm install --name my-release -f values.yaml bitnami-azure/suitecrm
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)
 
 ## Persistence
 
-The [Bitnami SuiteCRM](https://github.com/bitnami/bitnami-docker-suitecrm) image stores the SuiteCRM data and configurations at the `/bitnami/suitecrm` and `/bitnami/apache` paths of the container.
+The [Bitnami SuiteCRM](https://github.com/bitnami-azure/bitnami-docker-suitecrm) image stores the SuiteCRM data and configurations at the `/bitnami-azure/suitecrm` and `/bitnami-azure/apache` paths of the container.
 
 Persistent Volume Claims are used to keep the data across deployments. This is known to work in GCE, AWS, and minikube.
 See the [Configuration](#configuration) section to configure the PVC or to disable persistence.

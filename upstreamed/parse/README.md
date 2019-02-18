@@ -12,12 +12,12 @@ $ helm repo add bitnami-azure https://charts.bitnami.com/azure
 ## TL;DR;
 
 ```console
-$ helm install stable/parse
+$ helm install bitnami-azure/parse
 ```
 
 ## Introduction
 
-This chart bootstraps a [Parse](https://github.com/bitnami/bitnami-docker-parse) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [Parse](https://github.com/bitnami-azure/bitnami-docker-parse) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -31,7 +31,7 @@ Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment
 To install the chart with the release name `my-release`:
 
 ```console
-$ helm install --name my-release stable/parse
+$ helm install --name my-release bitnami-azure/parse
 ```
 
 The command deploys Parse on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -61,10 +61,10 @@ The following table lists the configurable parameters of the Parse chart and the
 | `service.externalTrafficPolicy`       | Enable client source IP preservation     | `Cluster`                                               |
 | `service.nodePorts.http`              | Kubernetes http node port                | `""`                                                    |
 | `server.image.registry`               | Parse image registry                     | `docker.io`                                             |
-| `server.image.repository`             | Parse image name                         | `bitnami/parse`                                         |
+| `server.image.repository`             | Parse image name                         | `bitnami-azure/parse`                                         |
 | `server.image.tag`                    | Parse image tag                          | `{VERSION}`                                             |
 | `server.image.pullPolicy`             | Image pull policy                        | `Always` if `imageTag` is `latest`, else `IfNotPresent` |
-| `server.image.pullSecrets`            | Specify image pull secrets               | `nil`                                                   |
+| `server.image.pullSecrets`            | Specify docker-registry secret names as an array               | `[]` (does not add image pull secrets to deployed pods) |
 | `server.securityContext.enabled`      | Enable security context for Parse Server | `true`                                                  |
 | `server.securityContext.fsGroup`      | Group ID for Parse Server container      | `1001`                                                  |
 | `server.securityContext.runAsUser`    | User ID for Parse Server container       | `1001`                                                  |
@@ -75,13 +75,13 @@ The following table lists the configurable parameters of the Parse chart and the
 | `server.resources`                    | CPU/Memory resource requests/limits      | Memory: `512Mi`, CPU: `300m`                            |
 | `dashboard.enabled`                   | Enable parse dashboard                   | `true`                                                  |
 | `dashboard.image.registry`            | Dashboard image registry                 | `docker.io`                                             |
-| `dashboard.image.repository`          | Dashboard image name                     | `bitnami/parse-dashboard`                               |
+| `dashboard.image.repository`          | Dashboard image name                     | `bitnami-azure/parse-dashboard`                               |
 | `dashboard.image.tag`                 | Dashboard image tag                      | `{VERSION}`                                             |
 | `dashboard.image.pullPolicy`          | Image pull policy                        | `Always` if `imageTag` is `latest`, else `IfNotPresent` |
 | `dashboard.securityContext.enabled`   | Enable security context for Dashboard    | `true`                                                  |
 | `dashboard.securityContext.fsGroup`   | Group ID for Dashboard container         | `1001`                                                  |
 | `dashboard.securityContext.runAsUser` | User ID for Dashboard container          | `1001`                                                  |
-| `dashboard.image.pullSecrets`         | Specify image pull secrets               | `nil`                                                   |
+| `dashboard.image.pullSecrets`         | Specify docker-registry secret names as an array               | `[]` (does not add image pull secrets to deployed pods) |
 | `dashboard.username`                  | Dashboard username                       | `user`                                                  |
 | `dashboard.password`                  | Dashboard user password                  | `random 10 character alphanumeric string`               |
 | `dashboard.appName`                   | Dashboard application name               | `MyDashboard`                                           |
@@ -97,7 +97,7 @@ The following table lists the configurable parameters of the Parse chart and the
 | `mongodb.persistence.accessMode`      | PVC Access Mode for MongoDB volume       | `ReadWriteOnce`                                         |
 | `mongodb.persistence.size`            | PVC Storage Request for MongoDB volume   | `8Gi`                                                   |
 
-The above parameters map to the env variables defined in [bitnami/parse](http://github.com/bitnami/bitnami-docker-parse). For more information please refer to the [bitnami/parse](http://github.com/bitnami/bitnami-docker-parse) image documentation.
+The above parameters map to the env variables defined in [bitnami-azure/parse](http://github.com/bitnami-azure/bitnami-docker-parse). For more information please refer to the [bitnami-azure/parse](http://github.com/bitnami-azure/bitnami-docker-parse) image documentation.
 
 > **Note**:
 >
@@ -118,7 +118,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```console
 $ helm install --name my-release \
   --set dashboard.username=admin,dashboard.password=password \
-    stable/parse
+    bitnami-azure/parse
 ```
 
 The above command sets the Parse administrator account username and password to `admin` and `password` respectively.
@@ -126,14 +126,14 @@ The above command sets the Parse administrator account username and password to 
 Alternatively, a YAML file that specifies the values for the above parameters can be provided while installing the chart. For example,
 
 ```console
-$ helm install --name my-release -f values.yaml stable/parse
+$ helm install --name my-release -f values.yaml bitnami-azure/parse
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)
 
 ## Persistence
 
-The [Bitnami Parse](https://github.com/bitnami/bitnami-docker-parse) image stores the Parse data and configurations at the `/bitnami/parse` path of the container.
+The [Bitnami Parse](https://github.com/bitnami-azure/bitnami-docker-parse) image stores the Parse data and configurations at the `/bitnami-azure/parse` path of the container.
 
 Persistent Volume Claims are used to keep the data across deployments. This is known to work in GCE, AWS, and minikube.
 See the [Configuration](#configuration) section to configure the PVC or to disable persistence.
@@ -145,13 +145,13 @@ See the [Configuration](#configuration) section to configure the PVC or to disab
 Parse & Parse Dashboard containers were moved to a non-root approach. There shouldn't be any issue when upgrading since the corresponding `securityContext` is enabled by default. Both container images and chart can be upgraded by running the command below:
 
 ```
-$ helm upgrade my-release stable/parse
+$ helm upgrade my-release bitnami-azure/parse
 ```
 
 If you use a previous container image (previous to **3.1.2-r14** for Parse or **1.2.0-r69** for Parse Dashboard), disable the `securityContext` by running the command below:
 
 ```
-$ helm upgrade my-release stable/parse --set server.securityContext.enabled=fase,dashboard.securityContext.enabled=fase,server.image.tag=XXX,dashboard.image.tag=YYY
+$ helm upgrade my-release bitnami-azure/parse --set server.securityContext.enabled=fase,dashboard.securityContext.enabled=fase,server.image.tag=XXX,dashboard.image.tag=YYY
 ```
 
 ### To 3.0.0

@@ -13,7 +13,7 @@ image:
   ## Bitnami Cassandra image tag
   ## ref: https://github.com/bitnami/bitnami-docker-cassandra#supported-tags-and-respective-dockerfile-links
   ##
-  tag: 3.11.3
+  tag: 3.11.4
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
@@ -86,6 +86,11 @@ resources: {}
   #   memory: 4Gi
   #   cpu: 2
 
+## Secret with keystore, keystore password, truststore, truststore password
+# tlsEncryptionSecretName:
+## ConfigMap with custom cassandra configuration files. This overrides any other Cassandra configuration set in the chart
+# existingConfiguration: 
+
 ## Cluster parameters
 ##
 cluster:
@@ -97,6 +102,10 @@ cluster:
   datacenter: dc1
   rack: rack1
   enableRPC: true
+  minimumAvailable: 2 
+  ## Encryption values. NOTE: They require tlsEncryptionSecretName
+  internodeEncryption: none
+  clientEncryption: false
 
 jvm:
   ## Extra JVM Settings
@@ -117,10 +126,10 @@ dbUser:
   # password:
   # existingSecret: 
 
-## Startup CQL commands. Useful for creating a keyspace
+## ConfigMap with cql scripts. Useful for creating a keyspace
 ## and pre-populating data
 ##
-# startupCQL: "CREATE KEYSPACE IF NOT EXISTS example_keyspace WITH REPLICATION = {'class': 'SimpleStrategy', 'replication_factor': 1};"
+# initDBConfigMap: 
 
 ## Liveness and Readiness probe values.
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/

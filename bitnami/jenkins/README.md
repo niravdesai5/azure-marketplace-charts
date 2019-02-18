@@ -12,12 +12,12 @@ $ helm repo add bitnami-azure https://charts.bitnami.com/azure
 ## TL;DR;
 
 ```console
-$ helm install bitnami/jenkins
+$ helm install bitnami-azure/jenkins
 ```
 
 ## Introduction
 
-This chart bootstraps a [Jenkins](https://github.com/bitnami/bitnami-docker-jenkins) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [Jenkins](https://github.com/bitnami-azure/bitnami-docker-jenkins) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -31,7 +31,7 @@ Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment
 To install the chart with the release name `my-release`:
 
 ```console
-$ helm install --name my-release bitnami/jenkins
+$ helm install --name my-release bitnami-azure/jenkins
 ```
 
 The command deploys Jenkins on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -56,13 +56,13 @@ The following tables lists the configurable parameters of the Jenkins chart and 
 |----------------------------|----------------------------------------|---------------------------------------------------------- |
 | `global.imageRegistry`     | Global Docker image registry           | `nil`                                                     |
 | `image.registry`           | Jenkins image registry                 | `docker.io`                                               |
-| `image.repository`         | Jenkins Image name                     | `bitnami/jenkins`                                         |
+| `image.repository`         | Jenkins Image name                     | `bitnami-azure/jenkins`                                         |
 | `image.tag`                | Jenkins Image tag                      | `{VERSION}`                                               |
 | `image.pullPolicy`         | Jenkins image pull policy              | `Always` if `imageTag` is `latest`, else `IfNotPresent`   |
-| `image.pullSecrets`        | Specify image pull secrets             | `nil` (does not add image pull secrets to deployed pods)  |
+| `image.pullSecrets`        | Specify docker-registry secret names as an array             | `[]` (does not add image pull secrets to deployed pods)  |
 | `jenkinsUser`              | User of the application                | `user`                                                    |
 | `jenkinsPassword`          | Application password                   | _random 10 character alphanumeric string_                 |
-| `jenkinsHome`              | Jenkins home directory                 | `/opt/bitnami/jenkins/jenkins_home`                       |
+| `jenkinsHome`              | Jenkins home directory                 | `/opt/bitnami-azure/jenkins/jenkins_home`                       |
 | `disableInitialization`    | Allows to disable the initial Bitnami configuration for Jenkins  | `no`                            |
 | `javaOpts`                 | Customize JVM parameters               | `nil`                                                     |
 | `service.type`                    | Kubernetes Service type                    | `LoadBalancer`                                          |
@@ -83,19 +83,19 @@ The following tables lists the configurable parameters of the Jenkins chart and 
 | `metrics.image.repository`                 | Jenkins exporter image name                                                                                      | `tolleiv/jenkins_exporter`                           |
 | `metrics.image.tag`                        | Jenkins exporter image tag                                                                                       | `latest`                                            |
 | `metrics.image.pullPolicy`                 | Image pull policy                                                                                              | `IfNotPresent`                                       |
-| `metrics.image.pullSecrets`                | Specify docker-registry secret names as an array                                                               | `nil`                                                |
+| `metrics.image.pullSecrets`                | Specify docker-registry secret names as an array        | `[]` (does not add image pull secrets to deployed pods)                                        |
 | `metrics.podAnnotations`                   | Additional annotations for Metrics exporter pod                                                                | `{prometheus.io/scrape: "true", prometheus.io/port: "9118"}`                                                   |
 | `metrics.resources`                        | Exporter resource requests/limit                                                                               | Memory: `256Mi`, CPU: `100m`                         |
 
 
-The above parameters map to the env variables defined in [bitnami/jenkins](http://github.com/bitnami/bitnami-docker-jenkins). For more information please refer to the [bitnami/jenkins](http://github.com/bitnami/bitnami-docker-jenkins) image documentation.
+The above parameters map to the env variables defined in [bitnami-azure/jenkins](http://github.com/bitnami-azure/bitnami-docker-jenkins). For more information please refer to the [bitnami-azure/jenkins](http://github.com/bitnami-azure/bitnami-docker-jenkins) image documentation.
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
 ```console
 $ helm install --name my-release \
   --set jenkinsUsername=admin,jenkinsPassword=password \
-    bitnami/jenkins
+    bitnami-azure/jenkins
 ```
 
 The above command sets the Jenkins administrator account username and password to `admin` and `password` respectively.
@@ -103,14 +103,14 @@ The above command sets the Jenkins administrator account username and password t
 Alternatively, a YAML file that specifies the values for the above parameters can be provided while installing the chart. For example,
 
 ```console
-$ helm install --name my-release -f values.yaml bitnami/jenkins
+$ helm install --name my-release -f values.yaml bitnami-azure/jenkins
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)
 
 ## Persistence
 
-The [Bitnami Jenkins](https://github.com/bitnami/bitnami-docker-jenkins) image stores the Jenkins data and configurations at the `/bitnami/jenkins` path of the container.
+The [Bitnami Jenkins](https://github.com/bitnami-azure/bitnami-docker-jenkins) image stores the Jenkins data and configurations at the `/bitnami-azure/jenkins` path of the container.
 
 Persistent Volume Claims are used to keep the data across deployments. This is known to work in GCE, AWS, and minikube.
 See the [Configuration](#configuration) section to configure the PVC or to disable persistence.

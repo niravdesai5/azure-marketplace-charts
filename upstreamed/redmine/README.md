@@ -12,14 +12,14 @@ $ helm repo add bitnami-azure https://charts.bitnami.com/azure
 ## TL;DR;
 
 ```bash
-$ helm install stable/redmine
+$ helm install bitnami-azure/redmine
 ```
 
 ## Introduction
 
-This chart bootstraps a [Redmine](https://github.com/bitnami/bitnami-docker-redmine) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [Redmine](https://github.com/bitnami-azure/bitnami-docker-redmine) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
-It also packages the [Bitnami MariaDB chart](https://github.com/kubernetes/charts/tree/master/stable/mariadb) and the [PostgreSQL chart](https://github.com/kubernetes/charts/tree/master/stable/postgresql) which are required for bootstrapping a MariaDB/PostgreSQL deployment for the database requirements of the Redmine application.
+It also packages the [Bitnami MariaDB chart](https://github.com/kubernetes/charts/tree/master/bitnami-azure/mariadb) and the [PostgreSQL chart](https://github.com/kubernetes/charts/tree/master/bitnami-azure/postgresql) which are required for bootstrapping a MariaDB/PostgreSQL deployment for the database requirements of the Redmine application.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -33,7 +33,7 @@ Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment
 To install the chart with the release name `my-release`:
 
 ```bash
-$ helm install --name my-release stable/redmine
+$ helm install --name my-release bitnami-azure/redmine
 ```
 
 The command deploys Redmine on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -55,7 +55,7 @@ The command removes all the Kubernetes components associated with the chart and 
 This chart includes the option to use a PostgreSQL database for Redmine instead of MariaDB. To use this, MariaDB must be explicitly disabled and PostgreSQL enabled:
 
 ```
-helm install --name my-release stable/redmine --set databaseType.mariadb=false,databaseType.postgresql=true
+helm install --name my-release bitnami-azure/redmine --set databaseType.mariadb=false,databaseType.postgresql=true
 ```
 
 ## Configuration
@@ -66,10 +66,10 @@ The following table lists the configurable parameters of the Redmine chart and t
 | ----------------------------------- | ------------------------------------------ | ------------------------------------------------------- |
 | `global.imageRegistry`              | Global Docker image registr  y             | `nil`                                                   |
 | `image.registry`                    | Redmine image registry                     | `docker.io`                                             |
-| `image.repository`                  | Redmine image name                         | `bitnami/redmine`                                       |
+| `image.repository`                  | Redmine image name                         | `bitnami-azure/redmine`                                       |
 | `image.tag`                         | Redmine image tag                          | `{VERSION}`                                             |
 | `image.pullPolicy`                  | Image pull policy                          | `Always` if `imageTag` is `latest`, else `IfNotPresent` |
-| `image.pullSecrets`                 | Specify image pull secrets                 | `nil`                                                   |
+| `image.pullSecrets`                 | Specify docker-registry secret names as an array                 | `[]` (does not add image pull secrets to deployed pods)   |
 | `redmineUsername`                   | User of the application                    | `user`                                                  |
 | `redminePassword`                   | Application password                       | _random 10 character long alphanumeric string_          |
 | `redmineEmail`                      | Admin email                                | `user@example.com`                                      |
@@ -111,14 +111,14 @@ The following table lists the configurable parameters of the Redmine chart and t
 | `replicas`                          | The number of pod replicas                 | `1`                                                     |
 | `resources`                         | Resources allocation (Requests and Limits) | `{}`                                                    |
 
-The above parameters map to the env variables defined in [bitnami/redmine](http://github.com/bitnami/bitnami-docker-redmine). For more information please refer to the [bitnami/redmine](http://github.com/bitnami/bitnami-docker-redmine) image documentation.
+The above parameters map to the env variables defined in [bitnami-azure/redmine](http://github.com/bitnami-azure/bitnami-docker-redmine). For more information please refer to the [bitnami-azure/redmine](http://github.com/bitnami-azure/bitnami-docker-redmine) image documentation.
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
 ```bash
 $ helm install --name my-release \
   --set redmineUsername=admin,redminePassword=password,mariadb.mariadbRootPassword=secretpassword \
-    stable/redmine
+    bitnami-azure/redmine
 ```
 
 The above command sets the Redmine administrator account username and password to `admin` and `password` respectively. Additionally, it sets the MariaDB `root` user password to `secretpassword`.
@@ -126,7 +126,7 @@ The above command sets the Redmine administrator account username and password t
 Alternatively, a YAML file that specifies the values for the above parameters can be provided while installing the chart. For example,
 
 ```bash
-$ helm install --name my-release -f values.yaml stable/redmine
+$ helm install --name my-release -f values.yaml bitnami-azure/redmine
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)
@@ -140,7 +140,7 @@ must be set to `1`. If the persistent volume supports more than one writer
 
 ## Persistence
 
-The [Bitnami Redmine](https://github.com/bitnami/bitnami-docker-redmine) image stores the Redmine data and configurations at the `/bitnami/redmine` path of the container.
+The [Bitnami Redmine](https://github.com/bitnami-azure/bitnami-docker-redmine) image stores the Redmine data and configurations at the `/bitnami-azure/redmine` path of the container.
 
 Persistent Volume Claims are used to keep the data across deployments. This is known to work in GCE, AWS, and minikube. The volume is created using dynamic volume provisioning. Clusters configured with NFS mounts require manually managed volumes and claims.
 

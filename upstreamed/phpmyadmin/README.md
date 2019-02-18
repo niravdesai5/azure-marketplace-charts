@@ -12,12 +12,12 @@ $ helm repo add bitnami-azure https://charts.bitnami.com/azure
 ## TL;DR
 
 ```console
-$ helm install stable/phpmyadmin
+$ helm install bitnami-azure/phpmyadmin
 ```
 
 ## Introduction
 
-This chart bootstraps a [phpMyAdmin](https://github.com/bitnami/bitnami-docker-phpmyadmin) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [phpMyAdmin](https://github.com/bitnami-azure/bitnami-docker-phpmyadmin) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -30,7 +30,7 @@ Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment
 To install the chart with the release name `my-release`:
 
 ```console
-$ helm install --name my-release stable/phpmyadmin
+$ helm install --name my-release bitnami-azure/phpmyadmin
 ```
 
 The command deploys phpMyAdmin on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -55,10 +55,10 @@ The following table lists the configurable parameters of the phpMyAdmin chart an
 |----------------------------|------------------------------------------|---------------------------------------------------------|
 | `global.imageRegistry`     | Global Docker image registry             | `nil`                                                   |
 | `image.registry`           | phpMyAdmin image registry                | `docker.io`                                             |
-| `image.repository`         | phpMyAdmin image name                    | `bitnami/phpmyadmin`                                    |
+| `image.repository`         | phpMyAdmin image name                    | `bitnami-azure/phpmyadmin`                                    |
 | `image.tag`                | phpMyAdmin image tag                     | `{VERSION}`                                             |
 | `image.pullPolicy`         | Image pull policy                        | `IfNotPresent`                                          |
-| `image.pullSecrets`        | Specify image pull secrets               | `nil`                                                   |
+| `image.pullSecrets`        | Specify docker-registry secret names as an array               | `[]` (does not add image pull secrets to deployed pods)                                                   |
 | `service.type`             | Type of service for phpMyAdmin frontend  | `ClusterIP`                                             |
 | `service.port`             | Port to expose service                   | `80`                                                    |
 | `db.port`                  | Database port to use to connect          | `3306`                                                  |
@@ -80,17 +80,17 @@ The following table lists the configurable parameters of the phpMyAdmin chart an
 | `metrics.image.repository`                 | Apache exporter image name                                                                                      | `lusotycoon/apache-exporter`                           |
 | `metrics.image.tag`                        | Apache exporter image tag                                                                                       | `v0.5.0`                                            |
 | `metrics.image.pullPolicy`                 | Image pull policy                                                                                              | `IfNotPresent`                                       |
-| `metrics.image.pullSecrets`                | Specify docker-registry secret names as an array                                                               | `nil`                                                |
+| `metrics.image.pullSecrets`                | Specify docker-registry secret names as an array                                                               | `[]` (does not add image pull secrets to deployed pods)  |
 | `metrics.podAnnotations`                   | Additional annotations for Metrics exporter pod                                                                | `{prometheus.io/scrape: "true", prometheus.io/port: "9117"}`                                                   |
 | `metrics.resources`                        | Exporter resource requests/limit                                                                               | {}                        |
 
-For more information please refer to the [bitnami/phpmyadmin](http://github.com/bitnami/bitnami-docker-Phpmyadmin) image documentation.
+For more information please refer to the [bitnami-azure/phpmyadmin](http://github.com/bitnami-azure/bitnami-docker-Phpmyadmin) image documentation.
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
 ```console
 $ helm install --name my-release \
-  --set db.host=mymariadb,db.port=3306 stable/phpmyadmin
+  --set db.host=mymariadb,db.port=3306 bitnami-azure/phpmyadmin
 ```
 
 The above command sets the phpMyAdmin to connect to a database in `mymariadb` host and `3306` port respectively.
@@ -98,7 +98,7 @@ The above command sets the phpMyAdmin to connect to a database in `mymariadb` ho
 Alternatively, a YAML file that specifies the values for the above parameters can be provided while installing the chart. For example,
 
 ```console
-$ helm install --name my-release -f values.yaml stable/phpmyadmin
+$ helm install --name my-release -f values.yaml bitnami-azure/phpmyadmin
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)

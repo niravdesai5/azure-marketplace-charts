@@ -12,14 +12,14 @@ $ helm repo add bitnami-azure https://charts.bitnami.com/azure
 ## TL;DR;
 
 ```console
-$ helm install stable/ghost
+$ helm install bitnami-azure/ghost
 ```
 
 ## Introduction
 
-This chart bootstraps a [Ghost](https://github.com/bitnami/bitnami-docker-ghost) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [Ghost](https://github.com/bitnami-azure/bitnami-docker-ghost) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
-It also packages the [Bitnami MariaDB chart](https://github.com/kubernetes/charts/tree/master/stable/mariadb) which is required for bootstrapping a MariaDB deployment for the database requirements of the Ghost application.
+It also packages the [Bitnami MariaDB chart](https://github.com/kubernetes/charts/tree/master/bitnami-azure/mariadb) which is required for bootstrapping a MariaDB deployment for the database requirements of the Ghost application.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -33,7 +33,7 @@ Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment
 To install the chart with the release name `my-release`:
 
 ```console
-$ helm install --name my-release stable/ghost
+$ helm install --name my-release bitnami-azure/ghost
 ```
 
 The command deploys Ghost on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -58,37 +58,44 @@ The following table lists the configurable parameters of the Ghost chart and the
 |-------------------------------------|---------------------------------------------------------------|----------------------------------------------------------|
 | `global.imageRegistry`              | Global Docker image registry                                  | `nil`                                                    |
 | `image.registry`                    | Ghost image registry                                          | `docker.io`                                              |
-| `image.repository`                  | Ghost Image name                                              | `bitnami/ghost`                                          |
+| `image.repository`                  | Ghost Image name                                              | `bitnami-azure/ghost`                                          |
 | `image.tag`                         | Ghost Image tag                                               | `{VERSION}`                                              |
 | `image.pullPolicy`                  | Image pull policy                                             | `Always` if `imageTag` is `latest`, else `IfNotPresent`  |
-| `image.pullSecrets`                 | Specify image pull secrets                                    | `nil`                                                    |
+| `image.pullSecrets`                 | Specify docker-registry secret names as an array              | `[]` (does not add image pull secrets to deployed pods)  |
 | `volumePermissions.image.registry`  | Init container volume-permissions image registry              | `docker.io`                                              |
-| `volumePermissions.image.repository`| Init container volume-permissions image name                  | `bitnami/minideb`                                        |
+| `volumePermissions.image.repository`| Init container volume-permissions image name                  | `bitnami-azure/minideb`                                        |
 | `volumePermissions.image.tag`       | Init container volume-permissions image tag                   | `latest`                                                 |
 | `volumePermissions.image.pullPolicy`| Init container volume-permissions image pull policy           | `Always`                                                 |
 | `ghostHost`                         | Ghost host to create application URLs                         | `nil`                                                    |
+| `ghostProtocol`                     | Protocol (http or https) to use in the application URLs       | `http`                                                   |
 | `ghostPath`                         | Ghost path to create application URLs                         | `nil`                                                    |
 | `ghostUsername`                     | User of the application                                       | `user@example.com`                                       |
 | `ghostPassword`                     | Application password                                          | Randomly generated                                       |
 | `ghostEmail`                        | Admin email                                                   | `user@example.com`                                       |
 | `ghostBlogTitle`                    | Ghost Blog name                                               | `User's Blog`                                            |
+| `smtpHost`                          | SMTP host                                                     | `nil`                                                    |
+| `smtpPort`                          | SMTP port                                                     | `nil`                                                    |
+| `smtpUser`                          | SMTP user                                                     | `nil`                                                    |
+| `smtpPassword`                      | SMTP password                                                 | `nil`                                                    |
+| `smtpFromAddress`                   | SMTP from address                                             | `nil`                                                    |
+| `smtpService`                       | SMTP service                                                  | `nil`                                                    |
 | `allowEmptyPassword`                | Allow DB blank passwords                                      | `yes`                                                    |
-| `serviceType`                       | Kubernetes Service type                                       | `LoadBalancer`                                           |
 | `securityContext.enabled`           | Enable security context                                       | `true`                                                   |
 | `securityContext.fsGroup`           | Group ID for the container                                    | `1001`                                                   |
 | `securityContext.runAsUser`         | User ID for the container                                     | `1001`                                                   |
-| `service.type`                    | Kubernetes Service type                    | `LoadBalancer`                                          |
-| `service.port`                    | Service HTTP port                    | `80`                                          |
-| `service.nodePorts.http`                 | Kubernetes http node port                  | `""`                                                    |
-| `service.externalTrafficPolicy`      | Enable client source IP preservation                       | `Cluster`                                     |
-| `service.loadBalancerIP`      | LoadBalancerIP for the Ghost service                       | ``                                     |
+| `service.type`                      | Kubernetes Service type                                       | `LoadBalancer`                                           |
+| `service.port`                      | Service HTTP port                                             | `80`                                                     |
+| `service.nodePorts.http`            | Kubernetes http node port                                     | `""`                                                     |
+| `service.externalTrafficPolicy`     | Enable client source IP preservation                          | `Cluster`                                                |
+| `service.loadBalancerIP`            | LoadBalancerIP for the Ghost service                          | ``                                                       |
+| `service.annotations`            | Service annotations                          | ``                                                       |
 | `ingress.enabled`                   | Enable ingress controller resource                            | `false`                                                  |
+| `ingress.annotations`               | Ingress annotations                                           | `[]`                                                     |
+| `ingress.certManager`               | Add annotations for cert-manager                              | `false`                                                  |
 | `ingress.hosts[0].name`             | Hostname to your Ghost installation                           | `ghost.local`                                            |
 | `ingress.hosts[0].path`             | Path within the url structure                                 | `/`                                                      |
 | `ingress.hosts[0].tls`              | Utilize TLS backend in ingress                                | `false`                                                  |
-| `ingress.hosts[0].certManager`      | Add annotations for cert-manager                              | `false`                                                  |
 | `ingress.hosts[0].tlsSecret`        | TLS Secret (certificates)                                     | `ghost.local-tls-secret`                                 |
-| `ingress.hosts[0].annotations`      | Annotations for this host's ingress record                    | `[]`                                                     |
 | `ingress.secrets[0].name`           | TLS Secret Name                                               | `nil`                                                    |
 | `ingress.secrets[0].certificate`    | TLS Secret Certificate                                        | `nil`                                                    |
 | `ingress.secrets[0].key`            | TLS Secret Key                                                | `nil`                                                    |
@@ -109,7 +116,7 @@ The following table lists the configurable parameters of the Ghost chart and the
 | `persistence.path`                  | Path to mount the volume at, to use other images              | `/bitnami`                                               |
 | `resources`                         | CPU/Memory resource requests/limits                           | Memory: `512Mi`, CPU: `300m`                             |
 
-The above parameters map to the env variables defined in [bitnami/ghost](http://github.com/bitnami/bitnami-docker-ghost). For more information please refer to the [bitnami/ghost](http://github.com/bitnami/bitnami-docker-ghost) image documentation.
+The above parameters map to the env variables defined in [bitnami-azure/ghost](http://github.com/bitnami-azure/bitnami-docker-ghost). For more information please refer to the [bitnami-azure/ghost](http://github.com/bitnami-azure/bitnami-docker-ghost) image documentation.
 
 > **Note**:
 >
@@ -130,7 +137,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```console
 $ helm install --name my-release \
   --set ghostUsername=admin,ghostPassword=password,mariadb.mariadbRootPassword=secretpassword \
-    stable/ghost
+    bitnami-azure/ghost
 ```
 
 The above command sets the Ghost administrator account username and password to `admin` and `password` respectively. Additionally, it sets the MariaDB `root` user password to `secretpassword`.
@@ -138,7 +145,7 @@ The above command sets the Ghost administrator account username and password to 
 Alternatively, a YAML file that specifies the values for the above parameters can be provided while installing the chart. For example,
 
 ```console
-$ helm install --name my-release -f values.yaml stable/ghost
+$ helm install --name my-release -f values.yaml bitnami-azure/ghost
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)
@@ -148,13 +155,13 @@ $ helm install --name my-release -f values.yaml stable/ghost
 Sometimes you may want to have Ghost connect to an external database rather than installing one inside your cluster, e.g. to use a managed database service, or use run a single database server for all your applications. To do this, the chart allows you to specify credentials for an external database under the [`externalDatabase` parameter](#configuration). You should also disable the MariaDB installation with the `mariadb.enabled` option. For example:
 
 ```console
-$ helm install stable/ghost \
+$ helm install bitnami-azure/ghost \
     --set mariadb.enabled=false,externalDatabase.host=myexternalhost,externalDatabase.user=myuser,externalDatabase.password=mypassword,externalDatabase.database=mydatabase
 ```
 
 ## Persistence
 
-The [Bitnami Ghost](https://github.com/bitnami/bitnami-docker-ghost) image stores the Ghost data and configurations at the `/bitnami/ghost` and `/bitnami/apache` paths of the container.
+The [Bitnami Ghost](https://github.com/bitnami-azure/bitnami-docker-ghost) image stores the Ghost data and configurations at the `/bitnami-azure/ghost` and `/bitnami-azure/apache` paths of the container.
 
 Persistent Volume Claims are used to keep the data across deployments. This is known to work in GCE, AWS, and minikube.
 See the [Configuration](#configuration) section to configure the PVC or to disable persistence.

@@ -12,12 +12,12 @@ $ helm repo add bitnami-azure https://charts.bitnami.com/azure
 ## TL;DR;
 
 ```console
-$ helm install bitnami/metrics-server
+$ helm install bitnami-azure/metrics-server
 ```
 
 ## Introduction
 
-This chart bootstraps a [Metrics Server](https://github.com/bitnami/bitnami-docker-metrics-server) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [Metrics Server](https://github.com/bitnami-azure/bitnami-docker-metrics-server) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -31,7 +31,7 @@ Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment
 To install the chart with the release name `my-release`:
 
 ```console
-$ helm install --name my-release bitnami/metrics-server
+$ helm install --name my-release bitnami-azure/metrics-server
 ```
 
 The command deploys Metrics Server on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -56,7 +56,7 @@ The following tables lists the configurable parameters of the Metrics Server cha
 |--------------------------|-----------------------------------------------------------------------------|----------------------------------------|
 | `global.imageRegistry`   | Global Docker image registry                                                | `nil`                                  |
 | `image.registry`         | Metrics Server image registry                                               | `docker.io`                            |
-| `image.repository`       | Metrics Server image name                                                   | `bitnami/metrics-server`               |
+| `image.repository`       | Metrics Server image name                                                   | `bitnami-azure/metrics-server`               |
 | `image.tag`              | Metrics Server image tag                                                    | `{VERSION}`                            |
 | `image.pullPolicy`       | Metrics Server image pull policy                                            | `Always`                               |
 | `securePort`             | Port where metrics-server will be running                                   | `8443`                                 |
@@ -74,7 +74,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 
 ```console
 $ helm install --name my-release \
-  --set rbac.create=true bitnami/metrics-server
+  --set rbac.create=true bitnami-azure/metrics-server
 ```
 
 The above command enables RBAC authentication.
@@ -82,7 +82,7 @@ The above command enables RBAC authentication.
 Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example,
 
 ```console
-$ helm install --name my-release -f values.yaml bitnami/metrics-server
+$ helm install --name my-release -f values.yaml bitnami-azure/metrics-server
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)
@@ -94,7 +94,7 @@ $ helm install --name my-release -f values.yaml bitnami/metrics-server
 In order to enable Role-based access control for Metrics Servier you can run the following command:
 
 ```console
-$ helm install --name my-release --set rbac.create bitnami/metrics-server
+$ helm install --name my-release --set rbac.create bitnami-azure/metrics-server
 ```
 ## Upgrading
 

@@ -12,14 +12,14 @@ $ helm repo add bitnami-azure https://charts.bitnami.com/azure
 ## TL;DR;
 
 ```console
-$ helm install stable/moodle
+$ helm install bitnami-azure/moodle
 ```
 
 ## Introduction
 
-This chart bootstraps a [Moodle](https://github.com/bitnami/bitnami-docker-moodle) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [Moodle](https://github.com/bitnami-azure/bitnami-docker-moodle) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
-It also packages the [Bitnami MariaDB chart](https://github.com/kubernetes/charts/tree/master/stable/mariadb) which is required for bootstrapping a MariaDB deployment for the database requirements of the Moodle application.
+It also packages the [Bitnami MariaDB chart](https://github.com/kubernetes/charts/tree/master/bitnami-azure/mariadb) which is required for bootstrapping a MariaDB deployment for the database requirements of the Moodle application.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -33,7 +33,7 @@ Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment
 To install the chart with the release name `my-release`:
 
 ```console
-$ helm install --name my-release stable/moodle
+$ helm install --name my-release bitnami-azure/moodle
 ```
 
 The command deploys Moodle on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -56,89 +56,89 @@ The following table lists the configurable parameters of the Moodle chart and th
 
 |              Parameter                |                                       Description                                            |                   Default                               |
 |---------------------------------------|----------------------------------------------------------------------------------------------|-------------------------------------------------------- |
-| `global.imageRegistry`                | Global Docker image registry                                                                 | `nil`                                                   |
-| `image.registry`                      | Moodle image registry                                                                        | `docker.io`                                             |
-| `image.repository`                    | Moodle Image name                                                                            | `bitnami/moodle`                                        |
-| `image.tag`                           | Moodle Image tag                                                                             | `{VERSION}`                                             |
-| `image.pullPolicy`                    | Image pull policy                                                                            | `Always` if `imageTag` is `latest`, else `IfNotPresent` |
-| `image.pullSecrets`                   | Specify image pull secrets                                                                   | `nil`                                                   |
-| `moodleUsername`                      | User of the application                                                                      | `user`                                                  |
-| `moodlePassword`                      | Application password                                                                         | _random 10 character alphanumeric string_               |
-| `moodleEmail`                         | Admin email                                                                                  | `user@example.com`                                      |
-| `smtpHost`                            | SMTP host                                                                                    | `nil`                                                   |
-| `smtpPort`                            | SMTP port                                                                                    | `nil` (but moodle internal default is 25)               |
-| `smtpProtocol`                        | SMTP Protocol (options: ssl,tls, nil)                                                        | `nil`                                                   |
-| `smtpUser`                            | SMTP user                                                                                    | `nil`                                                   |
-| `smtpPassword`                        | SMTP password                                                                                | `nil`                                                   |
-| `service.type`                    | Kubernetes Service type                    | `LoadBalancer`                                          |
-| `service.port`                    | Service HTTP port                    | `80`                                          |
-| `service.httpsPort`                    | Service HTTPS port                    | `443`                                          |
-| `service.externalTrafficPolicy`   | Enable client source IP preservation       | `Cluster`                                               |
-| `service.nodePorts.http`                 | Kubernetes http node port                  | `""`                                                    |
-| `service.nodePorts.https`                | Kubernetes https node port                 | `""`                                                    |
-| `ingress.enabled`                     | Enable ingress controller resource                                                           | `false`                                                 |
-| `ingress.hosts[0].name`               | Hostname to your Moodle installation                                                         | `moodle.local`                                          |
-| `ingress.hosts[0].path`               | Path within the url structure                                                                | `/`                                                     |
-| `ingress.hosts[0].tls`                | Utilize TLS backend in ingress                                                               | `false`                                                 |
-| `ingress.hosts[0].certManager`        | Add annotations for cert-manager                                                             | `false`                                                 |
-| `ingress.hosts[0].tlsSecret`          | TLS Secret (certificates)                                                                    | `moodle.local-tls-secret`                               |
-| `ingress.hosts[0].annotations`        | Annotations for this host's ingress record                                                   | `[]`                                                    |
-| `ingress.secrets[0].name`             | TLS Secret Name                                                                              | `nil`                                                   |
-| `ingress.secrets[0].certificate`      | TLS Secret Certificate                                                                       | `nil`                                                   |
-| `ingress.secrets[0].key`              | TLS Secret Key                                                                               | `nil`                                                   |
-| `affinity`                            | Set affinity for the moodle pods                                                             | `nil`                                                   |
-| `resources`                           | CPU/Memory resource requests/limits                                                          | Memory: `512Mi`, CPU: `300m`                            |
-| `persistence.enabled`                 | Enable persistence using PVC                                                                 | `true`                                                  |
-| `persistence.storageClass`            | PVC Storage Class for Moodle volume                                                          | `nil` (uses alpha storage class annotation)             |
-| `persistence.accessMode`              | PVC Access Mode for Moodle volume                                                            | `ReadWriteOnce`                                         |
-| `persistence.size`                    | PVC Storage Request for Moodle volume                                                        | `8Gi`                                                   |
-| `persistence.existingClaim`           | If PVC exists&bounded for Moodle                                                             | `nil` (when nil, new one is requested)                  |
-| `allowEmptyPassword`                  | Allow DB blank passwords                                                                     | `yes`                                                   |
-| `externalDatabase.host`               | Host of the external database                                                                | `nil`                                                   |
-| `externalDatabase.port`               | Port of the external database                                                                | `3306`                                                  |
-| `externalDatabase.user`               | Existing username in the external db                                                         | `bn_moodle`                                             |
-| `externalDatabase.password`           | Password for the above username                                                              | `nil`                                                   |
-| `externalDatabase.database`           | Name of the existing database                                                                | `bitnami_moodle`                                        |
-| `mariadb.enabled`                     | Whether to install the MariaDB chart                                                         | `true`                                                  |
-| `mariadb.db.name`                     | Database name to create                                                                      | `bitnami_moodle`                                        |
-| `mariadb.db.user`                     | Database user to create                                                                      | `bn_moodle`                                             |
-| `mariadb.db.password`                 | Password for the database                                                                    | `nil`                                                   |
-| `mariadb.rootUser.password`           | MariaDB admin password                                                                       | `nil`                                                   |
-| `mariadb.persistence.enabled`         | Enable MariaDB persistence using PVC                                                         | `true`                                                  |
-| `mariadb.persistence.storageClass`    | PVC Storage Class for MariaDB volume                                                         | `generic`                                               |
-| `mariadb.persistence.accessMode`      | PVC Access Mode for MariaDB volume                                                           | `ReadWriteOnce`                                         |
-| `mariadb.persistence.size`            | PVC Storage Request for MariaDB volume                                                       | `8Gi`                                                   |
-| `mariadb.persistence.existingClaim`   | If PVC exists&bounded for MariaDB                                                            | `nil` (when nil, new one is requested)                  |
-| `mariadb.affinity`                    | Set affinity for the MariaDB pods                                                            | `nil`                                                   |
-| `mariadb.resources`                   | CPU/Memory resource requests/limits                                                          | Memory: `256Mi`, CPU: `250m`                            |
-| `livenessProbe.initialDelaySeconds`   | Delay before liveness probe is initiated                                                     | 600                                                     |
-| `livenessProbe.periodSeconds`         | How often to perform the probe                                                               | 3                                                       |
-| `livenessProbe.timeoutSeconds`        | When the probe times out                                                                     | 5                                                       |
-| `livenessProbe.failureThreshold`      | Minimum consecutive failures for the probe to be considered failed after having succeeded.   | 6                                                       |
-| `livenessProbe.successThreshold`      | Minimum consecutive successes for the probe to be considered successful after having failed. | 1                                                       |
-| `readinessProbe.initialDelaySeconds`  | Delay before readiness probe is initiated                                                    | 30                                                      |
-| `readinessProbe.periodSeconds`        | How often to perform the probe                                                               | 3                                                       |
-| `readinessProbe.timeoutSeconds`       | When the probe times out                                                                     | 5                                                       |
-| `readinessProbe.failureThreshold`     | Minimum consecutive failures for the probe to be considered failed after having succeeded.   | 6                                                       |
-| `readinessProbe.successThreshold`     | Minimum consecutive successes for the probe to be considered successful after having failed. | 1                                                       |
-| `podAnnotations`                | Pod annotations                                   | `{}`                                                       |
-| `metrics.enabled`                          | Start a side-car prometheus exporter                                                                           | `false`                                              |
-| `metrics.image.registry`                   | Apache exporter image registry                                                                                  | `docker.io`                                          |
-| `metrics.image.repository`                 | Apache exporter image name                                                                                      | `lusotycoon/apache-exporter`                           |
-| `metrics.image.tag`                        | Apache exporter image tag                                                                                       | `v0.5.0`                                            |
-| `metrics.image.pullPolicy`                 | Image pull policy                                                                                              | `IfNotPresent`                                       |
-| `metrics.image.pullSecrets`                | Specify docker-registry secret names as an array                                                               | `nil`                                                |
-| `metrics.podAnnotations`                   | Additional annotations for Metrics exporter pod                                                                | `{prometheus.io/scrape: "true", prometheus.io/port: "9117"}`                                                   |
-| `metrics.resources`                        | Exporter resource requests/limit                                                                               | {}                        |
+| `global.imageRegistry`                | Global Docker image registry                                                                 | `nil`                                         |
+| `image.registry`                      | Moodle image registry                                                                        | `docker.io`                                   |
+| `image.repository`                    | Moodle Image name                                                                            | `bitnami-azure/moodle`                              |
+| `image.tag`                           | Moodle Image tag                                                                             | `{VERSION}`                                   |
+| `image.pullPolicy`                    | Image pull policy                                                                            | `Always` if `imageTag` is `latest`, else `IfNotPresent`|
+| `image.pullSecrets`                   | Specify docker-registry secret names as an array                                             | `[]` (does not add image pull secrets to deployed pods) |
+| `moodleUsername`                      | User of the application                                                                      | `user`                                         |
+| `moodlePassword`                      | Application password                                                                         | _random 10 character alphanumeric string_      |
+| `moodleEmail`                         | Admin email                                                                                  | `user@example.com`                             |
+| `smtpHost`                            | SMTP host                                                                                    | `nil`                                          |
+| `smtpPort`                            | SMTP port                                                                                    | `nil` (but moodle internal default is 25)      |
+| `smtpProtocol`                        | SMTP Protocol (options: ssl,tls, nil)                                                        | `nil`                                          |
+| `smtpUser`                            | SMTP user                                                                                    | `nil`                                          |
+| `smtpPassword`                        | SMTP password                                                                                | `nil`                                          |
+| `service.type`                        | Kubernetes Service type                                                                      | `LoadBalancer`                                 |
+| `service.port`                        | Service HTTP port                                                                            | `80`                                           |
+| `service.httpsPort`                   | Service HTTPS port                                                                           | `443`                                          |
+| `service.externalTrafficPolicy`       | Enable client source IP preservation                                                         | `Cluster`                                      |
+| `service.nodePorts.http`              | Kubernetes http node port                                                                    | `""`                                           |
+| `service.nodePorts.https`             | Kubernetes https node port                                                                   | `""`                                           |
+| `ingress.enabled`                     | Enable ingress controller resource                                                           | `false`                                        |
+| `ingress.hosts[0].name`               | Hostname to your Moodle installation                                                         | `moodle.local`                                 |
+| `ingress.hosts[0].path`               | Path within the url structure                                                                | `/`                                            |
+| `ingress.hosts[0].tls`                | Utilize TLS backend in ingress                                                               | `false`                                        |
+| `ingress.hosts[0].certManager`        | Add annotations for cert-manager                                                             | `false`                                        |
+| `ingress.hosts[0].tlsSecret`          | TLS Secret (certificates)                                                                    | `moodle.local-tls-secret`                      |
+| `ingress.hosts[0].annotations`        | Annotations for this host's ingress record                                                   | `[]`                                           |
+| `ingress.secrets[0].name`             | TLS Secret Name                                                                              | `nil`                                          |
+| `ingress.secrets[0].certificate`      | TLS Secret Certificate                                                                       | `nil`                                          |
+| `ingress.secrets[0].key`              | TLS Secret Key                                                                               | `nil`                                          |
+| `affinity`                            | Set affinity for the moodle pods                                                             | `nil`                                          |
+| `resources`                           | CPU/Memory resource requests/limits                                                          | Memory: `512Mi`, CPU: `300m`                   |
+| `persistence.enabled`                 | Enable persistence using PVC                                                                 | `true`                                         |
+| `persistence.storageClass`            | PVC Storage Class for Moodle volume                                                          | `nil` (uses alpha storage class annotation)    |
+| `persistence.accessMode`              | PVC Access Mode for Moodle volume                                                            | `ReadWriteOnce`                                |
+| `persistence.size`                    | PVC Storage Request for Moodle volume                                                        | `8Gi`                                          |
+| `persistence.existingClaim`           | If PVC exists&bounded for Moodle                                                             | `nil` (when nil, new one is requested)         |
+| `allowEmptyPassword`                  | Allow DB blank passwords                                                                     | `yes`                                          |
+| `externalDatabase.host`               | Host of the external database                                                                | `nil`                                          |
+| `externalDatabase.port`               | Port of the external database                                                                | `3306`                                         |
+| `externalDatabase.user`               | Existing username in the external db                                                         | `bn_moodle`                                    |
+| `externalDatabase.password`           | Password for the above username                                                              | `nil`                                          |
+| `externalDatabase.database`           | Name of the existing database                                                                | `bitnami_moodle`                               |
+| `mariadb.enabled`                     | Whether to install the MariaDB chart                                                         | `true`                                         |
+| `mariadb.db.name`                     | Database name to create                                                                      | `bitnami_moodle`                               |
+| `mariadb.db.user`                     | Database user to create                                                                      | `bn_moodle`                                    |
+| `mariadb.db.password`                 | Password for the database                                                                    | `nil`                                          |
+| `mariadb.rootUser.password`           | MariaDB admin password                                                                       | `nil`                                          |
+| `mariadb.persistence.enabled`         | Enable MariaDB persistence using PVC                                                         | `true`                                         |
+| `mariadb.persistence.storageClass`    | PVC Storage Class for MariaDB volume                                                         | `generic`                                      |
+| `mariadb.persistence.accessMode`      | PVC Access Mode for MariaDB volume                                                           | `ReadWriteOnce`                                |
+| `mariadb.persistence.size`            | PVC Storage Request for MariaDB volume                                                       | `8Gi`                                          |
+| `mariadb.persistence.existingClaim`   | If PVC exists&bounded for MariaDB                                                            | `nil` (when nil, new one is requested)         |
+| `mariadb.affinity`                    | Set affinity for the MariaDB pods                                                            | `nil`                                          |
+| `mariadb.resources`                   | CPU/Memory resource requests/limits                                                          | Memory: `256Mi`, CPU: `250m`                   |
+| `livenessProbe.initialDelaySeconds`   | Delay before liveness probe is initiated                                                     | 600                                            |
+| `livenessProbe.periodSeconds`         | How often to perform the probe                                                               | 3                                              |
+| `livenessProbe.timeoutSeconds`        | When the probe times out                                                                     | 5                                              |
+| `livenessProbe.failureThreshold`      | Minimum consecutive failures for the probe to be considered failed after having succeeded.   | 6                                              |
+| `livenessProbe.successThreshold`      | Minimum consecutive successes for the probe to be considered successful after having failed. | 1                                              |
+| `readinessProbe.initialDelaySeconds`  | Delay before readiness probe is initiated                                                    | 30                                             |
+| `readinessProbe.periodSeconds`        | How often to perform the probe                                                               | 3                                              |
+| `readinessProbe.timeoutSeconds`       | When the probe times out                                                                     | 5                                              |
+| `readinessProbe.failureThreshold`     | Minimum consecutive failures for the probe to be considered failed after having succeeded.   | 6                                              |
+| `readinessProbe.successThreshold`     | Minimum consecutive successes for the probe to be considered successful after having failed. | 1                                              |
+| `podAnnotations`                      | Pod annotations                                                                              | `{}`                                           |
+| `metrics.enabled`                     | Start a side-car prometheus exporter                                                         | `false`                                        |
+| `metrics.image.registry`              | Apache exporter image registry                                                               | `docker.io`                                    |
+| `metrics.image.repository`            | Apache exporter image name                                                                   | `lusotycoon/apache-exporter`                   |
+| `metrics.image.tag`                   | Apache exporter image tag                                                                    | `v0.5.0`                                       |
+| `metrics.image.pullPolicy`            | Image pull policy                                                                            | `IfNotPresent`                                 |
+| `metrics.image.pullSecrets`           | Specify docker-registry secret names as an array                                             | `[]` (does not add image pull secrets to deployed pods) |
+| `metrics.podAnnotations`              | Additional annotations for Metrics exporter pod                                              | `{prometheus.io/scrape: "true", prometheus.io/port: "9117"}` |
+| `metrics.resources`                   | Exporter resource requests/limit                                                             | {}                                                       |
 
-The above parameters map to the env variables defined in [bitnami/moodle](http://github.com/bitnami/bitnami-docker-moodle). For more information please refer to the [bitnami/moodle](http://github.com/bitnami/bitnami-docker-moodle) image documentation.
+The above parameters map to the env variables defined in [bitnami-azure/moodle](http://github.com/bitnami-azure/bitnami-docker-moodle). For more information please refer to the [bitnami-azure/moodle](http://github.com/bitnami-azure/bitnami-docker-moodle) image documentation.
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
 ```console
 $ helm install --name my-release \
   --set moodleUsername=admin,moodlePassword=password,mariadb.mariadbRootPassword=secretpassword \
-    stable/moodle
+    bitnami-azure/moodle
 ```
 
 The above command sets the Moodle administrator account username and password to `admin` and `password` respectively. Additionally, it sets the MariaDB `root` user password to `secretpassword`.
@@ -146,7 +146,7 @@ The above command sets the Moodle administrator account username and password to
 Alternatively, a YAML file that specifies the values for the above parameters can be provided while installing the chart. For example,
 
 ```console
-$ helm install --name my-release -f values.yaml stable/moodle
+$ helm install --name my-release -f values.yaml bitnami-azure/moodle
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)
@@ -157,7 +157,7 @@ For using ingress (example without TLS):
 
 ```console
 $ helm install --name my-release \
-  --set ingress.enabled=True,ingress.hosts[0]=moodle.domain.com,serviceType=ClusterIP,moodleUsername=admin,moodlePassword=password,mariadb.mariadbRootPassword=secretpassword stable/moodle
+  --set ingress.enabled=True,ingress.hosts[0]=moodle.domain.com,serviceType=ClusterIP,moodleUsername=admin,moodlePassword=password,mariadb.mariadbRootPassword=secretpassword bitnami-azure/moodle
 ```
 
 These are the *3 mandatory parameters* when *Ingress* is desired:
@@ -204,7 +204,7 @@ ingress:
 
 ## Persistence
 
-The [Bitnami Moodle](https://github.com/bitnami/bitnami-docker-moodle) image stores the Moodle data and configurations at the `/bitnami/moodle` and `/bitnami/apache` paths of the container.
+The [Bitnami Moodle](https://github.com/bitnami-azure/bitnami-docker-moodle) image stores the Moodle data and configurations at the `/bitnami-azure/moodle` and `/bitnami-azure/apache` paths of the container.
 
 Persistent Volume Claims are used to keep the data across deployments. This is known to work in GCE, AWS, vpshere, and minikube.
 See the [Configuration](#configuration) section to configure the PVC or to disable persistence.

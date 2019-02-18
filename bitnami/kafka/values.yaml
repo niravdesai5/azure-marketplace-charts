@@ -73,7 +73,7 @@ allowPlaintextListener: true
 brokerId: -1
 
 ## Switch to enable topic deletion or not.
-deteleTopicEnable: false
+deleteTopicEnable: false
 
 ## Kafka's Java Heap size.
 heapOpts: -Xmx1024m -Xms1024m
@@ -174,6 +174,8 @@ securityContext:
 service:
   type: ClusterIP
   port: 9092
+  ## Service annotations done as key:value pairs
+  annotations:
 
 ## Kafka data Persistent Volume Storage Class
 ## If defined, storageClassName: <storageClass>

@@ -1,6 +1,6 @@
 name: external-dns
-version: 1.2.2
-appVersion: 0.5.9
+version: 1.3.3
+appVersion: 0.5.11
 description: ExternalDNS is a Kubernetes addon that configures public DNS servers with information about exposed Kubernetes services to make them discoverable.
 keywords:
 - external-dns
@@ -10,7 +10,7 @@ home: https://github.com/kubernetes-incubator/external-dns
 sources:
 - https://github.com/bitnami/bitnami-docker-external-dns
 maintainers:
-- name: bitnami
+- name: Bitnami
   email: containers@bitnami.com
 engine: gotpl
 icon: https://bitnami.com/assets/stacks/external-dns/img/external-dns-stack-110x117.png

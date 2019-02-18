@@ -12,12 +12,12 @@ $ helm repo add bitnami-azure https://charts.bitnami.com/azure
 ## TL;DR;
 
 ```console
-$ helm install bitnami/etcd
+$ helm install bitnami-azure/etcd
 ```
 
 ## Introduction
 
-This chart bootstraps a [etcd](https://github.com/bitnami/bitnami-docker-etcd) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [etcd](https://github.com/bitnami-azure/bitnami-docker-etcd) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -31,7 +31,7 @@ Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment
 To install the chart with the release name `my-release`:
 
 ```console
-$ helm install --name my-release bitnami/etcd
+$ helm install --name my-release bitnami-azure/etcd
 ```
 
 The command deploys etcd on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -56,10 +56,10 @@ The following tables lists the configurable parameters of the etcd chart and the
 |---------------------------------------|----------------------------------------------------------------------------------------------------------|------------------------------------------------------------------- |
 | `global.imageRegistry`                | Global Docker image registry                                                                             | `nil`                                                              |
 | `image.registry`                      | etcd image registry                                                                                      | `docker.io`                                                        |
-| `image.repository`                    | etcd Image name                                                                                          | `bitnami/etcd`                                                     |
+| `image.repository`                    | etcd Image name                                                                                          | `bitnami-azure/etcd`                                                     |
 | `image.tag`                           | etcd Image tag                                                                                           | `{VERSION}`                                                        |
 | `image.pullPolicy`                    | etcd image pull policy                                                                                   | `Always`                                                           |
-| `image.pullSecrets`                   | Specify image pull secrets                                                                               | `nil` (does not add image pull secrets to deployed pods)           |
+| `image.pullSecrets`                   | Specify docker-registry secret names as an array                                                         | `[]` (does not add image pull secrets to deployed pods)           |
 | `image.debug`                         | Specify if debug values should be set                                                                    | `false`                                                            |
 | `statefulset.updateStrategy`          | Update strategy for the stateful set                                                                     | `RollingUpdate`                                                    |
 | `statefulset.rollingUpdatePartition`  | Partition for Rolling Update strategy                                                                    | `nil`                                                              |
@@ -81,6 +81,7 @@ The following tables lists the configurable parameters of the etcd chart and the
 | `securityContext.enabled`             | Enable security context                                                                                  | `true`                                                             |
 | `securityContext.fsGroup`             | Group ID for the container                                                                               | `1001`                                                             |
 | `securityContext.runAsUser`           | User ID for the container                                                                                | `1001`                                                             |
+| `service.dnsBase`                     | Kubernetes service cluster dns base name                                                                 | svc.cluster.local                                                  |
 | `service.type`                        | Kubernetes Service type                                                                                  | `ClusterIP`                                                        |
 | `service.port`                        | etcd client port                                                                                         | `2379`                                                             |
 | `service.nodePort`                    | Port to bind to for NodePort service type (client port)                                                  | `nil`                                                              |
@@ -118,7 +119,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 
 ```console
 $ helm install --name my-release \
-  --set auth.rootPassword=secretpassword bitnami/etcd
+  --set auth.rootPassword=secretpassword bitnami-azure/etcd
 ```
 
 The above command sets the etcd `etcd` account password to `secretpassword`. Additionally it creates a database named `my-database`.
@@ -126,7 +127,7 @@ The above command sets the etcd `etcd` account password to `secretpassword`. Add
 Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example,
 
 ```console
-$ helm install --name my-release -f values.yaml bitnami/etcd
+$ helm install --name my-release -f values.yaml bitnami-azure/etcd
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)
@@ -137,7 +138,7 @@ The following repo contains the recommended production settings for etcd server 
 
 
 ```console
-$ helm install --name my-release -f ./values-production.yaml bitnami/etcd
+$ helm install --name my-release -f ./values-production.yaml bitnami-azure/etcd
 ```
 
 To horizontally scale this chart once it has been deployed:
@@ -153,7 +154,7 @@ $ kubectl scale statefulset my-etcd --replicas=5
 In order to enable [Role-based access control for etcd](https://coreos.com/etcd/docs/latest/op-guide/authentication.html) you can run the following command:
 
 ```console
-$ helm install --name my-release --set auth.rbac.enabled --set auth.rbac.rootPassword=YOUR-PASSWORD bitnami/etcd
+$ helm install --name my-release --set auth.rbac.enabled --set auth.rbac.rootPassword=YOUR-PASSWORD bitnami-azure/etcd
 
 ```
 
@@ -165,7 +166,7 @@ The rest of users will use the `guest` role and won't have permissions to do any
 In order to enable secure transport between peer nodes deploy the helm chart with these options:
 
 ```console
-$ helm install --name my-release --set auth.peer.secureTransport=true --set auth.peer.useAutoTLS=true bitnami/etcd
+$ helm install --name my-release --set auth.peer.secureTransport=true --set auth.peer.useAutoTLS=true bitnami-azure/etcd
 
 ```
 
@@ -182,7 +183,7 @@ $ kubectl create secret generic etcd-client-certs --from-file=ca.crt=path/to/ca.
 Once the secret is created, you can deploy the helm chart with these options:
 
 ```console
-$ helm install --name my-release --set auth.client.secureTransport=true --set auth.client.enableAuthentication=true --set auth.client.existingSecret=etcd-client-certs bitnami/etcd
+$ helm install --name my-release --set auth.client.secureTransport=true --set auth.client.enableAuthentication=true --set auth.client.existingSecret=etcd-client-certs bitnami-azure/etcd
 
 ```
 
@@ -192,7 +193,7 @@ $ helm install --name my-release --set auth.client.secureTransport=true --set au
 
 ## Persistence
 
-The [Bitnami etcd](https://github.com/bitnami/bitnami-docker-etcd) image stores the etcd data at the `/bitnami/etcd` path of the container.
+The [Bitnami etcd](https://github.com/bitnami-azure/bitnami-docker-etcd) image stores the etcd data at the `/bitnami-azure/etcd` path of the container.
 
 Persistent Volume Claims are used to keep the data across deployments. This is known to work in GCE, AWS, and minikube.
 See the [Configuration](#configuration) section to configure the PVC or to disable persistence.
