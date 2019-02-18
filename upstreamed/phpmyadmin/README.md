@@ -90,7 +90,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 
 ```console
 $ helm install --name my-release \
-  --set db.host=mymariadb,db.port=3306 stable/phpmyadmin
+  --set db.host=mymariadb,db.port=3306 bitnami-azure/phpmyadmin
 ```
 
 The above command sets the phpMyAdmin to connect to a database in `mymariadb` host and `3306` port respectively.

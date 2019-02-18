@@ -74,7 +74,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 
 ```console
 $ helm install --name my-release \
-  --set rbac.create=true bitnami/metrics-server
+  --set rbac.create=true bitnami-azure/metrics-server
 ```
 
 The above command enables RBAC authentication.

@@ -141,7 +141,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```console
 $ helm install --name my-release \
   --set magentoUsername=admin,magentoPassword=password,mariadb.mariadbRootPassword=secretpassword \
-    stable/magento
+    bitnami-azure/magento
 ```
 
 The above command sets the Magento administrator account username and password to `admin` and `password` respectively. Additionally, it sets the MariaDB `root` user password to `secretpassword`.

@@ -149,7 +149,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```bash
 $ helm install --name my-release \
   --set rootUser.password=secretpassword,db.user=app_database \
-    stable/mariadb
+    bitnami-azure/mariadb
 ```
 
 The above command sets the MariaDB `root` account password to `secretpassword`. Additionally it creates a database named `my_database`.

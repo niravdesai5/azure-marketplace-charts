@@ -132,7 +132,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```console
 $ helm install --name my-release \
   --set dbUser.user=admin,dbUser.password=password\
-    bitnami/cassandra
+    bitnami-azure/cassandra
 ```
 
 Alternatively, a YAML file that specifies the values for the above parameters can be provided while installing the chart. For example,

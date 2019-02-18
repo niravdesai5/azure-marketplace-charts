@@ -119,7 +119,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 
 ```console
 $ helm install --name my-release \
-  --set auth.rootPassword=secretpassword bitnami/etcd
+  --set auth.rootPassword=secretpassword bitnami-azure/etcd
 ```
 
 The above command sets the etcd `etcd` account password to `secretpassword`. Additionally it creates a database named `my-database`.

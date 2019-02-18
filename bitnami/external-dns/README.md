@@ -119,7 +119,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 
 ```console
 $ helm install --name my-release \
-  --set auth.rootPassword=secretpassword bitnami/external-dns
+  --set auth.rootPassword=secretpassword bitnami-azure/external-dns
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example,
@@ -149,7 +149,7 @@ $ helm install --name my-release \
   --set provider=aws \
   --set aws.zoneType=public \
   --set domainFilters=HOSTED_ZONE_NAME \
-  bitnami/external-dns
+  bitnami-azure/external-dns
 ```
 
 ## Upgrading

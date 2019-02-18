@@ -130,7 +130,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```console
 $ helm install --name my-release \
   --set osclassUsername=admin,osclassPassword=password,mariadb.mariadbRootPassword=secretpassword \
-    stable/osclass
+    bitnami-azure/osclass
 ```
 
 The above command sets the Osclass administrator account username and password to `admin` and `password` respectively. Additionally, it sets the MariaDB `root` user password to `secretpassword`.

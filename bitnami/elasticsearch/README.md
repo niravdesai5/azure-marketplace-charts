@@ -179,7 +179,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```console
 $ helm install --name my-release \
   --set name=my-elastic,client.service.port=8080 \
-  bitnami/elasticsearch
+  bitnami-azure/elasticsearch
 ```
 
 The above command sets the Elasticsearch cluster name to `my-elastic` and REST port number to `8080`.
@@ -210,7 +210,7 @@ You can use a **privileged** initContainer to changes those settings in the Kern
 ```console
 $ helm install --name my-release \
   --set sysctlImage.enabled=true \
-  bitnami/elasticsearch
+  bitnami-azure/elasticsearch
 ```
 
 ## Upgrading

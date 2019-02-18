@@ -138,7 +138,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```console
 $ helm install --name my-release \
   --set moodleUsername=admin,moodlePassword=password,mariadb.mariadbRootPassword=secretpassword \
-    stable/moodle
+    bitnami-azure/moodle
 ```
 
 The above command sets the Moodle administrator account username and password to `admin` and `password` respectively. Additionally, it sets the MariaDB `root` user password to `secretpassword`.
@@ -157,7 +157,7 @@ For using ingress (example without TLS):
 
 ```console
 $ helm install --name my-release \
-  --set ingress.enabled=True,ingress.hosts[0]=moodle.domain.com,serviceType=ClusterIP,moodleUsername=admin,moodlePassword=password,mariadb.mariadbRootPassword=secretpassword stable/moodle
+  --set ingress.enabled=True,ingress.hosts[0]=moodle.domain.com,serviceType=ClusterIP,moodleUsername=admin,moodlePassword=password,mariadb.mariadbRootPassword=secretpassword bitnami-azure/moodle
 ```
 
 These are the *3 mandatory parameters* when *Ingress* is desired:

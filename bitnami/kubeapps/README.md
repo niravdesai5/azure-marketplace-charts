@@ -106,7 +106,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```console
 $ helm install --name kubeapps --namespace kubeapps \
   --set chartsvc.service.port=9090 \
-    bitnami/kubeapps
+    bitnami-azure/kubeapps
 ```
 
 The above command sets the port for the chartsvc Service to 9090.
@@ -140,7 +140,7 @@ If your instance of Tiller is running in a different namespace or you want to ha
 ```console
 helm install \
   --set tillerProxy.host=tiller-deploy.my-custom-namespace:44134 \
-  bitnami/kubeapps
+  bitnami-azure/kubeapps
 ```
 
 ### Configuring connection to a secure Tiller instance
@@ -156,7 +156,7 @@ helm install \
   --set tillerProxy.tls.ca="$(cat ca.cert.pem)" \
   --set tillerProxy.tls.key="$(cat helm.key.pem)" \
   --set tillerProxy.tls.cert="$(cat helm.cert.pem)" \
-  bitnami/kubeapps
+  bitnami-azure/kubeapps
 ```
 
 Learn more about how to secure your Kubeapps installation [here](https://github.com/kubeapps/kubeapps/blob/master/docs/user/securing-kubeapps.md).

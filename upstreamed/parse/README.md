@@ -118,7 +118,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```console
 $ helm install --name my-release \
   --set dashboard.username=admin,dashboard.password=password \
-    stable/parse
+    bitnami-azure/parse
 ```
 
 The above command sets the Parse administrator account username and password to `admin` and `password` respectively.

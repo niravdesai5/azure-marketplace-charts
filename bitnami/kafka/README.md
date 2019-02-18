@@ -153,7 +153,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```console
 $ helm install --name my-release \
   --set kafkaPassword=secretpassword,kafkaDatabase=my-database \
-    bitnami/kafka
+    bitnami-azure/kafka
 ```
 
 The above command sets the Kafka `kafka` account password to `secretpassword`. Additionally it creates a database named `my-database`.

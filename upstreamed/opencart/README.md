@@ -129,7 +129,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```console
 $ helm install --name my-release \
   --set opencartUsername=admin,opencartPassword=password,mariadb.mariadbRootPassword=secretpassword \
-    stable/opencart
+    bitnami-azure/opencart
 ```
 
 The above command sets the OpenCart administrator account username and password to `admin` and `password` respectively. Additionally, it sets the MariaDB `root` user password to `secretpassword`.

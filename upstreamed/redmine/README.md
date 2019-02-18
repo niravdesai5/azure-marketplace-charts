@@ -118,7 +118,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```bash
 $ helm install --name my-release \
   --set redmineUsername=admin,redminePassword=password,mariadb.mariadbRootPassword=secretpassword \
-    stable/redmine
+    bitnami-azure/redmine
 ```
 
 The above command sets the Redmine administrator account username and password to `admin` and `password` respectively. Additionally, it sets the MariaDB `root` user password to `secretpassword`.

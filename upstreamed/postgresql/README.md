@@ -148,7 +148,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```console
 $ helm install --name my-release \
   --set postgresqlPassword=secretpassword,postgresqlDatabase=my-database \
-    stable/postgresql
+    bitnami-azure/postgresql
 ```
 
 The above command sets the PostgreSQL `postgres` account password to `secretpassword`. Additionally it creates a database named `my-database`.
@@ -238,7 +238,7 @@ helm install --name postgres \
              --set image.tag=10.6 \
              --set postgresqlDataDir=/data/pgdata \
              --set persistence.mountPath=/data/ \
-             stable/postgresql
+             bitnami-azure/postgresql
 ```
 
 ## Differences between Bitnami PostgreSQL image and [Docker Official](https://hub.docker.com/_/postgres) image

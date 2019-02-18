@@ -95,7 +95,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```console
 $ helm install --name my-release \
   --set jenkinsUsername=admin,jenkinsPassword=password \
-    bitnami/jenkins
+    bitnami-azure/jenkins
 ```
 
 The above command sets the Jenkins administrator account username and password to `admin` and `password` respectively.

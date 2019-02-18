@@ -129,7 +129,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```bash
 $ helm install --name my-release \
   --set root.password=secretpassword,user.database=app_database \
-    bitnami/mysql
+    bitnami-azure/mysql
 ```
 
 The above command sets the MySQL `root` account password to `secretpassword`. Additionally it creates a database named `app_database`.

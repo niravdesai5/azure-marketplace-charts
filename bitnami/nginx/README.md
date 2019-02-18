@@ -78,7 +78,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```bash
 $ helm install --name my-release \
   --set imagePullPolicy=Always \
-    bitnami/nginx
+    bitnami-azure/nginx
 ```
 
 The above command sets the `imagePullPolicy` to `Always`.

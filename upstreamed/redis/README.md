@@ -221,7 +221,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```bash
 $ helm install --name my-release \
   --set password=secretpassword \
-    stable/redis
+    bitnami-azure/redis
 ```
 
 The above command sets the Redis server password to `secretpassword`.

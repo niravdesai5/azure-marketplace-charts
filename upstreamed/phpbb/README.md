@@ -112,7 +112,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```console
 $ helm install --name my-release \
   --set phpbbUser=admin,phpbbPassword=password,mariadb.mariadbRootPassword=secretpassword \
-    stable/phpbb
+    bitnami-azure/phpbb
 ```
 
 The above command sets the phpBB administrator account username and password to `admin` and `password` respectively. Additionally, it sets the MariaDB `root` user password to `secretpassword`.
