@@ -17,9 +17,9 @@ $ helm install bitnami-azure/joomla
 
 ## Introduction
 
-This chart bootstraps a [Joomla!](https://github.com/bitnami-azure/bitnami-docker-joomla) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [Joomla!](https://github.com/bitnami/bitnami-docker-joomla) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
-It also packages the [Bitnami MariaDB chart](https://github.com/kubernetes/charts/tree/master/bitnami-azure/mariadb) which bootstraps a MariaDB deployment required by the Joomla! application.
+It also packages the [Bitnami MariaDB chart](https://github.com/kubernetes/charts/tree/master/stable/mariadb) which bootstraps a MariaDB deployment required by the Joomla! application.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -58,7 +58,7 @@ The following table lists the configurable parameters of the Joomla! chart and t
 | ------------------------------------ | ----------------------------------------------------------- | ---------------------------------------------- |
 | `global.imageRegistry`               | Global Docker image registry                                | `nil`                                          |
 | `image.registry`                     | Joomla! image registry                                      | `docker.io`                                    |
-| `image.repository`                   | Joomla! Image name                                          | `bitnami-azure/joomla`                               |
+| `image.repository`                   | Joomla! Image name                                          | `bitnami/joomla`                               |
 | `image.tag`                          | Joomla! Image tag                                           | `{VERSION}`                                    |
 | `image.pullPolicy`                   | Image pull policy                                           | `Always`                                       |
 | `image.pullSecrets`                  | Specify docker-registry secret names as an array            | `[]` (does not add image pull secrets to deployed pods) |
@@ -133,14 +133,14 @@ The following table lists the configurable parameters of the Joomla! chart and t
 | `metrics.podAnnotations`             | Additional annotations for Metrics exporter pod             | `{prometheus.io/scrape: "true", prometheus.io/port: "9117"}` |
 | `metrics.resources`                  | Exporter resource requests/limit                            | {}                                              |
 
-The above parameters map to the env variables defined in [bitnami-azure/joomla](http://github.com/bitnami-azure/bitnami-docker-joomla). For more information please refer to the [bitnami-azure/joomla](http://github.com/bitnami-azure/bitnami-docker-joomla) image documentation.
+The above parameters map to the env variables defined in [bitnami/joomla](http://github.com/bitnami/bitnami-docker-joomla). For more information please refer to the [bitnami/joomla](http://github.com/bitnami/bitnami-docker-joomla) image documentation.
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
 ```console
 $ helm install --name my-release \
   --set joomlaUsername=admin,joomlaPassword=password,mariadb.mariadbRootPassword=secretpassword \
-    bitnami-azure/joomla
+    stable/joomla
 ```
 
 The above command sets the Joomla! administrator account username and password to `admin` and `password` respectively. Additionally it sets the MariaDB `root` user password to `secretpassword`.
@@ -155,7 +155,7 @@ $ helm install --name my-release -f values.yaml bitnami-azure/joomla
 
 ## Persistence
 
-The [Bitnami Joomla!](https://github.com/bitnami-azure/bitnami-docker-joomla) image stores the Joomla! data and configurations at the `/bitnami-azure/joomla` and `/bitnami-azure/apache` paths of the container.
+The [Bitnami Joomla!](https://github.com/bitnami/bitnami-docker-joomla) image stores the Joomla! data and configurations at the `/bitnami/joomla` and `/bitnami/apache` paths of the container.
 
 Persistent Volume Claims are used to keep the data across deployments. This is known to work in GCE, AWS, and minikube.
 See the [Configuration](#configuration) section to configure the PVC or to disable persistence.

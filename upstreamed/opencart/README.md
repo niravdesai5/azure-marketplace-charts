@@ -17,9 +17,9 @@ $ helm install bitnami-azure/opencart
 
 ## Introduction
 
-This chart bootstraps an [OpenCart](https://github.com/bitnami-azure/bitnami-docker-opencart) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps an [OpenCart](https://github.com/bitnami/bitnami-docker-opencart) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
-It also packages the [Bitnami MariaDB chart](https://github.com/kubernetes/charts/tree/master/bitnami-azure/mariadb) which is required for bootstrapping a MariaDB deployment for the database requirements of the OpenCart application.
+It also packages the [Bitnami MariaDB chart](https://github.com/kubernetes/charts/tree/master/stable/mariadb) which is required for bootstrapping a MariaDB deployment for the database requirements of the OpenCart application.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -58,7 +58,7 @@ The following table lists the configurable parameters of the OpenCart chart and 
 |-------------------------------------|-------------------------------------------|----------------------------------------------------------|
 | `global.imageRegistry`              | Global Docker image registry              | `nil`                                                    |
 | `image.registry`                    | OpenCart image registry                   | `docker.io`                                              |
-| `image.repository`                  | OpenCart Image name                       | `bitnami-azure/opencart`                                       |
+| `image.repository`                  | OpenCart Image name                       | `bitnami/opencart`                                       |
 | `image.tag`                         | OpenCart Image tag                        | `{VERSION}`                                              |
 | `image.pullPolicy`                  | Image pull policy                         | `Always` if `imageTag` is `latest`, else `IfNotPresent`  |
 | `image.pullSecrets`                 | Specify docker-registry secret names as an array | `[]` (does not add image pull secrets to deployed pods) |
@@ -108,7 +108,7 @@ The following table lists the configurable parameters of the OpenCart chart and 
 | `metrics.podAnnotations`            | Additional annotations for Metrics exporter pod  | `{prometheus.io/scrape: "true", prometheus.io/port: "9117"}` |
 | `metrics.resources`                 | Exporter resource requests/limit          | {}                                                       |
 
-The above parameters map to the env variables defined in [bitnami-azure/opencart](http://github.com/bitnami-azure/bitnami-docker-opencart). For more information please refer to the [bitnami-azure/opencart](http://github.com/bitnami-azure/bitnami-docker-opencart) image documentation.
+The above parameters map to the env variables defined in [bitnami/opencart](http://github.com/bitnami/bitnami-docker-opencart). For more information please refer to the [bitnami/opencart](http://github.com/bitnami/bitnami-docker-opencart) image documentation.
 
 > **Note**:
 >
@@ -129,7 +129,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```console
 $ helm install --name my-release \
   --set opencartUsername=admin,opencartPassword=password,mariadb.mariadbRootPassword=secretpassword \
-    bitnami-azure/opencart
+    stable/opencart
 ```
 
 The above command sets the OpenCart administrator account username and password to `admin` and `password` respectively. Additionally, it sets the MariaDB `root` user password to `secretpassword`.
@@ -144,7 +144,7 @@ $ helm install --name my-release -f values.yaml bitnami-azure/opencart
 
 ## Persistence
 
-The [Bitnami OpenCart](https://github.com/bitnami-azure/bitnami-docker-opencart) image stores the OpenCart data and configurations at the `/bitnami-azure/opencart` and `/bitnami-azure/apache` paths of the container.
+The [Bitnami OpenCart](https://github.com/bitnami/bitnami-docker-opencart) image stores the OpenCart data and configurations at the `/bitnami/opencart` and `/bitnami/apache` paths of the container.
 
 Persistent Volume Claims are used to keep the data across deployments. This is known to work in GCE, AWS, and minikube.
 See the [Configuration](#configuration) section to configure the PVC or to disable persistence.

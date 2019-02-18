@@ -17,9 +17,9 @@ $ helm install bitnami-azure/prestashop
 
 ## Introduction
 
-This chart bootstraps a [PrestaShop](https://github.com/bitnami-azure/bitnami-docker-prestashop) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [PrestaShop](https://github.com/bitnami/bitnami-docker-prestashop) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
-It also packages the [Bitnami MariaDB chart](https://github.com/kubernetes/charts/tree/master/bitnami-azure/mariadb) which is required for bootstrapping a MariaDB deployment for the database requirements of the PrestaShop application.
+It also packages the [Bitnami MariaDB chart](https://github.com/kubernetes/charts/tree/master/stable/mariadb) which is required for bootstrapping a MariaDB deployment for the database requirements of the PrestaShop application.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -58,7 +58,7 @@ The following table lists the configurable parameters of the PrestaShop chart an
 |---------------------------------------|----------------------------------------------------------------------------------------------|--------------------------------------------------------------|
 | `global.imageRegistry`                | Global Docker image registry                                                                 | `nil`                                                        |
 | `image.registry`                      | PrestaShop image registry                                                                    | `docker.io`                                                  |
-| `image.repository`                    | PrestaShop image name                                                                        | `bitnami-azure/prestashop`                                         |
+| `image.repository`                    | PrestaShop image name                                                                        | `bitnami/prestashop`                                         |
 | `image.tag`                           | PrestaShop image tag                                                                         | `{VERSION}`                                                  |
 | `image.pullPolicy`                    | Image pull policy                                                                            | `Always` if `imageTag` is `latest`, else `IfNotPresent`      |
 | `image.pullSecrets`                   | Specify docker-registry secret names as an array                                             | `[]` (does not add image pull secrets to deployed pods)      |
@@ -131,7 +131,7 @@ The following table lists the configurable parameters of the PrestaShop chart an
 | `metrics.podAnnotations`              | Additional annotations for Metrics exporter pod                                              | `{prometheus.io/scrape: "true", prometheus.io/port: "9117"}` |
 | `metrics.resources`                   | Exporter resource requests/limit                                                             | {}                                                           |
 
-The above parameters map to the env variables defined in [bitnami-azure/prestashop](http://github.com/bitnami-azure/bitnami-docker-prestashop). For more information please refer to the [bitnami-azure/prestashop](http://github.com/bitnami-azure/bitnami-docker-prestashop) image documentation.
+The above parameters map to the env variables defined in [bitnami/prestashop](http://github.com/bitnami/bitnami-docker-prestashop). For more information please refer to the [bitnami/prestashop](http://github.com/bitnami/bitnami-docker-prestashop) image documentation.
 
 > **Note**:
 >
@@ -152,7 +152,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```console
 $ helm install --name my-release \
   --set prestashopUsername=admin,prestashopPassword=password,mariadb.mariadbRootPassword=secretpassword \
-    bitnami-azure/prestashop
+    stable/prestashop
 ```
 
 The above command sets the PrestaShop administrator account username and password to `admin` and `password` respectively. Additionally, it sets the MariaDB `root` user password to `secretpassword`.
@@ -167,7 +167,7 @@ $ helm install --name my-release -f values.yaml bitnami-azure/prestashop
 
 ## Persistence
 
-The [Bitnami PrestaShop](https://github.com/bitnami-azure/bitnami-docker-prestashop) image stores the PrestaShop data and configurations at the `/bitnami-azure/prestashop` and `/bitnami-azure/apache` paths of the container.
+The [Bitnami PrestaShop](https://github.com/bitnami/bitnami-docker-prestashop) image stores the PrestaShop data and configurations at the `/bitnami/prestashop` and `/bitnami/apache` paths of the container.
 
 Persistent Volume Claims are used to keep the data across deployments. This is known to work in GCE, AWS, and minikube.
 See the [Configuration](#configuration) section to configure the PVC or to disable persistence.

@@ -17,9 +17,9 @@ $ helm install bitnami-azure/orangehrm
 
 ## Introduction
 
-This chart bootstraps an [OrangeHRM](https://github.com/bitnami-azure/bitnami-docker-orangehrm) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps an [OrangeHRM](https://github.com/bitnami/bitnami-docker-orangehrm) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
-It also packages the [Bitnami MariaDB chart](https://github.com/kubernetes/charts/tree/master/bitnami-azure/mariadb) which is required for bootstrapping a MariaDB deployment for the database requirements of the OrangeHRM application.
+It also packages the [Bitnami MariaDB chart](https://github.com/kubernetes/charts/tree/master/stable/mariadb) which is required for bootstrapping a MariaDB deployment for the database requirements of the OrangeHRM application.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -58,7 +58,7 @@ The following table lists the configurable parameters of the OrangeHRM chart and
 |--------------------------------------|------------------------------------------|-------------------------------------------------------- |
 | `global.imageRegistry`               | Global Docker image registry             | `nil`                                                   |
 | `image.registry`                     | OrangeHRM image registry                 | `docker.io`                                             |
-| `image.repository`                   | OrangeHRM Image name                     | `bitnami-azure/orangehrm`                                     |
+| `image.repository`                   | OrangeHRM Image name                     | `bitnami/orangehrm`                                     |
 | `image.tag`                          | OrangeHRM Image tag                      | `{VERSION}`                                             |
 | `image.pullPolicy`                   | Image pull policy                        | `Always` if `imageTag` is `latest`, else `IfNotPresent` |
 | `image.pullSecrets`                  | Specify docker-registry secret names as an array               | `[]` (does not add image pull secrets to deployed pods) |
@@ -108,14 +108,14 @@ The following table lists the configurable parameters of the OrangeHRM chart and
 | `metrics.podAnnotations`                   | Additional annotations for Metrics exporter pod                                                                | `{prometheus.io/scrape: "true", prometheus.io/port: "9117"}`                                                   |
 | `metrics.resources`                        | Exporter resource requests/limit                                                                               | {}                        |
 
-The above parameters map to the env variables defined in [bitnami-azure/orangehrm](http://github.com/bitnami-azure/bitnami-docker-orangehrm). For more information please refer to the [bitnami-azure/orangehrm](http://github.com/bitnami-azure/bitnami-docker-orangehrm) image documentation.
+The above parameters map to the env variables defined in [bitnami/orangehrm](http://github.com/bitnami/bitnami-docker-orangehrm). For more information please refer to the [bitnami/orangehrm](http://github.com/bitnami/bitnami-docker-orangehrm) image documentation.
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
 ```console
 $ helm install --name my-release \
   --set orangehrmUsername=admin,orangehrmPassword=password,mariadb.mariadbRootPassword=secretpassword \
-    bitnami-azure/orangehrm
+    stable/orangehrm
 ```
 
 The above command sets the OrangeHRM administrator account username and password to `admin` and `password` respectively. Additionally, it sets the MariaDB `root` user password to `secretpassword`.
@@ -130,7 +130,7 @@ $ helm install --name my-release -f values.yaml bitnami-azure/orangehrm
 
 ## Persistence
 
-The [Bitnami OrangeHRM](https://github.com/bitnami-azure/bitnami-docker-orangehrm) image stores the OrangeHRM data and configurations at the `/bitnami-azure/orangehrm` and `/bitnami-azure/apache` paths of the container.
+The [Bitnami OrangeHRM](https://github.com/bitnami/bitnami-docker-orangehrm) image stores the OrangeHRM data and configurations at the `/bitnami/orangehrm` and `/bitnami/apache` paths of the container.
 
 Persistent Volume Claims are used to keep the data across deployments. There is a [known issue](https://github.com/kubernetes/kubernetes/issues/39178) in Kubernetes Clusters with EBS in different availability zones. Ensure your cluster is configured properly to create Volumes in the same availability zone where the nodes are running. Kuberentes 1.12 solved this issue with the [Volume Binding Mode](https://kubernetes.io/docs/concepts/storage/storage-classes/#volume-binding-mode).
 

@@ -17,7 +17,7 @@ $ helm install bitnami-azure/tomcat
 
 ## Introduction
 
-This chart bootstraps a [Tomcat](https://github.com/bitnami-azure/bitnami-docker-tomcat) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [Tomcat](https://github.com/bitnami/bitnami-docker-tomcat) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -56,7 +56,7 @@ The following tables lists the configurable parameters of the Tomcat chart and t
 |---------------------------------|----------------------------------------------|---------------------------------------------------------- |
 | `global.imageRegistry`          | Global Docker image registry                 | `nil`                                                     |
 | `image.registry`                | Tomcat image registry                        | `docker.io`                                               |
-| `image.repository`              | Tomcat Image name                            | `bitnami-azure/tomcat`                                          |
+| `image.repository`              | Tomcat Image name                            | `bitnami/tomcat`                                          |
 | `image.tag`                     | Tomcat Image tag                             | `{VERSION}`                                               |
 | `image.pullPolicy`              | Tomcat image pull policy                     | `Always` if `imageTag` is `latest`, else `IfNotPresent`   |
 | `image.pullSecrets`             | Specify docker-registry secret names as an array | `[]` (does not add image pull secrets to deployed pods)  |
@@ -77,13 +77,13 @@ The following tables lists the configurable parameters of the Tomcat chart and t
 | `persistence.size`              | PVC Storage Request for Tomcat volume        | `8Gi`                                                     |
 | `resources`                     | CPU/Memory resource requests/limits          | Memory: `512Mi`, CPU: `300m`                              |
 
-The above parameters map to the env variables defined in [bitnami-azure/tomcat](http://github.com/bitnami-azure/bitnami-docker-tomcat). For more information please refer to the [bitnami-azure/tomcat](http://github.com/bitnami-azure/bitnami-docker-tomcat) image documentation.
+The above parameters map to the env variables defined in [bitnami/tomcat](http://github.com/bitnami/bitnami-docker-tomcat). For more information please refer to the [bitnami/tomcat](http://github.com/bitnami/bitnami-docker-tomcat) image documentation.
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
 ```console
 $ helm install --name my-release \
-  --set tomcatUser=manager,tomcatPassword=password bitnami-azure/tomcat
+  --set tomcatUser=manager,tomcatPassword=password bitnami/tomcat
 ```
 
 The above command sets the Tomcat management username and password to `manager` and `password` respectively.
@@ -98,7 +98,7 @@ $ helm install --name my-release -f values.yaml bitnami-azure/tomcat
 
 ## Persistence
 
-The [Bitnami Tomcat](https://github.com/bitnami-azure/bitnami-docker-tomcat) image stores the Tomcat data and configurations at the `/bitnami-azure/tomcat` path of the container.
+The [Bitnami Tomcat](https://github.com/bitnami/bitnami-docker-tomcat) image stores the Tomcat data and configurations at the `/bitnami/tomcat` path of the container.
 
 Persistent Volume Claims are used to keep the data across deployments. This is known to work in GCE, AWS, and minikube.
 See the [Configuration](#configuration) section to configure the PVC or to disable persistence.

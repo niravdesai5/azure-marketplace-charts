@@ -17,9 +17,9 @@ $ helm install bitnami-azure/phabricator
 
 ## Introduction
 
-This chart bootstraps a [Phabricator](https://github.com/bitnami-azure/bitnami-docker-phabricator) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [Phabricator](https://github.com/bitnami/bitnami-docker-phabricator) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
-It also packages the [Bitnami MariaDB chart](https://github.com/kubernetes/charts/tree/master/bitnami-azure/mariadb) which is required for bootstrapping a MariaDB deployment for the database requirements of the Phabricator application.
+It also packages the [Bitnami MariaDB chart](https://github.com/kubernetes/charts/tree/master/stable/mariadb) which is required for bootstrapping a MariaDB deployment for the database requirements of the Phabricator application.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -58,7 +58,7 @@ The following table lists the configurable parameters of the Phabricator chart a
 |----------------------------------------|----------------------------------------------|----------------------------------------------------------|
 | `global.imageRegistry`                 | Global Docker image registry                 | `nil`                                                    |
 | `image.registry`                       | Phabricator image registry                   | `docker.io`                                              |
-| `image.repository`                     | Phabricator image name                       | `bitnami-azure/phabricator`                                    |
+| `image.repository`                     | Phabricator image name                       | `bitnami/phabricator`                                    |
 | `image.tag`                            | Phabricator image tag                        | `{VERSION}`                                              |
 | `image.pullPolicy`                     | Image pull policy                            | `Always` if `imageTag` is `latest`, else `IfNotPresent`  |
 | `image.pullSecrets`                    | Specify docker-registry secret names as an array                   | `[]` (does not add image pull secrets to deployed pods)                                                    |
@@ -110,7 +110,7 @@ The following table lists the configurable parameters of the Phabricator chart a
 | `metrics.podAnnotations`               | Additional annotations for Metrics exporter pod  | `{prometheus.io/scrape: "true", prometheus.io/port: "9117"}` |
 | `metrics.resources`                    | Exporter resource requests/limit                 | {}                                                    |
 
-The above parameters map to the env variables defined in [bitnami-azure/phabricator](http://github.com/bitnami-azure/bitnami-docker-phabricator). For more information please refer to the [bitnami-azure/phabricator](http://github.com/bitnami-azure/bitnami-docker-phabricator) image documentation.
+The above parameters map to the env variables defined in [bitnami/phabricator](http://github.com/bitnami/bitnami-docker-phabricator). For more information please refer to the [bitnami/phabricator](http://github.com/bitnami/bitnami-docker-phabricator) image documentation.
 
 > **Note**:
 >
@@ -131,7 +131,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```console
 $ helm install --name my-release \
   --set phabricatorUsername=admin,phabricatorPassword=password,mariadb.mariadbRootPassword=secretpassword \
-    bitnami-azure/phabricator
+    stable/phabricator
 ```
 
 The above command sets the Phabricator administrator account username and password to `admin` and `password` respectively. Additionally, it sets the MariaDB `root` user password to `secretpassword`.
@@ -146,7 +146,7 @@ $ helm install --name my-release -f values.yaml bitnami-azure/phabricator
 
 ## Persistence
 
-The [Bitnami Phabricator](https://github.com/bitnami-azure/bitnami-docker-phabricator) image stores the Phabricator data and configurations at the `/bitnami-azure/phabricator` and `/bitnami-azure/apache` paths of the container.
+The [Bitnami Phabricator](https://github.com/bitnami/bitnami-docker-phabricator) image stores the Phabricator data and configurations at the `/bitnami/phabricator` and `/bitnami/apache` paths of the container.
 
 Persistent Volume Claims are used to keep the data across deployments. There is a [known issue](https://github.com/kubernetes/kubernetes/issues/39178) in Kubernetes Clusters with EBS in different availability zones. Ensure your cluster is configured properly to create Volumes in the same availability zone where the nodes are running. Kuberentes 1.12 solved this issue with the [Volume Binding Mode](https://kubernetes.io/docs/concepts/storage/storage-classes/#volume-binding-mode).
 
@@ -162,7 +162,7 @@ Everything looks great but requests over https will cause asset requests to fail
 
 ```
 export POD_NAME=$(kubectl get pods -l "app=my-release-phabricator" -o jsonpath="{.items[0].metadata.name}")
-kubectl exec $POD_NAME /opt/bitnami-azure/phabricator/bin/config set phabricator.base-uri https://example.com
+kubectl exec $POD_NAME /opt/bitnami/phabricator/bin/config set phabricator.base-uri https://example.com
 ```
 
 ## Upgrading

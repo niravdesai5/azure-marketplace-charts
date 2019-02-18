@@ -33,7 +33,7 @@ Download the latest release of the chart from the [releases](../../../releases) 
 Alternatively, clone the repo if you wish to use the development snapshot:
 
 ```console
-$ git clone https://github.com/bitnami-azure/charts.git
+$ git clone https://github.com/bitnami/charts.git
 ```
 
 ## Installing the Chart
@@ -72,13 +72,13 @@ The following tables lists the configurable parameters of the TensorFlow Incepti
 | `global.imageRegistry`          | Global Docker image registry                     | `nil`                                                        |
 | `replicaCount`                  | desired number of pods                           | `1`                                                          |
 | `server.image.registry`         | TensorFlow Serving image registry                | `docker.io`                                                  |
-| `server.image.repository`       | TensorFlow Serving Image name                    | `bitnami-azure/tensorflow-serving`                                 |
+| `server.image.repository`       | TensorFlow Serving Image name                    | `bitnami/tensorflow-serving`                                 |
 | `server.image.tag`              | TensorFlow Serving Image tag                     | `{VERSION}`                                                  |
 | `server.image.pullPolicy`       | TensorFlow Serving image pull policy             | `Always` if `imageTag` is `latest`, else `IfNotPresent`      |
 | `server.image.pullSecrets`      | Specify docker-registry secret names as an array | `[]` (does not add image pull secrets to deployed pods)      |
 | `server.port`                   | Tensorflow server port                           | `8500`                                                       |
 | `client.image.registry`         | TensorFlow Inception image registry              | `docker.io`                                                  |
-| `client.image.repository`       | TensorFlow Inception Image name                  | `bitnami-azure/tensorflow-inception`                               |
+| `client.image.repository`       | TensorFlow Inception Image name                  | `bitnami/tensorflow-inception`                               |
 | `client.image.tag`              | TensorFlow Inception Image tag                   | `{VERSION}`                                                  |
 | `client.image.pullPolicy`       | TensorFlow Inception image pull policy           | `Always` if `imageTag` is `latest`, else `IfNotPresent`      |
 | `client.image.pullSecrets`      | Specify docker-registry secret names as an array | `[]` (does not add image pull secrets to deployed pods)      |

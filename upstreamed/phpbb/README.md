@@ -17,9 +17,9 @@ $ helm install bitnami-azure/phpbb
 
 ## Introduction
 
-This chart bootstraps a [phpBB](https://github.com/bitnami-azure/bitnami-docker-phpbb) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [phpBB](https://github.com/bitnami/bitnami-docker-phpbb) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
-It also packages the [Bitnami MariaDB chart](https://github.com/kubernetes/charts/tree/master/bitnami-azure/mariadb) which is required for bootstrapping a MariaDB deployment for the database requirements of the phpBB application.
+It also packages the [Bitnami MariaDB chart](https://github.com/kubernetes/charts/tree/master/stable/mariadb) which is required for bootstrapping a MariaDB deployment for the database requirements of the phpBB application.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -58,7 +58,7 @@ The following table lists the configurable parameters of the phpBB chart and the
 |-----------------------------------|---------------------------------------|---------------------------------------------------------|
 | `global.imageRegistry`            | Global Docker image registry          | `nil`                                                   |
 | `image.registry`                  | phpBB image registry                  | `docker.io`                                             |
-| `image.repository`                | phpBB image name                      | `bitnami-azure/phpbb`                                         |
+| `image.repository`                | phpBB image name                      | `bitnami/phpbb`                                         |
 | `image.tag`                       | phpBB image tag                       | `{VERSION}`                                             |
 | `image.pullPolicy`                | Image pull policy                     | `Always` if `imageTag` is `latest`, else `IfNotPresent` |
 | `image.pullSecrets`               | Specify docker-registry secret names as an array            | `[]` (does not add image pull secrets to deployed pods)                                                   |
@@ -105,14 +105,14 @@ The following table lists the configurable parameters of the phpBB chart and the
 | `metrics.podAnnotations`                   | Additional annotations for Metrics exporter pod                                                                | `{prometheus.io/scrape: "true", prometheus.io/port: "9117"}`                                                   |
 | `metrics.resources`                        | Exporter resource requests/limit                                                                               | {}                        |
 
-The above parameters map to the env variables defined in [bitnami-azure/phpbb](http://github.com/bitnami-azure/bitnami-docker-phpbb). For more information please refer to the [bitnami-azure/phpbb](http://github.com/bitnami-azure/bitnami-docker-phpbb) image documentation.
+The above parameters map to the env variables defined in [bitnami/phpbb](http://github.com/bitnami/bitnami-docker-phpbb). For more information please refer to the [bitnami/phpbb](http://github.com/bitnami/bitnami-docker-phpbb) image documentation.
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
 ```console
 $ helm install --name my-release \
   --set phpbbUser=admin,phpbbPassword=password,mariadb.mariadbRootPassword=secretpassword \
-    bitnami-azure/phpbb
+    stable/phpbb
 ```
 
 The above command sets the phpBB administrator account username and password to `admin` and `password` respectively. Additionally, it sets the MariaDB `root` user password to `secretpassword`.
@@ -127,7 +127,7 @@ $ helm install --name my-release -f values.yaml bitnami-azure/phpbb
 
 ## Persistence
 
-The [Bitnami phpBB](https://github.com/bitnami-azure/bitnami-docker-phpbb) image stores the phpBB data and configurations at the `/bitnami-azure/phpbb` and `/bitnami-azure/apache` paths of the container.
+The [Bitnami phpBB](https://github.com/bitnami/bitnami-docker-phpbb) image stores the phpBB data and configurations at the `/bitnami/phpbb` and `/bitnami/apache` paths of the container.
 
 Persistent Volume Claims are used to keep the data across deployments. This is known to work in GCE, AWS, and minikube.
 See the [Configuration](#configuration) section to configure the PVC or to disable persistence.

@@ -17,7 +17,7 @@ $ helm install bitnami-azure/zookeeper
 
 ## Introduction
 
-This chart bootstraps a [Zookeeper](https://github.com/bitnami-azure/bitnami-docker-zookeeper) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [Zookeeper](https://github.com/bitnami/bitnami-docker-zookeeper) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -56,7 +56,7 @@ The following tables lists the configurable parameters of the Zookeeper chart an
 |---------------------------------------|---------------------------------------------------------------------|----------------------------------------------------------|
 | `global.imageRegistry`                | Global Docker image registry                                        | `nil`                                                    |
 | `image.registry`                      | Zookeeper image registry                                            | `docker.io`                                              |
-| `image.repository`                    | Zookeeper Image name                                                | `bitnami-azure/zookeeper`                                      |
+| `image.repository`                    | Zookeeper Image name                                                | `bitnami/zookeeper`                                      |
 | `image.tag`                           | Zookeeper Image tag                                                 | `{VERSION}`                                              |
 | `image.pullPolicy`                    | Zookeeper image pull policy                                         | `Always`                                                 |
 | `image.pullSecrets`                   | Specify docker-registry secret names as an array                    | `[]` (does not add image pull secrets to deployed pods)  |
@@ -112,7 +112,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```console
 $ helm install --name my-release \
   --set auth.clientUser=newUser \
-    bitnami-azure/zookeeper
+    bitnami/zookeeper
 ```
 
 The above command sets the ZooKeeper user to `newUser`.
@@ -127,7 +127,7 @@ $ helm install --name my-release -f values.yaml bitnami-azure/zookeeper
 
 ## Persistence
 
-The [Bitnami Zookeeper](https://github.com/bitnami-azure/bitnami-docker-zookeeper) image stores the Zookeeper data and configurations at the `/bitnami-azure/zookeeper` path of the container.
+The [Bitnami Zookeeper](https://github.com/bitnami/bitnami-docker-zookeeper) image stores the Zookeeper data and configurations at the `/bitnami/zookeeper` path of the container.
 
 Persistent Volume Claims are used to keep the data across deployments. This is known to work in GCE, AWS, and minikube.
 See the [Configuration](#configuration) section to configure the PVC or to disable persistence.

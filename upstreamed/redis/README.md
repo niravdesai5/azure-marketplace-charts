@@ -23,7 +23,7 @@ $ helm install bitnami-azure/redis --values values-production.yaml
 
 ## Introduction
 
-This chart bootstraps a [Redis](https://github.com/bitnami-azure/bitnami-docker-redis) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [Redis](https://github.com/bitnami/bitnami-docker-redis) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -98,7 +98,7 @@ The following table lists the configurable parameters of the Redis chart and the
 |--------------------------------------------|----------------------------------------------------------------------------------------------------------------|------------------------------------------------------|
 | `global.imageRegistry`                     | Global Docker image registry                                                                                   | `nil`                                                |
 | `image.registry`                           | Redis Image registry                                                                                           | `docker.io`                                          |
-| `image.repository`                         | Redis Image name                                                                                               | `bitnami-azure/redis`                                      |
+| `image.repository`                         | Redis Image name                                                                                               | `bitnami/redis`                                      |
 | `image.tag`                                | Redis Image tag                                                                                                | `{VERSION}`                                          |
 | `image.pullPolicy`                         | Image pull policy                                                                                              | `Always`                                             |
 | `image.pullSecrets`                        | Specify docker-registry secret names as an array                                                               | `nil`                                                |
@@ -176,7 +176,7 @@ The following table lists the configurable parameters of the Redis chart and the
 | `master.priorityClassName`                 | Redis Master pod priorityClassName                                                                             | {}                                                   |
 | `volumePermissions.enabled`         | Enable init container that changes volume permissions in the registry (for cases where the default k8s `runAsUser` and `fsUser` values do not work)                                                               | `false`                                          |
 | `volumePermissions.image.registry`         | Init container volume-permissions image registry                                                               | `docker.io`                                          |
-| `volumePermissions.image.repository`       | Init container volume-permissions image name                                                                   | `bitnami-azure/minideb`                                    |
+| `volumePermissions.image.repository`       | Init container volume-permissions image name                                                                   | `bitnami/minideb`                                    |
 | `volumePermissions.image.tag`              | Init container volume-permissions image tag                                                                    | `latest`                                             |
 | `volumePermissions.image.pullPolicy`       | Init container volume-permissions image pull policy                                                            | `IfNotPresent`                                       |
 | `slave.service.type`                       | Kubernetes Service type (redis slave)                                                                          | `ClusterIP`                                          |
@@ -211,7 +211,7 @@ The following table lists the configurable parameters of the Redis chart and the
 | `sysctlImage.enabled`                      | Enable an init container to modify Kernel settings                                                             | `false`                                              |
 | `sysctlImage.command`                      | sysctlImage command to execute                                                                                 | []                                                   |
 | `sysctlImage.registry`                     | sysctlImage Init container registry                                                                            | `docker.io`                                          |
-| `sysctlImage.repository`                   | sysctlImage Init container name                                                                                | `bitnami-azure/minideb`                                    |
+| `sysctlImage.repository`                   | sysctlImage Init container name                                                                                | `bitnami/minideb`                                    |
 | `sysctlImage.tag`                          | sysctlImage Init container tag                                                                                 | `latest`                                             |
 | `sysctlImage.pullPolicy`                   | sysctlImage Init container pull policy                                                                         | `Always`                                             |
 | `sysctlImage.mountHostSys`                 | Mount the host `/sys` folder to `/host-sys`                                                                    | `false`                                              |
@@ -221,7 +221,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```bash
 $ helm install --name my-release \
   --set password=secretpassword \
-    bitnami-azure/redis
+    stable/redis
 ```
 
 The above command sets the Redis server password to `secretpassword`.

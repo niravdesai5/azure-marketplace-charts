@@ -19,7 +19,7 @@ $ helm install bitnami-azure/nginx
 
 Bitnami charts for Helm are carefully engineered, actively maintained and are the quickest and easiest way to deploy containers on a Kubernetes cluster that are ready to handle production workloads.
 
-This chart bootstraps a [NGINX Open Source](https://github.com/bitnami-azure/bitnami-docker-nginx) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [NGINX Open Source](https://github.com/bitnami/bitnami-docker-nginx) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -53,7 +53,7 @@ The following tables lists the configurable parameters of the NGINX Open Source 
 | ------------------------- | ------------------------------ | --------------------------------------------------------- |
 | `global.imageRegistry`    | Global Docker image registry   | `nil`                                                     |
 | `image.registry`          | NGINX image registry           | `docker.io`                                               |
-| `image.repository`        | NGINX Image name               | `bitnami-azure/nginx`                                           |
+| `image.repository`        | NGINX Image name               | `bitnami/nginx`                                           |
 | `image.tag`               | NGINX Image tag                | `{VERSION}`                                               |
 | `image.pullPolicy`        | NGINX image pull policy        | `Always` if `imageTag` is `latest`, else `IfNotPresent`   |
 | `image.pullSecrets`       | Specify docker-registry secret names as an array     | `[]` (does not add image pull secrets to deployed pods)  |
@@ -78,7 +78,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```bash
 $ helm install --name my-release \
   --set imagePullPolicy=Always \
-    bitnami-azure/nginx
+    bitnami/nginx
 ```
 
 The above command sets the `imagePullPolicy` to `Always`.

@@ -19,7 +19,7 @@ $ helm install bitnami-azure/odoo
 
 ## Introduction
 
-This chart bootstraps a [Odoo](https://github.com/bitnami-azure/bitnami-docker-odoo) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [Odoo](https://github.com/bitnami/bitnami-docker-odoo) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -58,7 +58,7 @@ The following table lists the configurable parameters of the Odoo chart and thei
 |---------------------------------------|-------------------------------------------------------------|------------------------------------------------|
 | `global.imageRegistry`                | Global Docker image registry                                | `nil`                                          |
 | `image.registry`                      | Odoo image registry                                         | `docker.io`                                    |
-| `image.repository`                    | Odoo Image name                                             | `bitnami-azure/odoo`                                 |
+| `image.repository`                    | Odoo Image name                                             | `bitnami/odoo`                                 |
 | `image.tag`                           | Odoo Image tag                                              | `{VERSION}`                                    |
 | `image.pullPolicy`                    | Image pull policy                                           | `Always`                                       |
 | `image.pullSecrets`                   | Specify docker-registry secret names as an array            | `[]` (does not add image pull secrets to deployed pods) |
@@ -107,14 +107,14 @@ The following table lists the configurable parameters of the Odoo chart and thei
 | `readinessProbe.failureThreshold`     | Minimum consecutive failures to be considered failed        | 6                                              |
 | `readinessProbe.successThreshold`     | Minimum consecutive successes to be considered successful   | 1                                              |
 
-The above parameters map to the env variables defined in [bitnami-azure/odoo](http://github.com/bitnami-azure/bitnami-docker-odoo). For more information please refer to the [bitnami-azure/odoo](http://github.com/bitnami-azure/bitnami-docker-odoo) image documentation.
+The above parameters map to the env variables defined in [bitnami/odoo](http://github.com/bitnami/bitnami-docker-odoo). For more information please refer to the [bitnami/odoo](http://github.com/bitnami/bitnami-docker-odoo) image documentation.
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
 ```console
 $ helm install --name my-release \
   --set odooPassword=password,postgresql.postgresPassword=secretpassword \
-    bitnami-azure/odoo
+    stable/odoo
 ```
 
 The above command sets the Odoo administrator account password to `password` and the PostgreSQL `postgres` user password to `secretpassword`.
@@ -129,7 +129,7 @@ $ helm install --name my-release -f values.yaml bitnami-azure/odoo
 
 ## Persistence
 
-The [Bitnami Odoo](https://github.com/bitnami-azure/bitnami-docker-odoo) image stores the Odoo data and configurations at the `/bitnami-azure/odoo` path of the container.
+The [Bitnami Odoo](https://github.com/bitnami/bitnami-docker-odoo) image stores the Odoo data and configurations at the `/bitnami/odoo` path of the container.
 
 Persistent Volume Claims are used to keep the data across deployments. This is known to work in GCE, AWS, and minikube.
 See the [Configuration](#configuration) section to configure the PVC or to disable persistence.

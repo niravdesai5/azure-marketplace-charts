@@ -17,9 +17,9 @@ $ helm install bitnami-azure/jasperreports
 
 ## Introduction
 
-This chart bootstraps a [JasperReports](https://github.com/bitnami-azure/bitnami-docker-jasperreports) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [JasperReports](https://github.com/bitnami/bitnami-docker-jasperreports) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
-It also packages the [Bitnami MariaDB chart](https://github.com/kubernetes/charts/tree/master/bitnami-azure/mariadb) which bootstraps a MariaDB deployment required by the JasperReports application.
+It also packages the [Bitnami MariaDB chart](https://github.com/kubernetes/charts/tree/master/stable/mariadb) which bootstraps a MariaDB deployment required by the JasperReports application.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -58,7 +58,7 @@ The following table lists the configurable parameters of the JasperReports chart
 |-------------------------------|----------------------------------------------|----------------------------------------------------------|
 | `global.imageRegistry`        | Global Docker image registry                 | `nil`                                                    |
 | `image.registry`              | JasperReports image registry                 | `docker.io`                                              |
-| `image.repository`            | JasperReports Image name                     | `bitnami-azure/jasperreports`                                  |
+| `image.repository`            | JasperReports Image name                     | `bitnami/jasperreports`                                  |
 | `image.tag`                   | JasperReports Image tag                      | `{VERSION}`                                              |
 | `image.pullPolicy`            | Image pull policy                            | `Always` if `imageTag` is `latest`, else `IfNotPresent`  |
 | `image.pullSecrets`           | Specify docker-registry secret names as an array | `[]` (does not add image pull secrets to deployed pods) |
@@ -92,14 +92,14 @@ The following table lists the configurable parameters of the JasperReports chart
 | `persistence.size`            | PVC Storage Request for JasperReports volume | `8Gi`                                                    |
 | `resources`                   | CPU/Memory resource requests/limits          | Memory: `512Mi`, CPU: `300m`                             |
 
-The above parameters map to the env variables defined in [bitnami-azure/jasperreports](http://github.com/bitnami-azure/bitnami-docker-jasperreports). For more information please refer to the [bitnami-azure/jasperreports](http://github.com/bitnami-azure/bitnami-docker-jasperreports) image documentation.
+The above parameters map to the env variables defined in [bitnami/jasperreports](http://github.com/bitnami/bitnami-docker-jasperreports). For more information please refer to the [bitnami/jasperreports](http://github.com/bitnami/bitnami-docker-jasperreports) image documentation.
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
 ```console
 $ helm install --name my-release \
   --set jasperreportsUsername=admin,jasperreportsPassword=password,mariadb.mariadbRootPassword=secretpassword \
-    bitnami-azure/jasperreports
+    stable/jasperreports
 ```
 
 The above command sets the JasperReports administrator account username and password to `admin` and `password` respectively. Additionally, it sets the MariaDB `root` user password to `secretpassword`.
@@ -114,7 +114,7 @@ $ helm install --name my-release -f values.yaml bitnami-azure/jasperreports
 
 ## Persistence
 
-The [Bitnami JasperReports](https://github.com/bitnami-azure/bitnami-docker-jasperreports) image stores the JasperReports data and configurations at the `/bitnami-azure/jasperreports` path of the container.
+The [Bitnami JasperReports](https://github.com/bitnami/bitnami-docker-jasperreports) image stores the JasperReports data and configurations at the `/bitnami/jasperreports` path of the container.
 
 Persistent Volume Claims are used to keep the data across deployments. This is known to work in GCE, AWS, and minikube.
 See the [Configuration](#configuration) section to configure the PVC or to disable persistence.

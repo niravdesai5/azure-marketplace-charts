@@ -17,7 +17,7 @@ $ helm install bitnami-azure/wildfly
 
 ## Introduction
 
-This chart bootstraps a [WildFly](https://github.com/bitnami-azure/bitnami-docker-wildfly) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [WildFly](https://github.com/bitnami/bitnami-docker-wildfly) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -56,7 +56,7 @@ The following tables lists the configurable parameters of the WildFly chart and 
 |---------------------------------|----------------------------------------|------------------------------------------------------------|
 | `global.imageRegistry`          | Global Docker image registry           | `nil`                                                      |
 | `image.registry`                | WildFly image registry                 | `docker.io`                                                |
-| `image.repository`              | WildFly Image name                     | `bitnami-azure/wildfly`                                          |
+| `image.repository`              | WildFly Image name                     | `bitnami/wildfly`                                          |
 | `image.tag`                     | WildFly Image tag                      | `{VERSION}`                                                |
 | `image.pullPolicy`              | WildFly image pull policy              | `Always` if `imageTag` is `latest`, else `IfNotPresent`    |
 | `image.pullSecrets`             | Specify docker-registry secret names as an array | `[]` (does not add image pull secrets to deployed pods)   |
@@ -78,14 +78,14 @@ The following tables lists the configurable parameters of the WildFly chart and 
 | `persistence.size`              | PVC Storage Request for WildFly volume | `8Gi`                                                      |
 | `resources`                     | CPU/Memory resource requests/limits    | Memory: `512Mi`, CPU: `300m`                               |
 
-The above parameters map to the env variables defined in [bitnami-azure/wildfly](http://github.com/bitnami-azure/bitnami-docker-wildfly). For more information please refer to the [bitnami-azure/wildfly](http://github.com/bitnami-azure/bitnami-docker-wildfly) image documentation.
+The above parameters map to the env variables defined in [bitnami/wildfly](http://github.com/bitnami/bitnami-docker-wildfly). For more information please refer to the [bitnami/wildfly](http://github.com/bitnami/bitnami-docker-wildfly) image documentation.
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
 ```console
 $ helm install --name my-release \
   --set wildflyUser=manager,wildflyPassword=password \
-    bitnami-azure/wildfly
+    bitnami/wildfly
 ```
 
 The above command sets the WildFly management username and password to `manager` and `password` respectively.
@@ -100,7 +100,7 @@ $ helm install --name my-release -f values.yaml bitnami-azure/wildfly
 
 ## Persistence
 
-The [Bitnami WildFly](https://github.com/bitnami-azure/bitnami-docker-wildfly) image stores the WildFly data and configurations at the `/bitnami-azure/wildfly` path of the container.
+The [Bitnami WildFly](https://github.com/bitnami/bitnami-docker-wildfly) image stores the WildFly data and configurations at the `/bitnami/wildfly` path of the container.
 
 Persistent Volume Claims are used to keep the data across deployments. This is known to work in GCE, AWS, and minikube.
 See the [Configuration](#configuration) section to configure the PVC or to disable persistence.

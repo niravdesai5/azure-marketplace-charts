@@ -18,7 +18,7 @@ $ helm install bitnami-azure/cassandra
 
 ## Introduction
 
-This chart bootstraps a [Cassandra](https://github.com/bitnami-azure/bitnami-docker-cassandra) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [Cassandra](https://github.com/bitnami/bitnami-docker-cassandra) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -57,7 +57,7 @@ The following tables lists the configurable parameters of the cassandra chart an
 |--------------------------------------------|----------------------------------------------------------------------------------------------------------------|------------------------------------------------------|
 | `global.imageRegistry`                     | Global Docker Image registry                                                                                   | `nil`                                                |
 | `image.registry`                           | Cassandra Image registry                                                                                           | `docker.io`                                          |
-| `image.repository`                         | Cassandra Image name                                                                                               | `bitnami-azure/cassandra`                                      |
+| `image.repository`                         | Cassandra Image name                                                                                               | `bitnami/cassandra`                                      |
 | `image.tag`                                | Cassandra Image tag                                                                                                | `{VERSION}`                                          |
 | `image.pullPolicy`                         | Image pull policy                                                                                              | `Always`                                             |
 | `image.pullSecrets`                        | Specify docker-registry secret names as an array                                                               | `[]` (does not add image pull secrets to deployed pods) |
@@ -125,14 +125,14 @@ The following tables lists the configurable parameters of the cassandra chart an
 | `metrics.podAnnotations`                   | Additional annotations for Metrics exporter                                                                 | `{prometheus.io/scrape: "true", prometheus.io/port: "8080"}`                                                   |
 | `metrics.resources`                        | Exporter resource requests/limit                                                                               | `{}`                         |
 
-The above parameters map to the env variables defined in [bitnami-azure/cassandra](http://github.com/bitnami-azure/bitnami-docker-cassandra). For more information please refer to the [bitnami-azure/cassandra](http://github.com/bitnami-azure/bitnami-docker-cassandra) image documentation.
+The above parameters map to the env variables defined in [bitnami/cassandra](http://github.com/bitnami/bitnami-docker-cassandra). For more information please refer to the [bitnami/cassandra](http://github.com/bitnami/bitnami-docker-cassandra) image documentation.
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
 ```console
 $ helm install --name my-release \
   --set dbUser.user=admin,dbUser.password=password\
-    bitnami-azure/cassandra
+    bitnami/cassandra
 ```
 
 Alternatively, a YAML file that specifies the values for the above parameters can be provided while installing the chart. For example,
@@ -145,7 +145,7 @@ $ helm install --name my-release -f values.yaml bitnami-azure/cassandra
 
 ## Persistence
 
-The [Bitnami cassandra](https://github.com/bitnami-azure/bitnami-docker-cassandra) image stores the cassandra data at the `/bitnami-azure/cassandra` path of the container.
+The [Bitnami cassandra](https://github.com/bitnami/bitnami-docker-cassandra) image stores the cassandra data at the `/bitnami/cassandra` path of the container.
 
 Persistent Volume Claims are used to keep the data across deployments. This is known to work in GCE, AWS, and minikube.
 See the [Configuration](#configuration) section to configure the PVC or to disable persistence.
@@ -174,7 +174,7 @@ helm install --name my-release bitnami-azure/cassandra --set cluster.internodeEn
 
 ## Initializing the database
 
-The [Bitnami cassandra](https://github.com/bitnami-azure/bitnami-docker-cassandra) image allows having initialization scripts mounted in `/docker-entrypoint.initdb`. This is done in the chart by adding files in the `files/docker-entrypoint-initdb.d` folder (in order to do so, clone this chart) or by setting the `initDBConfigMap` value with a `ConfigMap` that includes the necessary `sh` or `cql` scripts:
+The [Bitnami cassandra](https://github.com/bitnami/bitnami-docker-cassandra) image allows having initialization scripts mounted in `/docker-entrypoint.initdb`. This is done in the chart by adding files in the `files/docker-entrypoint-initdb.d` folder (in order to do so, clone this chart) or by setting the `initDBConfigMap` value with a `ConfigMap` that includes the necessary `sh` or `cql` scripts:
 
 ```bash
 kubectl create configmap init-db --from-file=path/to/scripts

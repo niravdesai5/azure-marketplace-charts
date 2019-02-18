@@ -17,9 +17,9 @@ $ helm install bitnami-azure/moodle
 
 ## Introduction
 
-This chart bootstraps a [Moodle](https://github.com/bitnami-azure/bitnami-docker-moodle) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [Moodle](https://github.com/bitnami/bitnami-docker-moodle) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
-It also packages the [Bitnami MariaDB chart](https://github.com/kubernetes/charts/tree/master/bitnami-azure/mariadb) which is required for bootstrapping a MariaDB deployment for the database requirements of the Moodle application.
+It also packages the [Bitnami MariaDB chart](https://github.com/kubernetes/charts/tree/master/stable/mariadb) which is required for bootstrapping a MariaDB deployment for the database requirements of the Moodle application.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -58,7 +58,7 @@ The following table lists the configurable parameters of the Moodle chart and th
 |---------------------------------------|----------------------------------------------------------------------------------------------|-------------------------------------------------------- |
 | `global.imageRegistry`                | Global Docker image registry                                                                 | `nil`                                         |
 | `image.registry`                      | Moodle image registry                                                                        | `docker.io`                                   |
-| `image.repository`                    | Moodle Image name                                                                            | `bitnami-azure/moodle`                              |
+| `image.repository`                    | Moodle Image name                                                                            | `bitnami/moodle`                              |
 | `image.tag`                           | Moodle Image tag                                                                             | `{VERSION}`                                   |
 | `image.pullPolicy`                    | Image pull policy                                                                            | `Always` if `imageTag` is `latest`, else `IfNotPresent`|
 | `image.pullSecrets`                   | Specify docker-registry secret names as an array                                             | `[]` (does not add image pull secrets to deployed pods) |
@@ -131,14 +131,14 @@ The following table lists the configurable parameters of the Moodle chart and th
 | `metrics.podAnnotations`              | Additional annotations for Metrics exporter pod                                              | `{prometheus.io/scrape: "true", prometheus.io/port: "9117"}` |
 | `metrics.resources`                   | Exporter resource requests/limit                                                             | {}                                                       |
 
-The above parameters map to the env variables defined in [bitnami-azure/moodle](http://github.com/bitnami-azure/bitnami-docker-moodle). For more information please refer to the [bitnami-azure/moodle](http://github.com/bitnami-azure/bitnami-docker-moodle) image documentation.
+The above parameters map to the env variables defined in [bitnami/moodle](http://github.com/bitnami/bitnami-docker-moodle). For more information please refer to the [bitnami/moodle](http://github.com/bitnami/bitnami-docker-moodle) image documentation.
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
 ```console
 $ helm install --name my-release \
   --set moodleUsername=admin,moodlePassword=password,mariadb.mariadbRootPassword=secretpassword \
-    bitnami-azure/moodle
+    stable/moodle
 ```
 
 The above command sets the Moodle administrator account username and password to `admin` and `password` respectively. Additionally, it sets the MariaDB `root` user password to `secretpassword`.
@@ -157,7 +157,7 @@ For using ingress (example without TLS):
 
 ```console
 $ helm install --name my-release \
-  --set ingress.enabled=True,ingress.hosts[0]=moodle.domain.com,serviceType=ClusterIP,moodleUsername=admin,moodlePassword=password,mariadb.mariadbRootPassword=secretpassword bitnami-azure/moodle
+  --set ingress.enabled=True,ingress.hosts[0]=moodle.domain.com,serviceType=ClusterIP,moodleUsername=admin,moodlePassword=password,mariadb.mariadbRootPassword=secretpassword stable/moodle
 ```
 
 These are the *3 mandatory parameters* when *Ingress* is desired:
@@ -204,7 +204,7 @@ ingress:
 
 ## Persistence
 
-The [Bitnami Moodle](https://github.com/bitnami-azure/bitnami-docker-moodle) image stores the Moodle data and configurations at the `/bitnami-azure/moodle` and `/bitnami-azure/apache` paths of the container.
+The [Bitnami Moodle](https://github.com/bitnami/bitnami-docker-moodle) image stores the Moodle data and configurations at the `/bitnami/moodle` and `/bitnami/apache` paths of the container.
 
 Persistent Volume Claims are used to keep the data across deployments. This is known to work in GCE, AWS, vpshere, and minikube.
 See the [Configuration](#configuration) section to configure the PVC or to disable persistence.

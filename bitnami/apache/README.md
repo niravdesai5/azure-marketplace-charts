@@ -21,7 +21,7 @@ $ helm install bitnami-azure/apache
 
 Bitnami charts for Helm are carefully engineered, actively maintained and are the quickest and easiest way to deploy containers on a Kubernetes cluster that are ready to handle production workloads.
 
-This chart bootstraps a [Apache](https://github.com/bitnami-azure/bitnami-docker-apache) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [Apache](https://github.com/bitnami/bitnami-docker-apache) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -55,7 +55,7 @@ The following tables lists the configurable parameters of the Apache chart and t
 | --------------------------------- | ------------------------------------- | --------------------------------------------------------- |
 | `global.imageRegistry`            | Global Docker image registry          | `nil`                                                     |
 | `image.registry`                  | Apache image registry                 | `docker.io`                                               |
-| `image.repository`                | Apache Image name                     | `bitnami-azure/apache`                                          |
+| `image.repository`                | Apache Image name                     | `bitnami/apache`                                          |
 | `image.tag`                       | Apache Image tag                      | `{VERSION}`                                               |
 | `image.pullPolicy`                | Apache image pull policy              | `Always`                                                  |
 | `image.pullSecrets`               | Specify docker-registry secret names as an array            | `[]` (does not add image pull secrets to deployed pods)  |
@@ -81,7 +81,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```bash
 $ helm install --name my-release \
   --set imagePullPolicy=Always \
-    bitnami-azure/apache
+    bitnami/apache
 ```
 
 The above command sets the `imagePullPolicy` to `Always`.

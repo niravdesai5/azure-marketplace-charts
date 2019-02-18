@@ -29,7 +29,7 @@ helm install --name kubeapps --namespace kubeapps bitnami-azure/kubeapps
 
 This chart bootstraps a [Kubeapps](https://kubeapps.com) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
-It also packages the [Bitnami MongoDB chart](https://github.com/helm/charts/tree/master/bitnami-azure/mongodb) which is required for bootstrapping a MongoDB deployment for the database requirements of the Kubeapps application.
+It also packages the [Bitnami MongoDB chart](https://github.com/helm/charts/tree/master/stable/mongodb) which is required for bootstrapping a MongoDB deployment for the database requirements of the Kubeapps application.
 
 ## Prerequisites
 
@@ -106,7 +106,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```console
 $ helm install --name kubeapps --namespace kubeapps \
   --set chartsvc.service.port=9090 \
-    bitnami-azure/kubeapps
+    bitnami/kubeapps
 ```
 
 The above command sets the port for the chartsvc Service to 9090.
@@ -140,7 +140,7 @@ If your instance of Tiller is running in a different namespace or you want to ha
 ```console
 helm install \
   --set tillerProxy.host=tiller-deploy.my-custom-namespace:44134 \
-  bitnami-azure/kubeapps
+  bitnami/kubeapps
 ```
 
 ### Configuring connection to a secure Tiller instance
@@ -156,7 +156,7 @@ helm install \
   --set tillerProxy.tls.ca="$(cat ca.cert.pem)" \
   --set tillerProxy.tls.key="$(cat helm.key.pem)" \
   --set tillerProxy.tls.cert="$(cat helm.cert.pem)" \
-  bitnami-azure/kubeapps
+  bitnami/kubeapps
 ```
 
 Learn more about how to secure your Kubeapps installation [here](https://github.com/kubeapps/kubeapps/blob/master/docs/user/securing-kubeapps.md).
@@ -179,7 +179,7 @@ $ kubectl get services --namespace kubeapps --watch
 
 #### Ingress
 
-This chart provides support for ingress resources. If you have an ingress controller installed on your cluster, such as [nginx-ingress](https://hub.kubeapps.com/charts/bitnami-azure/nginx-ingress) or [traefik](https://hub.kubeapps.com/charts/bitnami-azure/traefik) you can utilize the ingress controller to expose Kubeapps.
+This chart provides support for ingress resources. If you have an ingress controller installed on your cluster, such as [nginx-ingress](https://hub.kubeapps.com/charts/stable/nginx-ingress) or [traefik](https://hub.kubeapps.com/charts/stable/traefik) you can utilize the ingress controller to expose Kubeapps.
 
 To enable ingress integration, please set `ingress.enabled` to `true`
 

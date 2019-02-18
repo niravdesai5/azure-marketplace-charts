@@ -17,7 +17,7 @@ $ helm install bitnami-azure/kafka
 
 ## Introduction
 
-This chart bootstraps a [Kafka](https://github.com/bitnami-azure/bitnami-docker-kafka) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [Kafka](https://github.com/bitnami/bitnami-docker-kafka) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -56,7 +56,7 @@ The following tables lists the configurable parameters of the Kafka chart and th
 |----------------------------------|------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------- |
 | `global.imageRegistry`           | Global Docker image registry                                                                               | `nil`                                                              |
 | `image.registry`                 | Kafka image registry                                                                                       | `docker.io`                                                        |
-| `image.repository`               | Kafka Image name                                                                                           | `bitnami-azure/kafka`                                                    |
+| `image.repository`               | Kafka Image name                                                                                           | `bitnami/kafka`                                                    |
 | `image.tag`                      | Kafka Image tag                                                                                            | `{VERSION}`                                                        |
 | `image.pullPolicy`               | Kafka image pull policy                                                                                    | `Always`                                                           |
 | `image.pullSecrets`              | Specify docker-registry secret names as an array                                                           | `[]` (does not add image pull secrets to deployed pods)            |
@@ -76,7 +76,7 @@ The following tables lists the configurable parameters of the Kafka chart and th
 | `logRetentionCheckIntervalMs`    | The interval at which log segments are checked to see if they can be deleted.                              | `300000`                                                           |
 | `logRetentionHours`              | The minimum age of a log file to be eligible for deletion due to age.                                      | `168`                                                              |
 | `logSegmentBytes`                | The maximum size of a log segment file. When this size is reached a new log segment will be created.       | `_1073741824`                                                      |
-| `logsDirs`                       | A comma separated list of directories under which to store log files.                                      | `/opt/bitnami-azure/kafka/data`                                          |
+| `logsDirs`                       | A comma separated list of directories under which to store log files.                                      | `/opt/bitnami/kafka/data`                                          |
 | `maxMessageBytes`                       | The largest record batch size allowed by Kafka.                                      | `1000012`                                          |
 | `numIoThreads`                   | The number of threads doing disk I/O.                                                                      | `8`                                                                |
 | `numNetworkThreads`              | The number of threads handling network requests.                                                           | `3`                                                                |
@@ -153,7 +153,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```console
 $ helm install --name my-release \
   --set kafkaPassword=secretpassword,kafkaDatabase=my-database \
-    bitnami-azure/kafka
+    bitnami/kafka
 ```
 
 The above command sets the Kafka `kafka` account password to `secretpassword`. Additionally it creates a database named `my-database`.
@@ -209,7 +209,7 @@ helm install --name my-release bitnami-azure/kafka --set auth.enabled=true \
 
 ## Persistence
 
-The [Bitnami Kafka](https://github.com/bitnami-azure/bitnami-docker-kafka) image stores the Kafka data at the `/bitnami-azure/kafka` path of the container.
+The [Bitnami Kafka](https://github.com/bitnami/bitnami-docker-kafka) image stores the Kafka data at the `/bitnami/kafka` path of the container.
 
 Persistent Volume Claims are used to keep the data across deployments. This is known to work in GCE, AWS, and minikube.
 See the [Configuration](#configuration) section to configure the PVC or to disable persistence.

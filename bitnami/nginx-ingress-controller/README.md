@@ -58,7 +58,7 @@ Parameter | Description | Default
 `global.imageRegistry` | Global Docker image registry | `nil`
 `name` | name of the controller component | `controller`
 `image.registry` | name of the container image registry | `docker.io`
-`image.repository` | controller container image repository | `bitnami-azure/nginx-ingress-controller`
+`image.repository` | controller container image repository | `bitnami/nginx-ingress-controller`
 `image.tag` | controller container image tag | `{VERSION}`
 `image.pullPolicy` | controller container image pull policy | `IfNotPresent`
 `config` | nginx ConfigMap entries | `use-geoip: "false", use-geoip2: "true"`
@@ -175,7 +175,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```bash
 $ helm install --name my-release \
   --set controller.image.pullPolicy=Always \
-    bitnami-azure/nginx-ingress-controller
+    bitnami/nginx-ingress-controller
 ```
 
 The above command sets the `controller.image.pullPolicy` to `Always`.

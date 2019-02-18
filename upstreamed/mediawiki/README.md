@@ -17,9 +17,9 @@ $ helm install bitnami-azure/mediawiki
 
 ## Introduction
 
-This chart bootstraps a [MediaWiki](https://github.com/bitnami-azure/bitnami-docker-mediawiki) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [MediaWiki](https://github.com/bitnami/bitnami-docker-mediawiki) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
-It also packages the [Bitnami MariaDB chart](https://github.com/kubernetes/charts/tree/master/bitnami-azure/mariadb) which is required for bootstrapping a MariaDB deployment for the database requirements of the MediaWiki application.
+It also packages the [Bitnami MariaDB chart](https://github.com/kubernetes/charts/tree/master/stable/mariadb) which is required for bootstrapping a MariaDB deployment for the database requirements of the MediaWiki application.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -58,7 +58,7 @@ The following table lists the configurable parameters of the MediaWiki chart and
 |--------------------------------------|-------------------------------------------------------------|---------------------------------------------------------|
 | `global.imageRegistry`               | Global Docker image registry                                | `nil`                                                   |
 | `image.registry`                     | MediaWiki image registry                                    | `docker.io`                                             |
-| `image.repository`                   | MediaWiki Image name                                        | `bitnami-azure/mediawiki`                                     |
+| `image.repository`                   | MediaWiki Image name                                        | `bitnami/mediawiki`                                     |
 | `image.tag`                          | MediaWiki Image tag                                         | `{VERSION}`                                             |
 | `image.pullPolicy`                   | Image pull policy                                           | `Always`                                                |
 | `image.pullSecrets`                  | Specify docker-registry secret names as an array            | `[]` (does not add image pull secrets to deployed pods) |
@@ -126,14 +126,14 @@ The following table lists the configurable parameters of the MediaWiki chart and
 | `metrics.podAnnotations`             | Additional annotations for Metrics exporter pod             | `{prometheus.io/scrape: "true", prometheus.io/port: "9117"}` |
 | `metrics.resources`                  | Exporter resource requests/limit                            | {}                                                      |
 
-The above parameters map to the env variables defined in [bitnami-azure/mediawiki](http://github.com/bitnami-azure/bitnami-docker-mediawiki). For more information please refer to the [bitnami-azure/mediawiki](http://github.com/bitnami-azure/bitnami-docker-mediawiki) image documentation.
+The above parameters map to the env variables defined in [bitnami/mediawiki](http://github.com/bitnami/bitnami-docker-mediawiki). For more information please refer to the [bitnami/mediawiki](http://github.com/bitnami/bitnami-docker-mediawiki) image documentation.
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
 ```console
 $ helm install --name my-release \
   --set mediawikiUser=admin,mediawikiPassword=password,mariadb.mariadbRootPassword=secretpassword \
-    bitnami-azure/mediawiki
+    stable/mediawiki
 ```
 
 The above command sets the MediaWiki administrator account username and password to `admin` and `password` respectively. Additionally, it sets the MariaDB `root` user password to `secretpassword`.
@@ -148,7 +148,7 @@ $ helm install --name my-release -f values.yaml bitnami-azure/mediawiki
 
 ## Persistence
 
-The [Bitnami MediaWiki](https://github.com/bitnami-azure/bitnami-docker-mediawiki) image stores the MediaWiki data and configurations at the `/bitnami-azure/mediawiki` and `/bitnami-azure/apache` paths of the container.
+The [Bitnami MediaWiki](https://github.com/bitnami/bitnami-docker-mediawiki) image stores the MediaWiki data and configurations at the `/bitnami/mediawiki` and `/bitnami/apache` paths of the container.
 
 Persistent Volume Claims are used to keep the data across deployments. This is known to work in GCE, AWS, and minikube.
 See the [Configuration](#configuration) section to configure the PVC or to disable persistence.

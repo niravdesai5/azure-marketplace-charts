@@ -17,7 +17,7 @@ $ helm install bitnami-azure/memcached
 
 ## Introduction
 
-This chart bootstraps a [Memcached](https://github.com/bitnami-azure/bitnami-docker-memcached) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [Memcached](https://github.com/bitnami/bitnami-docker-memcached) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -56,7 +56,7 @@ The following tables lists the configurable parameters of the Memcached chart an
 |-----------------------------|-------------------------------------|---------------------------------------------------------- |
 | `global.imageRegistry`      | Global Docker image registry        | `nil`                                                     |
 | `image.registry`            | Memcached image registry            | `docker.io`                                               |
-| `image.repository`          | Memcached Image name                | `bitnami-azure/memcached`                                       |
+| `image.repository`          | Memcached Image name                | `bitnami/memcached`                                       |
 | `image.tag`                 | Memcached Image tag                 | `{VERSION}`                                               |
 | `image.pullPolicy`          | Memcached image pull policy         | `Always` if `imageTag` is `latest`, else `IfNotPresent`   |
 | `image.pullSecrets`         | Specify docker-registry secret names as an array          | `[]` (does not add image pull secrets to deployed pods)  |
@@ -77,7 +77,7 @@ The following tables lists the configurable parameters of the Memcached chart an
 | `metrics.resources`                        | Exporter resource requests/limit                                                                               | Memory: `256Mi`, CPU: `100m`                         |
 
 
-The above parameters map to the env variables defined in [bitnami-azure/memcached](http://github.com/bitnami-azure/bitnami-docker-memcached). For more information please refer to the [bitnami-azure/memcached](http://github.com/bitnami-azure/bitnami-docker-memcached) image documentation.
+The above parameters map to the env variables defined in [bitnami/memcached](http://github.com/bitnami/bitnami-docker-memcached). For more information please refer to the [bitnami/memcached](http://github.com/bitnami/bitnami-docker-memcached) image documentation.
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 

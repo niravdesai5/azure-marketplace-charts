@@ -17,7 +17,7 @@ $ helm install bitnami-azure/mongodb
 
 ## Introduction
 
-This chart bootstraps a [MongoDB](https://github.com/bitnami-azure/bitnami-docker-mongodb) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [MongoDB](https://github.com/bitnami/bitnami-docker-mongodb) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -56,7 +56,7 @@ The following table lists the configurable parameters of the MongoDB chart and t
 | -------------------------------------------------- | -------------------------------------------------------------------------------------------- | ------------------------------------------------------- |
 | `global.imageRegistry`                             | Global Docker image registry                                                                 | `nil`                                                   |
 | `image.registry`                                   | MongoDB image registry                                                                       | `docker.io`                                             |
-| `image.repository`                                 | MongoDB Image name                                                                           | `bitnami-azure/mongodb`                                       |
+| `image.repository`                                 | MongoDB Image name                                                                           | `bitnami/mongodb`                                       |
 | `image.tag`                                        | MongoDB Image tag                                                                            | `{VERSION}`                                             |
 | `image.pullPolicy`                                 | Image pull policy                                                                            | `Always`                                                |
 | `image.pullSecrets`                                | Specify docker-registry secret names as an array                                             | `[]` (does not add image pull secrets to deployed pods) |
@@ -133,7 +133,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```bash
 $ helm install --name my-release \
   --set mongodbRootPassword=secretpassword,mongodbUsername=my-user,mongodbPassword=my-password,mongodbDatabase=my-database \
-    bitnami-azure/mongodb
+    stable/mongodb
 ```
 
 The above command sets the MongoDB `root` account password to `secretpassword`. Additionally, it creates a standard database user named `my-user`, with the password `my-password`, who has access to a database named `my-database`.
@@ -159,7 +159,7 @@ $ helm install --name my-release bitnami-azure/mongodb --set replicaSet.enabled=
 The [values-production.yaml](values-production.yaml) file consists a configuration to deploy a scalable and high-available MongoDB deployment for production environments. We recommend that you base your production configuration on this template and adjust the parameters appropriately.
 
 ```console
-$ curl -O https://raw.githubusercontent.com/kubernetes/charts/master/bitnami-azure/mongodb/values-production.yaml
+$ curl -O https://raw.githubusercontent.com/kubernetes/charts/master/stable/mongodb/values-production.yaml
 $ helm install --name my-release -f ./values-production.yaml bitnami-azure/mongodb
 ```
 
@@ -177,13 +177,13 @@ Some characteristics of this chart are:
 
 ## Initialize a fresh instance
 
-The [Bitnami MongoDB](https://github.com/bitnami-azure/bitnami-docker-mongodb) image allows you to use your custom scripts to initialize a fresh instance. In order to execute the scripts, they must be located inside the chart folder `files/docker-entrypoint-initdb.d` so they can be consumed as a ConfigMap.
+The [Bitnami MongoDB](https://github.com/bitnami/bitnami-docker-mongodb) image allows you to use your custom scripts to initialize a fresh instance. In order to execute the scripts, they must be located inside the chart folder `files/docker-entrypoint-initdb.d` so they can be consumed as a ConfigMap.
 
 The allowed extensions are `.sh`, and `.js`.
 
 ## Persistence
 
-The [Bitnami MongoDB](https://github.com/bitnami-azure/bitnami-docker-mongodb) image stores the MongoDB data and configurations at the `/bitnami-azure/mongodb` path of the container.
+The [Bitnami MongoDB](https://github.com/bitnami/bitnami-docker-mongodb) image stores the MongoDB data and configurations at the `/bitnami/mongodb` path of the container.
 
 The chart mounts a [Persistent Volume](http://kubernetes.io/docs/user-guide/persistent-volumes/) at this location. The volume is created using dynamic volume provisioning.
 

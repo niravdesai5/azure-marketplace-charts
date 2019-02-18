@@ -17,9 +17,9 @@ $ helm install bitnami-azure/osclass
 
 ## Introduction
 
-This chart bootstraps an [Osclass](https://github.com/bitnami-azure/bitnami-docker-osclass) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps an [Osclass](https://github.com/bitnami/bitnami-docker-osclass) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
-It also packages the [Bitnami MariaDB chart](https://github.com/kubernetes/charts/tree/master/bitnami-azure/mariadb) which is required for bootstrapping a MariaDB deployment for the database requirements of the Osclass application.
+It also packages the [Bitnami MariaDB chart](https://github.com/kubernetes/charts/tree/master/stable/mariadb) which is required for bootstrapping a MariaDB deployment for the database requirements of the Osclass application.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -58,7 +58,7 @@ The following table lists the configurable parameters of the Osclass chart and t
 |------------------------------------|------------------------------------------|-------------------------------------------------------- |
 | `global.imageRegistry`             | Global Docker image registry             | `nil`                                                   |
 | `image.registry`                   | Osclass image registry                   | `docker.io`                                             |
-| `image.repository`                 | Osclass Image name                       | `bitnami-azure/osclass`                                       |
+| `image.repository`                 | Osclass Image name                       | `bitnami/osclass`                                       |
 | `image.tag`                        | Osclass Image tag                        | `{VERSION}`                                             |
 | `image.pullPolicy`                 | Image pull policy                        | `Always` if `imageTag` is `latest`, else `IfNotPresent` |
 | `image.pullSecrets`                | Specify docker-registry secret names as an array               | `[]` (does not add image pull secrets to deployed pods) |
@@ -109,7 +109,7 @@ The following table lists the configurable parameters of the Osclass chart and t
 | `metrics.podAnnotations`                   | Additional annotations for Metrics exporter pod                                                                | `{prometheus.io/scrape: "true", prometheus.io/port: "9117"}`                                                   |
 | `metrics.resources`                        | Exporter resource requests/limit                                                                               | {}                        |
 
-The above parameters map to the env variables defined in [bitnami-azure/osclass](http://github.com/bitnami-azure/bitnami-docker-osclass). For more information please refer to the [bitnami-azure/osclass](http://github.com/bitnami-azure/bitnami-docker-osclass) image documentation.
+The above parameters map to the env variables defined in [bitnami/osclass](http://github.com/bitnami/bitnami-docker-osclass). For more information please refer to the [bitnami/osclass](http://github.com/bitnami/bitnami-docker-osclass) image documentation.
 
 > **Note**:
 >
@@ -130,7 +130,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```console
 $ helm install --name my-release \
   --set osclassUsername=admin,osclassPassword=password,mariadb.mariadbRootPassword=secretpassword \
-    bitnami-azure/osclass
+    stable/osclass
 ```
 
 The above command sets the Osclass administrator account username and password to `admin` and `password` respectively. Additionally, it sets the MariaDB `root` user password to `secretpassword`.
@@ -145,7 +145,7 @@ $ helm install --name my-release -f values.yaml bitnami-azure/osclass
 
 ## Persistence
 
-The [Bitnami Osclass](https://github.com/bitnami-azure/bitnami-docker-osclass) image stores the Osclass data and configurations at the `/bitnami-azure/osclass` and `/bitnami-azure/apache` paths of the container.
+The [Bitnami Osclass](https://github.com/bitnami/bitnami-docker-osclass) image stores the Osclass data and configurations at the `/bitnami/osclass` and `/bitnami/apache` paths of the container.
 
 Persistent Volume Claims are used to keep the data across deployments. This is known to work in GCE, AWS, and minikube.
 See the [Configuration](#configuration) section to configure the PVC or to disable persistence.

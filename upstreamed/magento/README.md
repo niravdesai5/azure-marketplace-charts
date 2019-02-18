@@ -17,9 +17,9 @@ $ helm install bitnami-azure/magento
 
 ## Introduction
 
-This chart bootstraps a [Magento](https://github.com/bitnami-azure/bitnami-docker-magento) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [Magento](https://github.com/bitnami/bitnami-docker-magento) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
-It also packages the [Bitnami MariaDB chart](https://github.com/kubernetes/charts/tree/master/bitnami-azure/mariadb) which is required for bootstrapping a MariaDB deployment as a database for the Magento application.
+It also packages the [Bitnami MariaDB chart](https://github.com/kubernetes/charts/tree/master/stable/mariadb) which is required for bootstrapping a MariaDB deployment as a database for the Magento application.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -58,7 +58,7 @@ The following table lists the configurable parameters of the Magento chart and t
 |--------------------------------------|--------------------------------------------|----------------------------------------------------------|
 | `global.imageRegistry`               | Global Docker image registry               | `nil`                                                    |
 | `image.registry`                     | Magento image registry                     | `docker.io`                                              |
-| `image.repository`                   | Magento Image name                         | `bitnami-azure/magento`                                        |
+| `image.repository`                   | Magento Image name                         | `bitnami/magento`                                        |
 | `image.tag`                          | Magento Image tag                          | `{VERSION}`                                              |
 | `image.pullPolicy`                   | Image pull policy                          | `Always` if `imageTag` is `latest`, else `IfNotPresent`  |
 | `image.pullSecrets`                  | Specify docker-registry secret names as an array | `[]` (does not add image pull secrets to deployed pods) |
@@ -120,7 +120,7 @@ The following table lists the configurable parameters of the Magento chart and t
 | `metrics.podAnnotations`             | Additional annotations for Metrics exporter pod  | `{prometheus.io/scrape: "true", prometheus.io/port: "9117"}` |
 | `metrics.resources`                  | Exporter resource requests/limit                 | {}                                                  |
 
-The above parameters map to the env variables defined in [bitnami-azure/magento](http://github.com/bitnami-azure/bitnami-docker-magento). For more information please refer to the [bitnami-azure/magento](http://github.com/bitnami-azure/bitnami-docker-magento) image documentation.
+The above parameters map to the env variables defined in [bitnami/magento](http://github.com/bitnami/bitnami-docker-magento). For more information please refer to the [bitnami/magento](http://github.com/bitnami/bitnami-docker-magento) image documentation.
 
 > **Note**:
 >
@@ -141,7 +141,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```console
 $ helm install --name my-release \
   --set magentoUsername=admin,magentoPassword=password,mariadb.mariadbRootPassword=secretpassword \
-    bitnami-azure/magento
+    stable/magento
 ```
 
 The above command sets the Magento administrator account username and password to `admin` and `password` respectively. Additionally, it sets the MariaDB `root` user password to `secretpassword`.
@@ -156,7 +156,7 @@ $ helm install --name my-release -f values.yaml bitnami-azure/magento
 
 ## Persistence
 
-The [Bitnami Magento](https://github.com/bitnami-azure/bitnami-docker-magento) image stores the Magento data and configurations at the `/bitnami-azure/magento` and `/bitnami-azure/apache` paths of the container.
+The [Bitnami Magento](https://github.com/bitnami/bitnami-docker-magento) image stores the Magento data and configurations at the `/bitnami/magento` and `/bitnami/apache` paths of the container.
 
  Persistent Volume Claims are used to keep the data across deployments. There is a [known issue](https://github.com/kubernetes/kubernetes/issues/39178) in Kubernetes Clusters with EBS in different availability zones. Ensure your cluster is configured properly to create Volumes in the same availability zone where the nodes are running. Kuberentes 1.12 solved this issue with the [Volume Binding Mode](https://kubernetes.io/docs/concepts/storage/storage-classes/#volume-binding-mode).
 

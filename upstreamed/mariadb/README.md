@@ -19,7 +19,7 @@ $ helm install bitnami-azure/mariadb
 
 ## Introduction
 
-This chart bootstraps a [MariaDB](https://github.com/bitnami-azure/bitnami-docker-mariadb) replication cluster deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [MariaDB](https://github.com/bitnami/bitnami-docker-mariadb) replication cluster deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -58,7 +58,7 @@ The following table lists the configurable parameters of the MariaDB chart and t
 |-------------------------------------------|-----------------------------------------------------|-------------------------------------------------------------------|
 | `global.imageRegistry`                    | Global Docker image registry                        | `nil`                                                             |
 | `image.registry`                          | MariaDB image registry                              | `docker.io`                                                       |
-| `image.repository`                        | MariaDB Image name                                  | `bitnami-azure/mariadb`                                                 |
+| `image.repository`                        | MariaDB Image name                                  | `bitnami/mariadb`                                                 |
 | `image.tag`                               | MariaDB Image tag                                   | `{VERSION}`                                                       |
 | `image.pullPolicy`                        | MariaDB image pull policy                           | `Always` if `imageTag` is `latest`, else `IfNotPresent`           |
 | `image.pullSecrets`                       | Specify docker-registry secret names as an array    | `[]` (does not add image pull secrets to deployed pods)           |
@@ -89,7 +89,7 @@ The following table lists the configurable parameters of the MariaDB chart and t
 | `master.tolerations`                      | List of node taints to tolerate (master)            | `[]`                                                              |
 | `master.persistence.enabled`              | Enable persistence using PVC                        | `true`                                                            |
 | `master.persistence.existingClaim`        | Provide an existing `PersistentVolumeClaim`         | `nil`                                                             |
-| `master.persistence.mountPath`            | Path to mount the volume at                         | `/bitnami-azure/mariadb`                                                |
+| `master.persistence.mountPath`            | Path to mount the volume at                         | `/bitnami/mariadb`                                                |
 | `master.persistence.annotations`          | Persistent Volume Claim annotations                 | `{}`                                                              |
 | `master.persistence.storageClass`         | Persistent Volume Storage Class                     | ``                                                                |
 | `master.persistence.accessModes`          | Persistent Volume Access Modes                      | `[ReadWriteOnce]`                                                 |
@@ -142,14 +142,14 @@ The following table lists the configurable parameters of the MariaDB chart and t
 | `metrics.image.pullPolicy`                | Exporter image pull policy                          | `IfNotPresent`                                                    |
 | `metrics.resources`                       | Exporter resource requests/limit                    | `nil`                                                             |
 
-The above parameters map to the env variables defined in [bitnami-azure/mariadb](http://github.com/bitnami-azure/bitnami-docker-mariadb). For more information please refer to the [bitnami-azure/mariadb](http://github.com/bitnami-azure/bitnami-docker-mariadb) image documentation.
+The above parameters map to the env variables defined in [bitnami/mariadb](http://github.com/bitnami/bitnami-docker-mariadb). For more information please refer to the [bitnami/mariadb](http://github.com/bitnami/bitnami-docker-mariadb) image documentation.
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
 ```bash
 $ helm install --name my-release \
   --set rootUser.password=secretpassword,db.user=app_database \
-    bitnami-azure/mariadb
+    stable/mariadb
 ```
 
 The above command sets the MariaDB `root` account password to `secretpassword`. Additionally it creates a database named `my_database`.
@@ -164,7 +164,7 @@ $ helm install --name my-release -f values.yaml bitnami-azure/mariadb
 
 ## Initialize a fresh instance
 
-The [Bitnami MariaDB](https://github.com/bitnami-azure/bitnami-docker-mariadb) image allows you to use your custom scripts to initialize a fresh instance. In order to execute the scripts, they must be located inside the chart folder `files/docker-entrypoint-initdb.d` so they can be consumed as a ConfigMap.
+The [Bitnami MariaDB](https://github.com/bitnami/bitnami-docker-mariadb) image allows you to use your custom scripts to initialize a fresh instance. In order to execute the scripts, they must be located inside the chart folder `files/docker-entrypoint-initdb.d` so they can be consumed as a ConfigMap.
 
 Alternatively, you can specify custom scripts using the `initdbScripts` parameter as dict.
 
@@ -174,7 +174,7 @@ The allowed extensions are `.sh`, `.sql` and `.sql.gz`.
 
 ## Persistence
 
-The [Bitnami MariaDB](https://github.com/bitnami-azure/bitnami-docker-mariadb) image stores the MariaDB data and configurations at the `/bitnami-azure/mariadb` path of the container.
+The [Bitnami MariaDB](https://github.com/bitnami/bitnami-docker-mariadb) image stores the MariaDB data and configurations at the `/bitnami/mariadb` path of the container.
 
 The chart mounts a [Persistent Volume](kubernetes.io/docs/user-guide/persistent-volumes/) volume at this location. The volume is created using dynamic volume provisioning, by default. An existing PersistentVolumeClaim can be defined.
 

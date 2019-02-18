@@ -17,7 +17,7 @@ $ helm install bitnami-azure/nats
 
 ## Introduction
 
-This chart bootstraps a [NATS](https://github.com/bitnami-azure/bitnami-docker-nats) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [NATS](https://github.com/bitnami/bitnami-docker-nats) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -56,7 +56,7 @@ The following table lists the configurable parameters of the NATS chart and thei
 | ------------------------------------ | -------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
 | `global.imageRegistry`               | Global Docker image registry                                                                 | `nil`                                                         |
 | `image.registry`                     | NATS image registry                                                                          | `docker.io`                                                   |
-| `image.repository`                   | NATS Image name                                                                              | `bitnami-azure/nats`                                                |
+| `image.repository`                   | NATS Image name                                                                              | `bitnami/nats`                                                |
 | `image.tag`                          | NATS Image tag                                                                               | `{VERSION}`                                                   |
 | `image.pullPolicy`                   | Image pull policy                                                                            | `Always`                                                      |
 | `image.pullSecrets`                  | Specify docker-registry secret names as an array                                             | `[]` (does not add image pull secrets to deployed pods)       |
@@ -143,7 +143,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```bash
 $ helm install --name my-release \
   --set auth.enabled=true,auth.user=my-user,auth.password=T0pS3cr3t \
-    bitnami-azure/nats
+    stable/nats
 ```
 
 The above command enables NATS client authentication with `my-user` as user and `T0pS3cr3t` as password credentials.
@@ -175,7 +175,7 @@ sidecars:
 The [values-production.yaml](values-production.yaml) file consists a configuration to deploy a scalable and high-available NATS deployment for production environments. We recommend that you base your production configuration on this template and adjust the parameters appropriately.
 
 ```console
-$ curl -O https://raw.githubusercontent.com/kubernetes/charts/master/bitnami-azure/nats/values-production.yaml
+$ curl -O https://raw.githubusercontent.com/kubernetes/charts/master/stable/nats/values-production.yaml
 $ helm install --name my-release -f ./values-production.yaml bitnami-azure/nats
 ```
 

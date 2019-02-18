@@ -18,7 +18,7 @@ $ helm install bitnami-azure/consul
 
 ## Introduction
 
-This chart bootstraps a [HashiCorp Consul](https://github.com/bitnami-azure/bitnami-docker-consul) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [HashiCorp Consul](https://github.com/bitnami/bitnami-docker-consul) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -60,7 +60,7 @@ The following tables lists the configurable parameters of the HashiCorp Consul c
 | ------------------------------------ | ---------------------------------------------------------------- | ---------------------------------------------------------- |
 | `global.imageRegistry`               | Global Docker image registry                                     | `nil`                                                      |
 | `image.registry`                     | HashiCorp Consul image registry                                  | `docker.io`                                                |
-| `image.repository`                   | HashiCorp Consul image name                                      | `bitnami-azure/consul`                                           |
+| `image.repository`                   | HashiCorp Consul image name                                      | `bitnami/consul`                                           |
 | `image.tag`                          | HashiCorp Consul image tag                                       | `{VERSION}`                                                |
 | `image.pullPolicy`                   | Image pull policy                                                | `Always`                                                   |
 | `image.pullSecrets`                  | Specify docker-registry secret names as an array                 | `[]` (does not add image pull secrets to deployed pods)    |
@@ -140,7 +140,7 @@ $ helm install --name my-release -f values.yaml bitnami-azure/consul
 
 ## Persistence
 
-The [Bitnami HashiCorp Consul](https://github.com/bitnami-azure/bitnami-docker-consul) image stores the HashiCorp Consul data at the `/bitnami` path of the container.
+The [Bitnami HashiCorp Consul](https://github.com/bitnami/bitnami-docker-consul) image stores the HashiCorp Consul data at the `/bitnami` path of the container.
 
 Persistent Volume Claims are used to keep the data across deployments. This is known to work in GCE, AWS, and minikube.
 See the [Configuration](#configuration) section to configure the PVC or to disable persistence.
@@ -148,8 +148,8 @@ See the [Configuration](#configuration) section to configure the PVC or to disab
 ## Ingress
 
 This chart provides support for ingress resources. If you have an
-ingress controller installed on your cluster, such as [nginx-ingress](https://kubeapps.com/charts/bitnami-azure/nginx-ingress)
-or [traefik](https://kubeapps.com/charts/bitnami-azure/traefik) you can utilize
+ingress controller installed on your cluster, such as [nginx-ingress](https://kubeapps.com/charts/stable/nginx-ingress)
+or [traefik](https://kubeapps.com/charts/stable/traefik) you can utilize
 the ingress controller to service your HashiCorp Consul UI application.
 
 To enable ingress integration, please set `ingress.enabled` to `true`
@@ -180,7 +180,7 @@ common use cases:
 
 * helm generates / manages certificate secrets
 * user generates / manages certificates separately
-* an additional tool (like [kube-lego](https://kubeapps.com/charts/bitnami-azure/kube-lego))
+* an additional tool (like [kube-lego](https://kubeapps.com/charts/stable/kube-lego))
 manages the secrets for the application
 
 In the first two cases, one will need a certificate and a key.  We would
@@ -232,12 +232,12 @@ kubectl create secret generic consul-tls-encryption \
 
 > Take into account that you will need to create a config map with the proper configuration.
 
-If the secret is specified, the chart will locate those files at `/opt/bitnami-azure/consul/certs/`, so you will want to use the below snippet to configure HashiCorp Consul TLS encryption in your config map:
+If the secret is specified, the chart will locate those files at `/opt/bitnami/consul/certs/`, so you will want to use the below snippet to configure HashiCorp Consul TLS encryption in your config map:
 
 ```
-  "ca_file": "/opt/bitnami-azure/consul/certs/ca.pem",
-  "cert_file": "/opt/bitnami-azure/consul/certs/consul.pem",
-  "key_file": "/opt/bitnami-azure/consul/certs/consul-key.pem",
+  "ca_file": "/opt/bitnami/consul/certs/ca.pem",
+  "cert_file": "/opt/bitnami/consul/certs/consul.pem",
+  "key_file": "/opt/bitnami/consul/certs/consul-key.pem",
   "verify_incoming": true,
   "verify_outgoing": true,
   "verify_server_hostname": true,

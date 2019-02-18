@@ -17,7 +17,7 @@ $ helm install bitnami-azure/dokuwiki
 
 ## Introduction
 
-This chart bootstraps a [DokuWiki](https://github.com/bitnami-azure/bitnami-docker-dokuwiki) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [DokuWiki](https://github.com/bitnami/bitnami-docker-dokuwiki) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -56,7 +56,7 @@ The following table lists the configurable parameters of the DokuWiki chart and 
 |--------------------------------------|------------------------------------------------------------|-----------------------------------------------|
 | `global.imageRegistry`               | Global Docker image registry                               | `nil`                                         |
 | `image.registry`                     | DokuWiki image registry                                    | `docker.io`                                   |
-| `image.repository`                   | DokuWiki image name                                        | `bitnami-azure/dokuwiki`                            |
+| `image.repository`                   | DokuWiki image name                                        | `bitnami/dokuwiki`                            |
 | `image.tag`                          | DokuWiki image tag                                         | `{VERSION}`                                   |
 | `image.pullPolicy`                   | Image pull policy                                          | `Always`                                      |
 | `image.pullSecrets`                  | Specify docker-registry secret names as an array           | `[]` (does not add image pull secrets to deployed pods) |
@@ -116,14 +116,14 @@ The following table lists the configurable parameters of the DokuWiki chart and 
 | `metrics.resources`                  | Exporter resource requests/limit                           | {}                                            |
 
 
-The above parameters map to the env variables defined in [bitnami-azure/dokuwiki](http://github.com/bitnami-azure/bitnami-docker-dokuwiki). For more information please refer to the [bitnami-azure/dokuwiki](http://github.com/bitnami-azure/bitnami-docker-dokuwiki) image documentation.
+The above parameters map to the env variables defined in [bitnami/dokuwiki](http://github.com/bitnami/bitnami-docker-dokuwiki). For more information please refer to the [bitnami/dokuwiki](http://github.com/bitnami/bitnami-docker-dokuwiki) image documentation.
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
 ```console
 $ helm install --name my-release \
   --set dokuwikiUsername=admin,dokuwikiPassword=password \
-    bitnami-azure/dokuwiki
+    stable/dokuwiki
 ```
 
 The above command sets the DokuWiki administrator account username and password to `admin` and `password` respectively.
@@ -138,7 +138,7 @@ $ helm install --name my-release -f values.yaml bitnami-azure/dokuwiki
 
 ## Persistence
 
-The [Bitnami DokuWiki](https://github.com/bitnami-azure/bitnami-docker-dokuwiki) image stores the DokuWiki data and configurations at the `/bitnami-azure/dokuwiki` and `/bitnami-azure/apache` paths of the container.
+The [Bitnami DokuWiki](https://github.com/bitnami/bitnami-docker-dokuwiki) image stores the DokuWiki data and configurations at the `/bitnami/dokuwiki` and `/bitnami/apache` paths of the container.
 
 Persistent Volume Claims are used to keep the data across deployments. There is a [known issue](https://github.com/kubernetes/kubernetes/issues/39178) in Kubernetes Clusters with EBS in different availability zones. Ensure your cluster is configured properly to create Volumes in the same availability zone where the nodes are running. Kuberentes 1.12 solved this issue with the [Volume Binding Mode](https://kubernetes.io/docs/concepts/storage/storage-classes/#volume-binding-mode).
 

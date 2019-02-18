@@ -17,7 +17,7 @@ $ helm install bitnami-azure/rabbitmq
 
 ## Introduction
 
-This chart bootstraps a [RabbitMQ](https://github.com/bitnami-azure/bitnami-docker-rabbitmq) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [RabbitMQ](https://github.com/bitnami/bitnami-docker-rabbitmq) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -56,7 +56,7 @@ The following table lists the configurable parameters of the RabbitMQ chart and 
 | ------------------------------------ | ------------------------------------------------ | ------------------------------------------------------- |
 | `global.imageRegistry`               | Global Docker image registry                     | `nil`                                                   |
 | `image.registry`                     | Rabbitmq Image registry                          | `docker.io`                                             |
-| `image.repository`                   | Rabbitmq Image name                              | `bitnami-azure/rabbitmq`                                      |
+| `image.repository`                   | Rabbitmq Image name                              | `bitnami/rabbitmq`                                      |
 | `image.tag`                          | Rabbitmq Image tag                               | `{VERSION}`                                             |
 | `image.pullPolicy`                   | Image pull policy                                | `Always` if `imageTag` is `latest`, else `IfNotPresent` |
 | `image.pullSecrets`                  | Specify docker-registry secret names as an array | `nil`                                                   |
@@ -115,14 +115,14 @@ The following table lists the configurable parameters of the RabbitMQ chart and 
 | `metrics.resources`                  | Exporter resource requests/limit                 | `nil`                                                   |
 | `podLabels`                          | Additional labels for the statefulset pod(s).    | {}                                                      |
 
-The above parameters map to the env variables defined in [bitnami-azure/rabbitmq](http://github.com/bitnami-azure/bitnami-docker-rabbitmq). For more information please refer to the [bitnami-azure/rabbitmq](http://github.com/bitnami-azure/bitnami-docker-rabbitmq) image documentation.
+The above parameters map to the env variables defined in [bitnami/rabbitmq](http://github.com/bitnami/bitnami-docker-rabbitmq). For more information please refer to the [bitnami/rabbitmq](http://github.com/bitnami/bitnami-docker-rabbitmq) image documentation.
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
 ```bash
 $ helm install --name my-release \
   --set rabbitmq.username=admin,rabbitmq.password=secretpassword,rabbitmq.erlangCookie=secretcookie \
-    bitnami-azure/rabbitmq
+    stable/rabbitmq
 ```
 
 The above command sets the RabbitMQ admin username and password to `admin` and `secretpassword` respectively. Additionally the secure erlang cookie is set to `secretcookie`.
@@ -145,7 +145,7 @@ $ helm install --name my-release -f values-production.yaml bitnami-azure/rabbitm
 
 ## Persistence
 
-The [Bitnami RabbitMQ](https://github.com/bitnami-azure/bitnami-docker-rabbitmq) image stores the RabbitMQ data and configurations at the `/opt/bitnami-azure/rabbitmq/var/lib/rabbitmq/` path of the container.
+The [Bitnami RabbitMQ](https://github.com/bitnami/bitnami-docker-rabbitmq) image stores the RabbitMQ data and configurations at the `/opt/bitnami/rabbitmq/var/lib/rabbitmq/` path of the container.
 
 The chart mounts a [Persistent Volume](http://kubernetes.io/docs/user-guide/persistent-volumes/) at this location. By default, the volume is created using dynamic volume provisioning. An existing PersistentVolumeClaim can also be defined.
 

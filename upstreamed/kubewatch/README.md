@@ -49,7 +49,7 @@ The following table lists the configurable parameters of the kubewatch chart and
 | `global.imageRegistry`                   | Global Docker image registry         | `nil`                             |
 | `affinity`                               | node/pod affinities                  | None                              |
 | `image.registry`                         | Image registry                       | `docker.io`                       |
-| `image.repository`                       | Image repository                     | `bitnami-azure/kubewatch`               |
+| `image.repository`                       | Image repository                     | `bitnami/kubewatch`               |
 | `image.tag`                              | Image tag                            | `{VERSION}`                       |
 | `image.pullPolicy`                       | Image pull policy                    | `Always`                          |
 | `nodeSelector`                           | node labels for pod assignment       | `{}`                              |

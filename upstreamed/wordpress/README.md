@@ -17,9 +17,9 @@ $ helm install bitnami-azure/wordpress
 
 ## Introduction
 
-This chart bootstraps a [WordPress](https://github.com/bitnami-azure/bitnami-docker-wordpress) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [WordPress](https://github.com/bitnami/bitnami-docker-wordpress) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
-It also packages the [Bitnami MariaDB chart](https://github.com/kubernetes/charts/tree/master/bitnami-azure/mariadb) which is required for bootstrapping a MariaDB deployment for the database requirements of the WordPress application.
+It also packages the [Bitnami MariaDB chart](https://github.com/kubernetes/charts/tree/master/stable/mariadb) which is required for bootstrapping a MariaDB deployment for the database requirements of the WordPress application.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -58,7 +58,7 @@ The following table lists the configurable parameters of the WordPress chart and
 |----------------------------------|--------------------------------------------|---------------------------------------------------------|
 | `global.imageRegistry`           | Global Docker image registry               | `nil`                                                   |
 | `image.registry`                 | WordPress image registry                   | `docker.io`                                             |
-| `image.repository`               | WordPress image name                       | `bitnami-azure/wordpress`                                     |
+| `image.repository`               | WordPress image name                       | `bitnami/wordpress`                                     |
 | `image.tag`                      | WordPress image tag                        | `{VERSION}`                                             |
 | `image.pullPolicy`               | Image pull policy                          | `Always` if `imageTag` is `latest`, else `IfNotPresent` |
 | `image.pullSecrets`              | Specify docker-registry secret names as an array | `[]` (does not add image pull secrets to deployed pods) |
@@ -127,14 +127,14 @@ The following table lists the configurable parameters of the WordPress chart and
 | `metrics.podAnnotations`         | Additional annotations for Metrics exporter pod         | `{prometheus.io/scrape: "true", prometheus.io/port: "9117"}`   |
 | `metrics.resources`              | Exporter resource requests/limit           | {}                                                      |
 
-The above parameters map to the env variables defined in [bitnami-azure/wordpress](http://github.com/bitnami-azure/bitnami-docker-wordpress). For more information please refer to the [bitnami-azure/wordpress](http://github.com/bitnami-azure/bitnami-docker-wordpress) image documentation.
+The above parameters map to the env variables defined in [bitnami/wordpress](http://github.com/bitnami/bitnami-docker-wordpress). For more information please refer to the [bitnami/wordpress](http://github.com/bitnami/bitnami-docker-wordpress) image documentation.
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
 ```console
 $ helm install --name my-release \
   --set wordpressUsername=admin,wordpressPassword=password,mariadb.mariadbRootPassword=secretpassword \
-    bitnami-azure/wordpress
+    stable/wordpress
 ```
 
 The above command sets the WordPress administrator account username and password to `admin` and `password` respectively. Additionally, it sets the MariaDB `root` user password to `secretpassword`.
@@ -166,7 +166,7 @@ $ helm install --name my-release -f values-production.yaml --set persistence.sto
 
 ## Persistence
 
-The [Bitnami WordPress](https://github.com/bitnami-azure/bitnami-docker-wordpress) image stores the WordPress data and configurations at the `/bitnami` path of the container.
+The [Bitnami WordPress](https://github.com/bitnami/bitnami-docker-wordpress) image stores the WordPress data and configurations at the `/bitnami` path of the container.
 
 Persistent Volume Claims are used to keep the data across deployments. This is known to work in GCE, AWS, and minikube.
 See the [Configuration](#configuration) section to configure the PVC or to disable persistence.
@@ -185,8 +185,8 @@ Note also if you disable MariaDB per above you MUST supply values for the `exter
 ## Ingress
 
 This chart provides support for ingress resources. If you have an
-ingress controller installed on your cluster, such as [nginx-ingress](https://kubeapps.com/charts/bitnami-azure/nginx-ingress)
-or [traefik](https://kubeapps.com/charts/bitnami-azure/traefik) you can utilize
+ingress controller installed on your cluster, such as [nginx-ingress](https://kubeapps.com/charts/stable/nginx-ingress)
+or [traefik](https://kubeapps.com/charts/stable/traefik) you can utilize
 the ingress controller to serve your WordPress application.
 
 To enable ingress integration, please set `ingress.enabled` to `true`
@@ -219,7 +219,7 @@ common use cases:
 
 * helm generates/manages certificate secrets
 * user generates/manages certificates separately
-* an additional tool (like [kube-lego](https://kubeapps.com/charts/bitnami-azure/kube-lego))
+* an additional tool (like [kube-lego](https://kubeapps.com/charts/stable/kube-lego))
 manages the secrets for the application
 
 In the first two cases, one will need a certificate and a key.  We would
@@ -275,7 +275,7 @@ Any number of name/value pairs may be specified; they are all copied into the li
 
 ## Disabling `.htaccess`
 
-For performance and security reasons, it is a good practice to configure Apache with `AllowOverride None`. Instead of using `.htaccess` files, Apache will load the same dircetives at boot time. These directives are located in `/opt/bitnami-azure/wordpress/wordpress-htaccess.conf`. The container image includes by default these directives all of the default `.htaccess` files in WordPress (together with the default plugins). To enable this feature, install the chart with the following value:
+For performance and security reasons, it is a good practice to configure Apache with `AllowOverride None`. Instead of using `.htaccess` files, Apache will load the same dircetives at boot time. These directives are located in `/opt/bitnami/wordpress/wordpress-htaccess.conf`. The container image includes by default these directives all of the default `.htaccess` files in WordPress (together with the default plugins). To enable this feature, install the chart with the following value:
 
 ```
 helm install bitnami-azure/wordpress --set allowOverrideNone=yes

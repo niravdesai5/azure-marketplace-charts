@@ -17,7 +17,7 @@ $ helm install bitnami-azure/etcd
 
 ## Introduction
 
-This chart bootstraps a [etcd](https://github.com/bitnami-azure/bitnami-docker-etcd) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [etcd](https://github.com/bitnami/bitnami-docker-etcd) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -56,7 +56,7 @@ The following tables lists the configurable parameters of the etcd chart and the
 |---------------------------------------|----------------------------------------------------------------------------------------------------------|------------------------------------------------------------------- |
 | `global.imageRegistry`                | Global Docker image registry                                                                             | `nil`                                                              |
 | `image.registry`                      | etcd image registry                                                                                      | `docker.io`                                                        |
-| `image.repository`                    | etcd Image name                                                                                          | `bitnami-azure/etcd`                                                     |
+| `image.repository`                    | etcd Image name                                                                                          | `bitnami/etcd`                                                     |
 | `image.tag`                           | etcd Image tag                                                                                           | `{VERSION}`                                                        |
 | `image.pullPolicy`                    | etcd image pull policy                                                                                   | `Always`                                                           |
 | `image.pullSecrets`                   | Specify docker-registry secret names as an array                                                         | `[]` (does not add image pull secrets to deployed pods)           |
@@ -119,7 +119,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 
 ```console
 $ helm install --name my-release \
-  --set auth.rootPassword=secretpassword bitnami-azure/etcd
+  --set auth.rootPassword=secretpassword bitnami/etcd
 ```
 
 The above command sets the etcd `etcd` account password to `secretpassword`. Additionally it creates a database named `my-database`.
@@ -193,7 +193,7 @@ $ helm install --name my-release --set auth.client.secureTransport=true --set au
 
 ## Persistence
 
-The [Bitnami etcd](https://github.com/bitnami-azure/bitnami-docker-etcd) image stores the etcd data at the `/bitnami-azure/etcd` path of the container.
+The [Bitnami etcd](https://github.com/bitnami/bitnami-docker-etcd) image stores the etcd data at the `/bitnami/etcd` path of the container.
 
 Persistent Volume Claims are used to keep the data across deployments. This is known to work in GCE, AWS, and minikube.
 See the [Configuration](#configuration) section to configure the PVC or to disable persistence.

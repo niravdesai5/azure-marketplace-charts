@@ -17,9 +17,9 @@ $ helm install bitnami-azure/ghost
 
 ## Introduction
 
-This chart bootstraps a [Ghost](https://github.com/bitnami-azure/bitnami-docker-ghost) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [Ghost](https://github.com/bitnami/bitnami-docker-ghost) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
-It also packages the [Bitnami MariaDB chart](https://github.com/kubernetes/charts/tree/master/bitnami-azure/mariadb) which is required for bootstrapping a MariaDB deployment for the database requirements of the Ghost application.
+It also packages the [Bitnami MariaDB chart](https://github.com/kubernetes/charts/tree/master/stable/mariadb) which is required for bootstrapping a MariaDB deployment for the database requirements of the Ghost application.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -58,12 +58,12 @@ The following table lists the configurable parameters of the Ghost chart and the
 |-------------------------------------|---------------------------------------------------------------|----------------------------------------------------------|
 | `global.imageRegistry`              | Global Docker image registry                                  | `nil`                                                    |
 | `image.registry`                    | Ghost image registry                                          | `docker.io`                                              |
-| `image.repository`                  | Ghost Image name                                              | `bitnami-azure/ghost`                                          |
+| `image.repository`                  | Ghost Image name                                              | `bitnami/ghost`                                          |
 | `image.tag`                         | Ghost Image tag                                               | `{VERSION}`                                              |
 | `image.pullPolicy`                  | Image pull policy                                             | `Always` if `imageTag` is `latest`, else `IfNotPresent`  |
 | `image.pullSecrets`                 | Specify docker-registry secret names as an array              | `[]` (does not add image pull secrets to deployed pods)  |
 | `volumePermissions.image.registry`  | Init container volume-permissions image registry              | `docker.io`                                              |
-| `volumePermissions.image.repository`| Init container volume-permissions image name                  | `bitnami-azure/minideb`                                        |
+| `volumePermissions.image.repository`| Init container volume-permissions image name                  | `bitnami/minideb`                                        |
 | `volumePermissions.image.tag`       | Init container volume-permissions image tag                   | `latest`                                                 |
 | `volumePermissions.image.pullPolicy`| Init container volume-permissions image pull policy           | `Always`                                                 |
 | `ghostHost`                         | Ghost host to create application URLs                         | `nil`                                                    |
@@ -116,7 +116,7 @@ The following table lists the configurable parameters of the Ghost chart and the
 | `persistence.path`                  | Path to mount the volume at, to use other images              | `/bitnami`                                               |
 | `resources`                         | CPU/Memory resource requests/limits                           | Memory: `512Mi`, CPU: `300m`                             |
 
-The above parameters map to the env variables defined in [bitnami-azure/ghost](http://github.com/bitnami-azure/bitnami-docker-ghost). For more information please refer to the [bitnami-azure/ghost](http://github.com/bitnami-azure/bitnami-docker-ghost) image documentation.
+The above parameters map to the env variables defined in [bitnami/ghost](http://github.com/bitnami/bitnami-docker-ghost). For more information please refer to the [bitnami/ghost](http://github.com/bitnami/bitnami-docker-ghost) image documentation.
 
 > **Note**:
 >
@@ -137,7 +137,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```console
 $ helm install --name my-release \
   --set ghostUsername=admin,ghostPassword=password,mariadb.mariadbRootPassword=secretpassword \
-    bitnami-azure/ghost
+    stable/ghost
 ```
 
 The above command sets the Ghost administrator account username and password to `admin` and `password` respectively. Additionally, it sets the MariaDB `root` user password to `secretpassword`.
@@ -161,7 +161,7 @@ $ helm install bitnami-azure/ghost \
 
 ## Persistence
 
-The [Bitnami Ghost](https://github.com/bitnami-azure/bitnami-docker-ghost) image stores the Ghost data and configurations at the `/bitnami-azure/ghost` and `/bitnami-azure/apache` paths of the container.
+The [Bitnami Ghost](https://github.com/bitnami/bitnami-docker-ghost) image stores the Ghost data and configurations at the `/bitnami/ghost` and `/bitnami/apache` paths of the container.
 
 Persistent Volume Claims are used to keep the data across deployments. This is known to work in GCE, AWS, and minikube.
 See the [Configuration](#configuration) section to configure the PVC or to disable persistence.

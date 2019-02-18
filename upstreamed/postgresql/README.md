@@ -17,7 +17,7 @@ $ helm install bitnami-azure/postgresql
 
 ## Introduction
 
-This chart bootstraps a [PostgreSQL](https://github.com/bitnami-azure/bitnami-docker-postgresql) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [PostgreSQL](https://github.com/bitnami/bitnami-docker-postgresql) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -56,13 +56,13 @@ The following tables lists the configurable parameters of the PostgreSQL chart a
 | --------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
 | `global.imageRegistry`                        | Global Docker Image registry                                                                                           | `nil`                                                       |
 | `image.registry`                              | PostgreSQL Image registry                                                                                              | `docker.io`                                                 |
-| `image.repository`                            | PostgreSQL Image name                                                                                                  | `bitnami-azure/postgresql`                                        |
+| `image.repository`                            | PostgreSQL Image name                                                                                                  | `bitnami/postgresql`                                        |
 | `image.tag`                                   | PostgreSQL Image tag                                                                                                   | `{VERSION}`                                                 |
 | `image.pullPolicy`                            | PostgreSQL Image pull policy                                                                                           | `Always`                                                    |
 | `image.pullSecrets`                           | Specify Image pull secrets                                                                                             | `nil` (does not add image pull secrets to deployed pods)    |
 | `image.debug`                                 | Specify if debug values should be set                                                                                  | `false`                                                     |
 | `volumePermissions.image.registry`            | Init container volume-permissions image registry                                                                       | `docker.io`                                                 |
-| `volumePermissions.image.repository`          | Init container volume-permissions image name                                                                           | `bitnami-azure/minideb`                                           |
+| `volumePermissions.image.repository`          | Init container volume-permissions image name                                                                           | `bitnami/minideb`                                           |
 | `volumePermissions.image.tag`                 | Init container volume-permissions image tag                                                                            | `latest`                                                    |
 | `volumePermissions.image.pullPolicy`          | Init container volume-permissions image pull policy                                                                    | `Always`                                                    |
 | `volumePermissions.securityContext.runAsUser` | User ID for the init container                                                                                         | `0`                                                         |
@@ -78,7 +78,7 @@ The following tables lists the configurable parameters of the PostgreSQL chart a
 | `postgresqlUsername`                          | PostgreSQL admin user                                                                                                  | `postgres`                                                  |
 | `postgresqlPassword`                          | PostgreSQL admin password                                                                                              | _random 10 character alphanumeric string_                   |
 | `postgresqlDatabase`                          | PostgreSQL database                                                                                                    | `nil`                                                       |
-| `postgresqlDataDir`                           | PostgreSQL data dir folder                                                                                             | `/bitnami-azure/postgresql` (same value as persistence.mountPath) |
+| `postgresqlDataDir`                           | PostgreSQL data dir folder                                                                                             | `/bitnami/postgresql` (same value as persistence.mountPath) |
 | `postgresqlInitdbArgs`                        | PostgreSQL initdb extra arguments                                                                                      | `nil`                                                       |
 | `postgresqlInitdbWalDir`                      | PostgreSQL location for transaction log                                                                                | `nil`                                                       |
 | `postgresqlConfiguration`                     | Runtime Config Parameters                                                                                              | `nil`                                                       |
@@ -96,7 +96,7 @@ The following tables lists the configurable parameters of the PostgreSQL chart a
 | `service.loadBalancerIP`                      | loadBalancerIP if service type is `LoadBalancer`                                                                       | `nil`                                                       |
 | `persistence.enabled`                         | Enable persistence using PVC                                                                                           | `true`                                                      |
 | `persistence.existingClaim`                   | Provide an existing `PersistentVolumeClaim`                                                                            | `nil`                                                       |
-| `persistence.mountPath`                       | Path to mount the volume at                                                                                            | `/bitnami-azure/postgresql`                                       |
+| `persistence.mountPath`                       | Path to mount the volume at                                                                                            | `/bitnami/postgresql`                                       |
 | `persistence.storageClass`                    | PVC Storage Class for PostgreSQL volume                                                                                | `nil`                                                       |
 | `persistence.accessMode`                      | PVC Access Mode for PostgreSQL volume                                                                                  | `ReadWriteOnce`                                             |
 | `persistence.size`                            | PVC Storage Request for PostgreSQL volume                                                                              | `8Gi`                                                       |
@@ -148,7 +148,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```console
 $ helm install --name my-release \
   --set postgresqlPassword=secretpassword,postgresqlDatabase=my-database \
-    bitnami-azure/postgresql
+    stable/postgresql
 ```
 
 The above command sets the PostgreSQL `postgres` account password to `secretpassword`. Additionally it creates a database named `my-database`.
@@ -180,7 +180,7 @@ Alternatively, you can also set an external ConfigMap with all the extra configu
 
 ## Initialize a fresh instance
 
-The [Bitnami PostgreSQL](https://github.com/bitnami-azure/bitnami-docker-postgresql) image allows you to use your custom scripts to initialize a fresh instance. In order to execute the scripts, they must be located inside the chart folder `files/docker-entrypoint-initdb.d` so they can be consumed as a ConfigMap.
+The [Bitnami PostgreSQL](https://github.com/bitnami/bitnami-docker-postgresql) image allows you to use your custom scripts to initialize a fresh instance. In order to execute the scripts, they must be located inside the chart folder `files/docker-entrypoint-initdb.d` so they can be consumed as a ConfigMap.
 
 Alternatively, you can specify custom scripts using the `initdbScripts` parameter as dict.
 
@@ -201,7 +201,7 @@ $ kubectl scale statefulset my-postgresql-slave --replicas=3
 
 ## Persistence
 
-The [Bitnami PostgreSQL](https://github.com/bitnami-azure/bitnami-docker-postgresql) image stores the PostgreSQL data and configurations at the `/bitnami-azure/postgresql` path of the container.
+The [Bitnami PostgreSQL](https://github.com/bitnami/bitnami-docker-postgresql) image stores the PostgreSQL data and configurations at the `/bitnami/postgresql` path of the container.
 
 Persistent Volume Claims are used to keep the data across deployments. This is known to work in GCE, AWS, and minikube.
 See the [Configuration](#configuration) section to configure the PVC or to disable persistence.
@@ -238,7 +238,7 @@ helm install --name postgres \
              --set image.tag=10.6 \
              --set postgresqlDataDir=/data/pgdata \
              --set persistence.mountPath=/data/ \
-             bitnami-azure/postgresql
+             stable/postgresql
 ```
 
 ## Differences between Bitnami PostgreSQL image and [Docker Official](https://hub.docker.com/_/postgres) image

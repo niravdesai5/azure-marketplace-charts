@@ -17,7 +17,7 @@ $ helm install bitnami-azure/phpmyadmin
 
 ## Introduction
 
-This chart bootstraps a [phpMyAdmin](https://github.com/bitnami-azure/bitnami-docker-phpmyadmin) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [phpMyAdmin](https://github.com/bitnami/bitnami-docker-phpmyadmin) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -55,7 +55,7 @@ The following table lists the configurable parameters of the phpMyAdmin chart an
 |----------------------------|------------------------------------------|---------------------------------------------------------|
 | `global.imageRegistry`     | Global Docker image registry             | `nil`                                                   |
 | `image.registry`           | phpMyAdmin image registry                | `docker.io`                                             |
-| `image.repository`         | phpMyAdmin image name                    | `bitnami-azure/phpmyadmin`                                    |
+| `image.repository`         | phpMyAdmin image name                    | `bitnami/phpmyadmin`                                    |
 | `image.tag`                | phpMyAdmin image tag                     | `{VERSION}`                                             |
 | `image.pullPolicy`         | Image pull policy                        | `IfNotPresent`                                          |
 | `image.pullSecrets`        | Specify docker-registry secret names as an array               | `[]` (does not add image pull secrets to deployed pods)                                                   |
@@ -84,13 +84,13 @@ The following table lists the configurable parameters of the phpMyAdmin chart an
 | `metrics.podAnnotations`                   | Additional annotations for Metrics exporter pod                                                                | `{prometheus.io/scrape: "true", prometheus.io/port: "9117"}`                                                   |
 | `metrics.resources`                        | Exporter resource requests/limit                                                                               | {}                        |
 
-For more information please refer to the [bitnami-azure/phpmyadmin](http://github.com/bitnami-azure/bitnami-docker-Phpmyadmin) image documentation.
+For more information please refer to the [bitnami/phpmyadmin](http://github.com/bitnami/bitnami-docker-Phpmyadmin) image documentation.
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
 ```console
 $ helm install --name my-release \
-  --set db.host=mymariadb,db.port=3306 bitnami-azure/phpmyadmin
+  --set db.host=mymariadb,db.port=3306 stable/phpmyadmin
 ```
 
 The above command sets the phpMyAdmin to connect to a database in `mymariadb` host and `3306` port respectively.

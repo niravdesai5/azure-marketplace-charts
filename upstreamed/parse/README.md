@@ -17,7 +17,7 @@ $ helm install bitnami-azure/parse
 
 ## Introduction
 
-This chart bootstraps a [Parse](https://github.com/bitnami-azure/bitnami-docker-parse) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [Parse](https://github.com/bitnami/bitnami-docker-parse) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -61,7 +61,7 @@ The following table lists the configurable parameters of the Parse chart and the
 | `service.externalTrafficPolicy`       | Enable client source IP preservation     | `Cluster`                                               |
 | `service.nodePorts.http`              | Kubernetes http node port                | `""`                                                    |
 | `server.image.registry`               | Parse image registry                     | `docker.io`                                             |
-| `server.image.repository`             | Parse image name                         | `bitnami-azure/parse`                                         |
+| `server.image.repository`             | Parse image name                         | `bitnami/parse`                                         |
 | `server.image.tag`                    | Parse image tag                          | `{VERSION}`                                             |
 | `server.image.pullPolicy`             | Image pull policy                        | `Always` if `imageTag` is `latest`, else `IfNotPresent` |
 | `server.image.pullSecrets`            | Specify docker-registry secret names as an array               | `[]` (does not add image pull secrets to deployed pods) |
@@ -75,7 +75,7 @@ The following table lists the configurable parameters of the Parse chart and the
 | `server.resources`                    | CPU/Memory resource requests/limits      | Memory: `512Mi`, CPU: `300m`                            |
 | `dashboard.enabled`                   | Enable parse dashboard                   | `true`                                                  |
 | `dashboard.image.registry`            | Dashboard image registry                 | `docker.io`                                             |
-| `dashboard.image.repository`          | Dashboard image name                     | `bitnami-azure/parse-dashboard`                               |
+| `dashboard.image.repository`          | Dashboard image name                     | `bitnami/parse-dashboard`                               |
 | `dashboard.image.tag`                 | Dashboard image tag                      | `{VERSION}`                                             |
 | `dashboard.image.pullPolicy`          | Image pull policy                        | `Always` if `imageTag` is `latest`, else `IfNotPresent` |
 | `dashboard.securityContext.enabled`   | Enable security context for Dashboard    | `true`                                                  |
@@ -97,7 +97,7 @@ The following table lists the configurable parameters of the Parse chart and the
 | `mongodb.persistence.accessMode`      | PVC Access Mode for MongoDB volume       | `ReadWriteOnce`                                         |
 | `mongodb.persistence.size`            | PVC Storage Request for MongoDB volume   | `8Gi`                                                   |
 
-The above parameters map to the env variables defined in [bitnami-azure/parse](http://github.com/bitnami-azure/bitnami-docker-parse). For more information please refer to the [bitnami-azure/parse](http://github.com/bitnami-azure/bitnami-docker-parse) image documentation.
+The above parameters map to the env variables defined in [bitnami/parse](http://github.com/bitnami/bitnami-docker-parse). For more information please refer to the [bitnami/parse](http://github.com/bitnami/bitnami-docker-parse) image documentation.
 
 > **Note**:
 >
@@ -118,7 +118,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```console
 $ helm install --name my-release \
   --set dashboard.username=admin,dashboard.password=password \
-    bitnami-azure/parse
+    stable/parse
 ```
 
 The above command sets the Parse administrator account username and password to `admin` and `password` respectively.
@@ -133,7 +133,7 @@ $ helm install --name my-release -f values.yaml bitnami-azure/parse
 
 ## Persistence
 
-The [Bitnami Parse](https://github.com/bitnami-azure/bitnami-docker-parse) image stores the Parse data and configurations at the `/bitnami-azure/parse` path of the container.
+The [Bitnami Parse](https://github.com/bitnami/bitnami-docker-parse) image stores the Parse data and configurations at the `/bitnami/parse` path of the container.
 
 Persistent Volume Claims are used to keep the data across deployments. This is known to work in GCE, AWS, and minikube.
 See the [Configuration](#configuration) section to configure the PVC or to disable persistence.

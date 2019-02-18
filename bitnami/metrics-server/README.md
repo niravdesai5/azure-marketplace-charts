@@ -17,7 +17,7 @@ $ helm install bitnami-azure/metrics-server
 
 ## Introduction
 
-This chart bootstraps a [Metrics Server](https://github.com/bitnami-azure/bitnami-docker-metrics-server) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [Metrics Server](https://github.com/bitnami/bitnami-docker-metrics-server) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment and management of Helm Charts in clusters.
 
@@ -56,7 +56,7 @@ The following tables lists the configurable parameters of the Metrics Server cha
 |--------------------------|-----------------------------------------------------------------------------|----------------------------------------|
 | `global.imageRegistry`   | Global Docker image registry                                                | `nil`                                  |
 | `image.registry`         | Metrics Server image registry                                               | `docker.io`                            |
-| `image.repository`       | Metrics Server image name                                                   | `bitnami-azure/metrics-server`               |
+| `image.repository`       | Metrics Server image name                                                   | `bitnami/metrics-server`               |
 | `image.tag`              | Metrics Server image tag                                                    | `{VERSION}`                            |
 | `image.pullPolicy`       | Metrics Server image pull policy                                            | `Always`                               |
 | `securePort`             | Port where metrics-server will be running                                   | `8443`                                 |
@@ -74,7 +74,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 
 ```console
 $ helm install --name my-release \
-  --set rbac.create=true bitnami-azure/metrics-server
+  --set rbac.create=true bitnami/metrics-server
 ```
 
 The above command enables RBAC authentication.
