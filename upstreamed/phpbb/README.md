@@ -7,7 +7,7 @@
 This Helm Chart has been configured to pull the Container Images from the Azure Marketplace Public Repository.
 The following command allows you to download and install all the charts from this repository.
 ```bash
-$ helm repo add bitnami-azure https://charts.bitnami.com/azure
+$ helm repo add bitnami-azure https://marketplace.azurecr.io
 ```
 ## TL;DR;
 

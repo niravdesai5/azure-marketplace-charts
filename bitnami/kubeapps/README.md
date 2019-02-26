@@ -16,12 +16,12 @@
 This Helm Chart has been configured to pull the Container Images from the Azure Marketplace Public Repository.
 The following command allows you to download and install all the charts from this repository.
 ```bash
-$ helm repo add bitnami-azure https://charts.bitnami.com/azure
+$ helm repo add bitnami-azure https://marketplace.azurecr.io
 ```
 ## TL;DR;
 
 ```bash
-helm repo add bitnami-azure https://charts.bitnami.com/azure
+helm repo add bitnami-azure https://marketplace.azurecr.io
 helm install --name kubeapps --namespace kubeapps bitnami-azure/kubeapps
 ```
 
@@ -42,7 +42,7 @@ It also packages the [Bitnami MongoDB chart](https://github.com/helm/charts/tree
 To install the chart with the release name `kubeapps`:
 
 ```console
-$ helm repo add bitnami-azure https://charts.bitnami.com/azure
+$ helm repo add bitnami-azure https://marketplace.azurecr.io
 $ helm install --name kubeapps --namespace kubeapps bitnami-azure/kubeapps
 ```
 

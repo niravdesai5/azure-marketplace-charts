@@ -7,7 +7,7 @@
 This Helm Chart has been configured to pull the Container Images from the Azure Marketplace Public Repository.
 The following command allows you to download and install all the charts from this repository.
 ```bash
-$ helm repo add bitnami-azure https://charts.bitnami.com/azure
+$ helm repo add bitnami-azure https://marketplace.azurecr.io
 ```
 ## TL;DR;
 
@@ -86,6 +86,7 @@ The following table lists the configurable parameters of the RabbitMQ chart and 
 | `securityContext.fsGroup`            | Group ID for the container                       | `1001`                                                  |
 | `securityContext.runAsUser`          | User ID for the container                        | `1001`                                                  |
 | `resources`                          | resource needs and limits to apply to the pod    | {}                                                      |
+| `priorityClassName`                  | Pod priority class name                          | ``                                                      |
 | `nodeSelector`                       | Node labels for pod assignment                   | {}                                                      |
 | `affinity`                           | Affinity settings for pod assignment             | {}                                                      |
 | `tolerations`                        | Toleration labels for pod assignment             | []                                                      |
