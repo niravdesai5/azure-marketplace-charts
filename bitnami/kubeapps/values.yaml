@@ -1,7 +1,7 @@
 ## Global Docker image registry
 ## Please, note that this will override the image registry for all the images, including dependencies, configured to use the global value
-global:
-  imageRegistry: marketplace.azurecr.io
+# global:
+#   imageRegistry:
 
 # The frontend service is the main reverse proxy used to access the Kubeapps UI
 # To expose Kubeapps externally either configure the ingress object below or
@@ -98,7 +98,7 @@ apprepository:
     tag: 1.3.0
   # Image used to perform chart repository syncs
   syncImage:
-    registry: quay.io
+    registry: docker.io
     repository: bitnami/kubeapps-chart-repo
     tag: 1.4.0
   initialRepos:
@@ -175,8 +175,8 @@ tillerProxy:
 chartsvc:
   replicaCount: 2
   image:
-    registry: quay.io
-    repository: bitnami/bitnami/kubeapps-chartsvc
+    registry: docker.io
+    repository: bitnami/kubeapps-chartsvc
     tag: 1.4.0
   service:
     port: 8080
