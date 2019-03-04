@@ -1,77 +1,33 @@
 # The Bitnami Library for Kubernetes
 
-Popular applications, provided by [Bitnami](https://bitnami.com), ready to launch on Kubernetes using [Kubernetes Helm](https://github.com/helm/helm).
+Popular applications, provided by [Bitnami](https://bitnami.com), ready to launch on Azure Kubernetes Service (AKS) using [Kubernetes Helm](https://github.com/helm/helm). Find all the available applications in the [Azure Marketplace](https://azuremarketplace.microsoft.com/en-us/marketplace/).
 
 ## TL;DR
 
 ```bash
-$ helm repo add bitnami https://charts.bitnami.com/bitnami
-$ helm search bitnami
+$ helm repo add azure-marketplace https://marketplace.azurecr.io/helm/v1/repo
+$ helm search azure-marketplace
 ```
-
-## Upstreamed charts (contributed to [helm/charts](https://github.com/helm/charts))
-
-- [Dokuwiki](https://github.com/helm/charts/tree/master/stable/dokuwiki)
-- [Drupal](https://github.com/helm/charts/tree/master/stable/drupal)
-- [Ghost](https://github.com/helm/charts/tree/master/stable/ghost)
-- [JasperReports](https://github.com/helm/charts/tree/master/stable/jasperreports)
-- [Joomla!](https://github.com/helm/charts/tree/master/stable/joomla)
-- [Magento](https://github.com/helm/charts/tree/master/stable/magento)
-- [MariaDB](https://github.com/helm/charts/tree/master/stable/mariadb)
-- [MediaWiki](https://github.com/helm/charts/tree/master/stable/mediawiki)
-- [MongoDB](https://github.com/helm/charts/tree/master/stable/mongodb)
-- [Moodle](https://github.com/helm/charts/tree/master/stable/moodle)
-- [Odoo](https://github.com/helm/charts/tree/master/stable/odoo)
-- [OpenCart](https://github.com/helm/charts/tree/master/stable/opencart)
-- [OrangeHRM](https://github.com/helm/charts/tree/master/stable/orangehrm)
-- [Osclass](https://github.com/helm/charts/tree/master/stable/osclass)
-- [OwnCloud](https://github.com/helm/charts/tree/master/stable/owncloud)
-- [Parse](https://github.com/helm/charts/tree/master/stable/parse)
-- [Phabricator](https://github.com/helm/charts/tree/master/stable/phabricator)
-- [phpBB](https://github.com/helm/charts/tree/master/stable/phpbb)
-- [PostgreSQL](https://github.com/helm/charts/tree/master/stable/postgresql)
-- [PrestaShop](https://github.com/helm/charts/tree/master/stable/prestashop)
-- [RabbitMQ](https://github.com/helm/charts/tree/master/stable/rabbitmq)
-- [Redis](https://github.com/helm/charts/tree/master/stable/redis)
-- [Redmine](https://github.com/helm/charts/tree/master/stable/redmine)
-- [SugarCRM](https://github.com/helm/charts/tree/master/stable/sugarcrm)
-- [SuiteCRM](https://github.com/helm/charts/tree/master/stable/suitecrm)
-- [TestLink](https://github.com/helm/charts/tree/master/stable/testlink)
-- [WordPress](https://github.com/helm/charts/tree/master/stable/wordpress)
-
-## Bitnami charts
-
-- [Apache](https://github.com/bitnami/charts/tree/master/bitnami/apache)
-- [HashiCorp Consul](https://github.com/bitnami/charts/tree/master/bitnami/consul)
-- [Elasticsearch](https://github.com/bitnami/charts/tree/master/bitnami/elasticsearch)
-- [etcd](https://github.com/bitnami/charts/tree/master/bitnami/etcd)
-- [Jenkins](https://github.com/bitnami/charts/tree/master/bitnami/jenkins)
-- [Kafka](https://github.com/bitnami/charts/tree/master/bitnami/kafka)
-- [Mean](https://github.com/bitnami/charts/tree/master/bitnami/mean)
-- [Memcached](https://github.com/bitnami/charts/tree/master/bitnami/memcached)
-- [MySQL](https://github.com/bitnami/charts/tree/master/bitnami/mysql)
-- [nginx](https://github.com/bitnami/charts/tree/master/bitnami/nginx)
-- [NodeJS](https://github.com/bitnami/charts/tree/master/bitnami/node)
-- [TensorFlow Inception](https://github.com/bitnami/charts/tree/master/bitnami/tensorflow-inception)
-- [Tomcat](https://github.com/bitnami/charts/tree/master/bitnami/tomcat)
-- [WildFly](https://github.com/bitnami/charts/tree/master/bitnami/wildfly)
-- [ZooKeeper](https://github.com/bitnami/charts/tree/master/bitnami/zookeeper)
 
 ## Before you begin
 
-### Setup a Kubernetes Cluster
+### Provision an Azure Kubernetes Cluster with AKS
 
-The quickest way to setup a Kubernetes cluster is with [Google Container Engine](https://cloud.google.com/container-engine/) (GKE) using [these instructions](https://cloud.google.com/container-engine/docs/before-you-begin).
+The quickest way to setup a Kubernetes cluster is wit `az`, the [Microsoft Azure command-line interface](https://cloud.google.com/container-engine/). If you don't have `az`, [install it using these instructions](https://docs.bitnami.com/azure/faq/administration/install-az-cli/) or use the Azure Portal Console.
 
-Finish up by creating a cluster:
+Follow the steps below to provision a Kubernetes Cluster with AKS. Refer to our [started guide](https://docs.bitnami.com/azure/get-started-charts-marketplace) for more details:
 
 ```bash
-$ gcloud container clusters create my-cluster
+$ az login
+$ az account set --subscription "SUBSCRIPTION-NAME"
+$ az group create --name aks-resource-group --location eastus
+$ az aks create --name aks-cluster --resource-group aks-resource-group --generate-ssh-keys
 ```
+The above command creates a new resource group and cluster named `aks-cluster`. Then, install and configure `kubectl` with the credentials to the new AKS cluster, as shown below:
 
-The above command creates a new cluster named `my-cluster`. You can name the cluster according to your preferences.
-
-> For setting up Kubernetes on other cloud platforms or bare-metal servers refer to the Kubernetes [getting started guide](http://kubernetes.io/docs/getting-started-guides/).
+```bash
+$ az aks get-credentials --name aks-cluster --resource-group aks-resource-group
+```
 
 ### Install Helm
 
@@ -79,12 +35,27 @@ Helm is a tool for managing Kubernetes charts. Charts are packages of pre-config
 
 To install Helm, refer to the [Helm install guide](https://github.com/helm/helm#install) and ensure that the `helm` binary is in the `PATH` of your shell.
 
+```bash
+$ kubectl create serviceaccount -n kube-system tiller
+$ kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller
+$ helm init --service-account tiller
+```
+
+The above command creates a ServiceAccount and a ClusterRoleBinding for Tiller and initializes Helm in the cluster.
+
 ### Add Repo
 
-The stable charts are contributed to the upstream [helm/charts](https://github.com/helm/charts) repository. The following command allows you to download and install all the charts from this repository, both the bitnami and the upstreamed ones.
+Helm Charts are available via the Azure Marketplace public repository.
 
 ```bash
-$ helm repo add bitnami https://charts.bitnami.com/bitnami
+$ helm repo add azure-marketplace https://marketplace.azurecr.io/helm/v1/repo
+$ helm search azure-marketplace
+```
+
+Use the following command to deploy a chart, such as WordPress:
+
+```bash
+$ helm install azure-marketplace/wordpress
 ```
 
 ### Using Helm
