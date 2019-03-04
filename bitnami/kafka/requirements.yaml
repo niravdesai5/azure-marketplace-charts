@@ -1,5 +1,5 @@
 dependencies:
 - name: zookeeper
   version: 1.x.x
-  repository: https://charts.bitnami.com/bitnami
+  repository: https://marketplace.azurecr.io/helm/v1/repo
   condition: zookeeper.enabled
