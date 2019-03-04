@@ -1,6 +1,6 @@
 # The Bitnami Library for Kubernetes
 
-Popular applications, provided by [Bitnami](https://bitnami.com), ready to launch on Azure Kubernetes Service (AKS) using [Kubernetes Helm](https://github.com/helm/helm). Find all the available ones in the [Azure Marketplace](https://azuremarketplace.microsoft.com/en-us/marketplace/).
+Popular applications, provided by [Bitnami](https://bitnami.com), ready to launch on Azure Kubernetes Service (AKS) using [Kubernetes Helm](https://github.com/helm/helm). Find all the available applications in the [Azure Marketplace](https://azuremarketplace.microsoft.com/en-us/marketplace/).
 
 ## TL;DR
 
@@ -13,9 +13,9 @@ $ helm search azure-marketplace
 
 ### Provision an Azure Kubernetes Cluster with AKS
 
-The quickest way to setup a Kubernetes cluster is using "az" the [Microsoft Azure command-line interface](https://cloud.google.com/container-engine/). The Microsoft Azure command-line interface (CLI). In case you haven’t, [install it using these instructions](https://docs.bitnami.com/azure/faq/administration/install-az-cli/) or use the Azure Portal Console.
+The quickest way to setup a Kubernetes cluster is wit `az`, the [Microsoft Azure command-line interface](https://cloud.google.com/container-engine/). If you don't have `az`, [install it using these instructions](https://docs.bitnami.com/azure/faq/administration/install-az-cli/) or use the Azure Portal Console.
 
-Steps to provision a Kubernetes Cluster with AKS. Check our [Get Started Guide](https://docs.bitnami.com/azure/get-started-charts-marketplace) for more details:
+Follow the steps below to provision a Kubernetes Cluster with AKS. Refer to our [started guide](https://docs.bitnami.com/azure/get-started-charts-marketplace) for more details:
 
 ```bash
 $ az login
@@ -23,7 +23,7 @@ $ az account set --subscription "SUBSCRIPTION-NAME"
 $ az group create --name aks-resource-group --location eastus
 $ az aks create --name aks-cluster --resource-group aks-resource-group --generate-ssh-keys
 ```
-The above command creates a new resource group and cluster named `aks-cluster`. Then configure "kubectl" CLI with the credentials to the new AKS cluster.
+The above command creates a new resource group and cluster named `aks-cluster`. Then, install and configure `kubectl` with the credentials to the new AKS cluster, as shown below:
 
 ```bash
 $ az aks get-credentials --name aks-cluster --resource-group aks-resource-group
@@ -41,18 +41,18 @@ $ kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-ad
 $ helm init --service-account tiller
 ```
 
-The above command creates a ServiceAccount and a ClusterRoleBinding for Tiller and initializes Helm in the Cluster.
+The above command creates a ServiceAccount and a ClusterRoleBinding for Tiller and initializes Helm in the cluster.
 
 ### Add Repo
 
-The Helm Charts are available via Azure Marketplace public repository.
+Helm Charts are available via the Azure Marketplace public repository.
 
 ```bash
 $ helm repo add azure-marketplace https://marketplace.azurecr.io/helm/v1/repo
 $ helm search azure-marketplace
 ```
 
-Now deploy the Chart, e.g. WordPress
+Use the following command to deploy a chart, such as WordPress:
 
 ```bash
 $ helm install azure-marketplace/wordpress
