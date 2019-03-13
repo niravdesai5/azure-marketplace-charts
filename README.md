@@ -5,7 +5,7 @@ Popular applications, provided by [Bitnami](https://bitnami.com), ready to launc
 ## TL;DR
 
 ```bash
-$ helm repo add azure-marketplace https://marketplace.azurecr.io/helm/v1
+$ helm repo add azure-marketplace https://marketplace.azurecr.io/helm/v1/repo
 $ helm search azure-marketplace
 ```
 
@@ -56,7 +56,7 @@ $ kubectl create secret generic emptysecret --from-literal=.dockerconfigjson='{"
 Add the Azure Marketplace repository:
 
 ```bash
-$ helm repo add azure-marketplace https://marketplace.azurecr.io/helm/v1
+$ helm repo add azure-marketplace https://marketplace.azurecr.io/helm/v1/repo
 $ helm search azure-marketplace
 ```
 
