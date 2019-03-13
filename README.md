@@ -5,7 +5,7 @@ Popular applications, provided by [Bitnami](https://bitnami.com), ready to launc
 ## TL;DR
 
 ```bash
-$ helm repo add azure-marketplace https://marketplace.azurecr.io/helm/v1/repo
+$ helm repo add azure-marketplace https://marketplace.azurecr.io/helm/v1
 $ helm search azure-marketplace
 ```
 
@@ -43,9 +43,9 @@ $ helm init --service-account tiller
 
 The above command creates a ServiceAccount and a ClusterRoleBinding for Tiller and initializes Helm in the cluster.
 
-### Add Repo
+### Add Repository
 
-Helm Charts are available via the Azure Marketplace public repository.
+Helm charts are available via the Azure Marketplace public repository.
 
 Create a secret to use when pulling images from the registry. This step is only necessary the first time you deploy a chart on an AKS cluster, and can safely be omitted for subsequent chart deployments on the samecluster.
 
@@ -60,6 +60,8 @@ $ helm repo add azure-marketplace https://marketplace.azurecr.io/helm/v1
 $ helm search azure-marketplace
 ```
 
+## Deployment
+
 Use the following command to deploy a chart, such as WordPress:
 
 ```bash
@@ -68,7 +70,7 @@ $ helm install azure-marketplace/wordpress --set global.imagePullSecrets={emptys
 
 For a more detailed walkthrough and screenshots, refer to our [starter guide](https://docs.bitnami.com/azure/get-started-charts-marketplace).
 
-### Using Helm
+## Learn more about Helm
 
 Once you have installed the Helm client and initialized the Tiller server, you can deploy a Bitnami Helm Chart into a Kubernetes cluster.
 
