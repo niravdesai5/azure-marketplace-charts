@@ -13,9 +13,9 @@ $ helm search azure-marketplace
 
 ### Provision an Azure Kubernetes Cluster with AKS
 
-The quickest way to setup a Kubernetes cluster is wit `az`, the [Microsoft Azure command-line interface](https://cloud.google.com/container-engine/). If you don't have `az`, [install it using these instructions](https://docs.bitnami.com/azure/faq/administration/install-az-cli/) or use the Azure Portal Console.
+The quickest way to setup a Kubernetes cluster is with `az`, the [Microsoft Azure command-line interface](https://cloud.google.com/container-engine/). If you don't have `az`, [install it using these instructions](https://docs.bitnami.com/azure/faq/administration/install-az-cli/) or use the Azure Portal Console.
 
-Follow the steps below to provision a Kubernetes Cluster with AKS. Refer to our [started guide](https://docs.bitnami.com/azure/get-started-charts-marketplace) for more details:
+Follow the steps below to provision a Kubernetes Cluster with AKS. Refer to our [starter guide](https://docs.bitnami.com/azure/get-started-charts-marketplace) for more details:
 
 ```bash
 $ az login
@@ -47,22 +47,32 @@ The above command creates a ServiceAccount and a ClusterRoleBinding for Tiller a
 
 Helm Charts are available via the Azure Marketplace public repository.
 
+Create a secret to use when pulling images from the registry. This step is only necessary the first time you deploy a chart on an AKS cluster, and can safely be omitted for subsequent chart deployments on the samecluster.
+
 ```bash
-$ helm repo add azure-marketplace https://marketplace.azurecr.io/helm/v1/repo
+$ kubectl create secret generic emptysecret --from-literal=.dockerconfigjson='{"auths":{"marketplace.azurecr.io":{"Username":"","Password":""}}}' --type=kubernetes.io/dockerconfigjson
+```
+
+Add the Azure Marketplace repository:
+
+```bash
+$ helm repo add azure-marketplace https://marketplace.azurecr.io/helm/v1
 $ helm search azure-marketplace
 ```
 
 Use the following command to deploy a chart, such as WordPress:
 
 ```bash
-$ helm install azure-marketplace/wordpress
+$ helm install azure-marketplace/wordpress --set global.imagePullSecrets={emptysecret}
 ```
+
+For a more detailed walkthrough and screenshots, refer to our [starter guide](https://docs.bitnami.com/azure/get-started-charts-marketplace).
 
 ### Using Helm
 
 Once you have installed the Helm client and initialized the Tiller server, you can deploy a Bitnami Helm Chart into a Kubernetes cluster.
 
-Please refer to the [Quick Start guide](https://github.com/helm/helm/blob/master/docs/quickstart.md) if you wish to get running in just a few commands, otherwise the [Using Helm Guide](https://github.com/helm/helm/blob/master/docs/using_helm.md) provides detailed instructions on how to use the Helm client to manage packages on your Kubernetes cluster.
+Please refer to the [Helm Quick Start guide](https://github.com/helm/helm/blob/master/docs/quickstart.md) if you wish to get running in just a few commands, otherwise the [Using Helm Guide](https://github.com/helm/helm/blob/master/docs/using_helm.md) provides detailed instructions on how to use the Helm client to manage packages on your Kubernetes cluster.
 
 Useful Helm Client Commands:
 * View available charts: `helm search`
