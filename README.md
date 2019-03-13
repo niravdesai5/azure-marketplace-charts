@@ -43,7 +43,7 @@ $ helm init --service-account tiller
 
 The above command creates a ServiceAccount and a ClusterRoleBinding for Tiller and initializes Helm in the cluster.
 
-### Add Repository
+### Add repository
 
 Helm charts are available via the Azure Marketplace public repository.
 
