@@ -3,7 +3,8 @@
 ## Current available global Docker image parameters: imageRegistry and imagePullSecrets
 ##
 global:
-  imageRegistry: marketplace.azurecr.io
+  postgresql: {}
+#   imageRegistry: myRegistryName
 #   imagePullSecrets:
 #     - myRegistryKeySecretName
 
