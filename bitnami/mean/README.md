@@ -2,6 +2,9 @@
 
 The MEAN stack is MongoDB, Express.js, Angular and Node.js. Because all components of the MEAN stack support programs written in JavaScript, MEAN applications can be written in one language for both server-side and client-side execution environments.
 
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
+This Chart will be removed in 15 days. Use instead the [Node Chart](https://github.com/bitnami/charts/tree/master/bitnami/node)
+
 ## Azure-ready Charts with Containers from marketplace.azurecr.io
 
 This Helm Chart has been configured to pull the Container Images from the Azure Marketplace Public Repository.
