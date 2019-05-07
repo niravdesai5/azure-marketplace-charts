@@ -1,8 +1,0 @@
-dependencies:
-- name: mongodb
-  repository: https://marketplace.azurecr.io/helm/v1/repo/
-  version: 5.x.x
-  condition: mongodb.install
-- name: bitnami-common
-  repository: https://marketplace.azurecr.io/helm/v1/repo
-  version: 0.x.x
