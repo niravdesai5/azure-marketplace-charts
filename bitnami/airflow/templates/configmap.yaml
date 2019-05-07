@@ -2,13 +2,13 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ template "kafka.fullname" . }}-configuration
+  name: {{ template "airflow.fullname" . }}-configuration
   labels:
-    app.kubernetes.io/name: {{ template "kafka.name" . }}
-    helm.sh/chart: {{ template "kafka.chart" . }}
+    app.kubernetes.io/name: {{ include "airflow.name" . }}
+    helm.sh/chart: {{ include "airflow.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 data:
-  server.properties: |-
+  airflow.cfg: |-
 {{ .Values.config | indent 4 }}
 {{- end -}}
