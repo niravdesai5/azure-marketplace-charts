@@ -2,17 +2,10 @@
 
 [MXNet](https://mxnet.apache.org/) is a deep learning platform that accelerates the transition from research prototyping to production deployment. It is built for full integration into Python that enables you to use it with its libraries and main packages.
 
-## Azure-ready Charts with Containers from marketplace.azurecr.io
-
-This Helm Chart has been configured to pull the Container Images from the Azure Marketplace Public Repository.
-The following command allows you to download and install all the charts from this repository.
-```bash
-$ helm repo add bitnami-azure https://marketplace.azurecr.io
-```
 ## TL;DR;
 
 ```console
-$ helm install bitnami-azure/mxnet
+$ helm install bitnami/mxnet
 ```
 
 ## Introduction
@@ -31,7 +24,7 @@ Bitnami charts can be used with [Kubeapps](https://kubeapps.com/) for deployment
 To install the chart with the release name `my-release`:
 
 ```console
-$ helm install --name my-release bitnami-azure/mxnet
+$ helm install --name my-release bitnami/mxnet
 ```
 
 The command deploys MXNet on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured.
@@ -120,7 +113,7 @@ $ helm install --name my-release \
   --set mode=distributed \
   --set serverCount=2 \
   --set workerCount=3 \
-    bitnami-azure/mxnet
+    bitnami/mxnet
 ```
 
 The above command creates 6 pods for MXNet: one scheduler, two servers, and three workers.
@@ -128,7 +121,7 @@ The above command creates 6 pods for MXNet: one scheduler, two servers, and thre
 Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example,
 
 ```console
-$ helm install --name my-release -f values.yaml bitnami-azure/mxnet
+$ helm install --name my-release -f values.yaml bitnami/mxnet
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)
@@ -138,7 +131,7 @@ $ helm install --name my-release -f values.yaml bitnami-azure/mxnet
 This chart includes a `values-production.yaml` file where you can find some parameters oriented to production configuration in comparison to the regular `values.yaml`.
 
 ```console
-$ helm install --name my-release -f ./values-production.yaml bitnami-azure/mxnet
+$ helm install --name my-release -f ./values-production.yaml bitnami/mxnet
 ```
 
 - Run MXNet in distributed mode:
@@ -180,14 +173,14 @@ In order to use use an existing config map:
 ```console
 $ helm install --name my-release \
   --set configMap=my-config-map \
-  bitnami-azure/mxnet
+  bitnami/mxnet
 ```
 
 To load your files from the `files/` directory you don't have to set any option. Just copy your files inside and don't specify a `ConfigMap`:
 
 ```console
 $ helm install --name my-release \
-  bitnami-azure/mxnet
+  bitnami/mxnet
 ```
 
 Finally, if you want to clone a git repository:
@@ -197,7 +190,7 @@ $ helm install --name my-release \
   --set cloneFilesFromGit.enabled=true \
   --set cloneFilesFromGit.repository=https://github.com/my-user/my-repo \
   --set cloneFilesFromGit.revision=master \
-  bitnami-azure/mxnet
+  bitnami/mxnet
 ```
 
 In case you want to add a file that includes sensitive information, pass a secret object using the `existingSecret` parameter. All the files in the secret will be mounted in the `/secrets` folder. 
@@ -215,7 +208,7 @@ $ helm install --name my-release \
   --set entrypoint.file=image_classification.py \
   --set entrypoint.args="--dataset cifar10 --model vgg11 --epochs 1 --kvstore dist_sync" \
   --set entrypoint.workDir=/app/example/gluon/ \
-  bitnami-azure/mxnet
+  bitnami/mxnet
 ```
 
 Check the logs of the worker node:
@@ -242,7 +235,7 @@ $ helm install --name my-release \
   --set entrypoint.workDir=/app/example/gluon/ \
   --set commonExtraEnvVars[0].name=PS_VERBOSE \
   --set commonExtraEnvVars[0].value=1 \
-  bitnami-azure/mxnet
+  bitnami/mxnet
 ```
 
 You will now see log entries in the scheduler and server nodes.
