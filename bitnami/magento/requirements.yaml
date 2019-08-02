@@ -4,6 +4,6 @@ dependencies:
   repository: https://marketplace.azurecr.io/helm/v1/repo/
   condition: mariadb.enabled
 - name: elasticsearch
-  version: 4.x.x
+  version: 6.x.x
   repository: https://marketplace.azurecr.io/helm/v1/repo
   condition: elasticsearch.enabled
