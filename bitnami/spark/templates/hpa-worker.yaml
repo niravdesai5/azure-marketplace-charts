@@ -19,5 +19,5 @@ spec:
   metrics:
   - type: Resource
     resource:
-      {{- tpl .Values.worker.autoscaling.resource | nindent 6 }}
+      {{- tpl .Values.worker.autoscaling.resource | indent 6 }}
 {{- end }}
